@@ -1,4 +1,5 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
+import { IUser } from './User';
 
 export interface IArticle extends Document {
   title: string;
@@ -6,7 +7,7 @@ export interface IArticle extends Document {
   description: string;
   imgs?: string[];
   content: string;
-  userid: number;
+  user_id: mongoose.Types.ObjectId | IUser;
   date: Date;
   tier: string;
 }
@@ -18,7 +19,7 @@ const ArticleSchema = new Schema<IArticle>(
     description: { type: String, required: true },
     imgs: { type: [String], required: false },
     content: { type: String, required: true },
-    userid: { type: Number, required: true },
+    user_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     date: { type: Date, required: true },
     tier: { type: String, required: true },
   },
