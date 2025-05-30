@@ -3,12 +3,12 @@ import mongoose from "mongoose";
 const connection: { isConnected?: number } = {}
 
 
-const connection_string = process.env.MONGODB_URI!
+const connection_string = process.env.MONGODB_URI!;
 
 async function connectDB() {
 
     if (!connection_string) {
-        throw new Error("MONGODB_URI is missing from environment ");
+        throw new Error("[ConnectDB] MONGODB_URI is missing from environment ");
     }
 
     if (connection.isConnected) {

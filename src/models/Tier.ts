@@ -16,4 +16,6 @@ const TierSchema = new Schema<ITier>(
 );
 
 const Tier: Model<ITier> = mongoose.models.Tier || mongoose.model<ITier>('Tier', TierSchema);
+
+
 export default Tier;
