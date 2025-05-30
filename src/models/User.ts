@@ -16,6 +16,7 @@ const UserSchema = new Schema<IUser>({
     {timestamps: true, collection: 'users'},
 );
 
+
 UserSchema.pre('save', async function (next) {
     // Only hash if the password is new or changed
     if (!this.isModified('password')) return next();
@@ -29,12 +30,12 @@ UserSchema.pre('save', async function (next) {
     next();
 });
 
-//compare password string with password hash
+/**compare password string with password hash*/
 UserSchema.methods.comparePassword = async function (testPassword: string) {
     return bcrypt.compare(testPassword, this.password);
 };
 
-
+/**User model*/
 const User: Model<IUser> = mongoose.models.User || mongoose.model<IUser>('User', UserSchema);
 
 export default User;
