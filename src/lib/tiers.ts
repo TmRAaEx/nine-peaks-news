@@ -1,5 +1,5 @@
 import dbConnect from "@/lib/ConnectDB";
-import Tier, {ITier} from "../models/Tier";
+import Tier, {ITier} from "@/models/Tier";
 
 
 export default async function GetTiers(): Promise<ITier[]> {
