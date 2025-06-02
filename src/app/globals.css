@@ -4,13 +4,35 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  --blue1: #092327;
+  --blue2: #075C80;
+  --blue3: #21ACD2;
+  --gray1: #192124;
+  --gray2: #7599A3;
+  --gray3: #E7E7E4;
+  --gray4: #F3F3F1;
+  --green1: #324222;
+  --green2: #B7BF43;
+  --green3: #B7BF43;
+  --brown1: #373420;
+  --brown2: #AE8C60;
+  --brown3: #EDDCC5;
+
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --color-blue-dark: var(--#21ACD2);
+
   --font-serif: 'Fraunces', serif;
   --font-body: 'Archivo Narrow', sans-serif;
+  
+  --textcolor-title: var(--blue3);
+  --textcolor-body: var(--blue1);
+  --textcolor-title: var(--blue3);
 }
 
 @media (prefers-color-scheme: dark) {
