@@ -1,26 +1,32 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
+import { IUser } from './User';
 
 export interface IArticle extends Document {
   title: string;
-  heroImg: string;
   description: string;
-  imgs?: string[];
+  header_img: string;
+  images: string[];
   content: string;
-  userid: number;
+  sub_titles: string[];
+  sub_content: string[];
+  required_tier: string;
   date: Date;
-  tier: string;
+  user_id: mongoose.Types.ObjectId | IUser;
+ 
 }
 
 const ArticleSchema = new Schema<IArticle>(
   {
     title: { type: String, required: true },
-    heroImg: { type: String, required: true },
     description: { type: String, required: true },
-    imgs: { type: [String], required: false },
+    header_img: { type: String, required: true },
+    images: { type: [String], required: false },
     content: { type: String, required: true },
-    userid: { type: Number, required: true },
-    date: { type: Date, required: true },
-    tier: { type: String, required: true },
+    sub_titles:{ type: [String], required: false },
+    sub_content: { type: [String], required: false },
+    required_tier: { type: String, required: true },
+    date: { type: Date, required: true }, 
+    user_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   },
   { timestamps: true }
 );

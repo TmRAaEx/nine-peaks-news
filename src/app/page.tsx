@@ -1,21 +1,9 @@
-import GetTiers from "@/lib/tiers";
-import apiClient from "@/lib/ApiClient";
+export default function Home() {
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <h1 className="text-4xl font-bold">Welcome to NinePeaksNews</h1>
 
-
-export default async function Home() {
-
-    const tiers = await GetTiers();
-
-    const product = await apiClient.get<any>("/products/1");
-
-
-    return (
-        <>
-            <ul>{tiers.map((tier) =>
-                <li key={tier._id} className={"text-white"}>{tier.name}</li>
-            )}</ul>
-
-            {JSON.stringify(product, null, 2)}
-        </>
-    );
+      <p className="mt-4 text-lg">Work In progress</p>
+    </main>
+  );
 }

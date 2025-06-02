@@ -24,9 +24,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --color-blue-dark: var(--#21ACD2);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
   --font-serif: 'Fraunces', serif;
   --font-body: 'Archivo Narrow', sans-serif;
   
