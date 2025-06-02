@@ -7,6 +7,8 @@ export interface IArticle extends Document {
   header_img: string;
   images: string[];
   content: string;
+  sub_titles: string[];
+  sub_content: string[];
   required_tier: string;
   date: Date;
   user_id: mongoose.Types.ObjectId | IUser;
@@ -20,6 +22,8 @@ const ArticleSchema = new Schema<IArticle>(
     header_img: { type: String, required: true },
     images: { type: [String], required: false },
     content: { type: String, required: true },
+    sub_titles:{ type: [String], required: false },
+    sub_content: { type: [String], required: false },
     required_tier: { type: String, required: true },
     date: { type: Date, required: true }, 
     user_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
