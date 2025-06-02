@@ -23,7 +23,8 @@
       "@/components/*": ["./src/components/*"],
       "@/models/*": ["./src/models/*"],
       "@/types/*": ["./src/types/*"],
-      "@/interfaces/*": ["./src/Interfaces/*"]
+      "@/interfaces/*": ["./src/Interfaces/*"],
+      "@/buttons/*": ["./src/components/shared/buttons/*"]
     }
   },
   "include": [

@@ -15,9 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="flex flex-col min-h-[100vh]">
         <Header />
-        {children}
+        <main className="flex justify-center items-center flex-1">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>
