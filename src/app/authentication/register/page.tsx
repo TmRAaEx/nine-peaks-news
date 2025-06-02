@@ -3,6 +3,7 @@
 import IRegisterData from "@/interfaces/IRegisterFormData";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { authClient } from "@/lib/ApiClient";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
   const [formData, setFormData] = useState<IRegisterData>({
@@ -12,6 +13,7 @@ export default function Register() {
     confirm_password: "",
   });
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -21,9 +23,11 @@ export default function Register() {
 
     if (response.error) {
       setError(response.error);
+      return;
     }
 
-    console.log(response.data);
+    router.push("/upgrade")
+   
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +62,7 @@ export default function Register() {
           placeholder="email"
           required
         />
-        <label htmlFor="password">email</label>
+        <label htmlFor="password">password</label>
         <input
           type="password"
           name="password"
@@ -67,7 +71,7 @@ export default function Register() {
           placeholder="password"
           required
         />
-        <label htmlFor="confirm_password">email</label>
+        <label htmlFor="confirm_password">confirm password</label>
         <input
           type="password"
           name="confirm_password"
