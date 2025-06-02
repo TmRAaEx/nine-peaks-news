@@ -3,25 +3,26 @@ import { IUser } from './User';
 
 export interface IArticle extends Document {
   title: string;
-  heroImg: string;
   description: string;
-  imgs?: string[];
+  header_img: string;
+  images: string[];
   content: string;
-  user_id: mongoose.Types.ObjectId | IUser;
+  required_tier: string;
   date: Date;
-  tier: string;
+  user_id: mongoose.Types.ObjectId | IUser;
+ 
 }
 
 const ArticleSchema = new Schema<IArticle>(
   {
     title: { type: String, required: true },
-    heroImg: { type: String, required: true },
     description: { type: String, required: true },
-    imgs: { type: [String], required: false },
+    header_img: { type: String, required: true },
+    images: { type: [String], required: false },
     content: { type: String, required: true },
+    required_tier: { type: String, required: true },
+    date: { type: Date, required: true }, 
     user_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    date: { type: Date, required: true },
-    tier: { type: String, required: true },
   },
   { timestamps: true }
 );
