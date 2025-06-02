@@ -76,17 +76,21 @@ export default function CreateArticle() {
               type="text"
               value={item.sub_title}
               onChange={(e) => handleSubContentChange(index, "sub_title", e.target.value)}
+              className="sub_title"
             />
             <label>Sub content {index + 1}:</label>
             <textarea
               value={item.sub_content}
               onChange={(e) => handleSubContentChange(index, "sub_content", e.target.value)}
+              className="sub_content"
             />
           </div>
-        ))}
-        <button onClick={handleAddSubContent}>Add Subcontent</button>
-
+        ))}  
         <hr />
+        <button onClick={handleAddSubContent}>Add Subcontent</button>
+        <label htmlFor="authur">Authur</label>
+        <input type="text" name="authur" className="authur"/>
+      
         <button type="submit">Submit Article</button>
       </form>
     </>

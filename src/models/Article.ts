@@ -11,7 +11,7 @@ export interface IArticle extends Document {
   sub_content: string[];
   required_tier: string;
   date: Date;
-  user_id: mongoose.Types.ObjectId | IUser;
+  authur: string;
  
 }
 
@@ -26,7 +26,7 @@ const ArticleSchema = new Schema<IArticle>(
     sub_content: { type: [String], required: false },
     required_tier: { type: String, required: true },
     date: { type: Date, required: true }, 
-    user_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    authur: { type: String, required: true },
   },
   { timestamps: true }
 );
