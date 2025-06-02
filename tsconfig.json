@@ -22,7 +22,8 @@
       "@/lib/*": ["./src/lib/*"],
       "@/components/*": ["./src/components/*"],
       "@/models/*": ["./src/models/*"],
-      "@/types/*": ["./src/types/*"]
+      "@/types/*": ["./src/types/*"],
+      "@/interfaces/*": ["./src/Interfaces/*"]
     }
   },
   "include": [
