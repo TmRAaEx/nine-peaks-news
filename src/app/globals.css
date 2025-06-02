@@ -1,24 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap");
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #F3F3F1;
   --foreground: #171717;
 
   --blue1: #092327;
-  --blue2: #075C80;
-  --blue3: #21ACD2;
+  --blue2: #075c80;
+  --blue3: #21acd2;
   --gray1: #192124;
-  --gray2: #7599A3;
-  --gray3: #E7E7E4;
-  --gray4: #F3F3F1;
+  --gray2: #7599a3;
+  --gray3: #e7e7e4;
+  --gray4: #f3f3f1;
   --green1: #324222;
-  --green2: #B7BF43;
-  --green3: #B7BF43;
+  --green2: #b7bf43;
+  --green3: #b7bf43;
   --brown1: #373420;
-  --brown2: #AE8C60;
-  --brown3: #EDDCC5;
-
+  --brown2: #ae8c60;
+  --brown3: #eddcc5;
 }
 
 @theme inline {
@@ -27,9 +26,9 @@
 
   --color-blue-dark: var(--#21ACD2);
 
-  --font-serif: 'Fraunces', serif;
-  --font-body: 'Archivo Narrow', sans-serif;
-  
+  --font-serif: "Fraunces", serif;
+  --font-body: "Archivo Narrow", sans-serif;
+
   --textcolor-title: var(--blue3);
   --textcolor-body: var(--blue1);
   --textcolor-title: var(--blue3);
@@ -37,8 +36,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* --background: #0a0a0a; */
+    /* --foreground: #ededed; */
   }
 }
 
