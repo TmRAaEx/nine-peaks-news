@@ -8,4 +8,5 @@ sub_titles: string[];
 sub_content: string[];
 required_tier: string;
 authur: string;
+date: Date
 }
