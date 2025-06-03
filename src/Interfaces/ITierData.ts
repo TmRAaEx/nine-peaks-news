@@ -3,4 +3,5 @@ export interface ITierData {
   name: string;
   price?: string;
   image: string;
+  stripe_id: string;
 }

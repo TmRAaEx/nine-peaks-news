@@ -12,7 +12,7 @@ export default async function GetTiers(): Promise<ITierData[]> {
         ...tier,
         name: tier._id.toString(), // use ID as display name
         price: tier.price?.toString(), // convert price to string
-        image: `/img/icons/tier${index + 1}-fill.svg`,
+        image: `/img/icons/tier${index + 1}-square.svg`,
       }))
       .filter((tier) => tier._id != "Admin");
 
