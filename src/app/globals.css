@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #F3F3F1;
+  --background: #f3f3f1;
   --foreground: #171717;
 
   --blue1: #092327;
@@ -26,12 +26,35 @@
 
   --color-blue-dark: var(--#21ACD2);
 
-  --font-serif: "Fraunces", serif;
+  /* Blue */
+
+  --color-blue1: var(--blue1);
+  --color-blue2: var(--blue2);
+  --color-blue3: var(--blue3);
+
+  /* Gray */
+  --color-gray1: var(--gray1);
+  --color-gray2: var(--gray2);
+  --color-gray3: var(--gray3);
+  --color-gray4: var(--gray4);
+
+  /* Green */
+  --color-green1: var(--green1);
+  --color-green2: var(--green2);
+  --color-green3: var(--green3);
+
+  /* Brown */
+  --color-brown1: var(--brown1);
+  --color-brown2: var(--brown2);
+  --color-brown3: var(--brown3);
+
+  /* Font */
+  
+  --font-title: "Fraunces", serif;
   --font-body: "Archivo Narrow", sans-serif;
 
-  --textcolor-title: var(--blue3);
-  --textcolor-body: var(--blue1);
-  --textcolor-title: var(--blue3);
+  --color-title: var(--blue3);
+  --color-body: var(--blue1);
 }
 
 @media (prefers-color-scheme: dark) {
