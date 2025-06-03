@@ -75,6 +75,10 @@ if (!base_url) {
   throw new Error("[ApiClient]: BASE_URL or NEXT_PUBLIC_BASE_URL is missing from environment ");
 }
 
-const apiClient = new Request(base_url + "/api");
-export const authClient = new Request(base_url + "/api/authentication");
+const internalApi = base_url + "/api"
+const apiClient = new Request(internalApi);
+
+export const authClient = new Request(internalApi + "/authentication");
+export const paymentClient = new Request(internalApi + "/payments");
+
 export default apiClient;

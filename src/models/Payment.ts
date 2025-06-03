@@ -4,7 +4,7 @@ import { ITier } from "./Tier";
 
 export interface IPayment extends Document {
   user_id: mongoose.Types.ObjectId | IUser;
-  tier_id: mongoose.Types.ObjectId | ITier;
+  tier_id: string;
   payment_date: Date;
   due_date: Date;
   status: "paid" | "pending" | "failed" | "free";
@@ -14,7 +14,7 @@ export interface IPayment extends Document {
 const PaymentSchema = new Schema<IPayment>(
   {
     user_id: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    tier_id: { type: Schema.Types.ObjectId, ref: "Tier", required: true },
+    tier_id: { type: String, ref: "Tier", required: true },
     payment_date: { type: Date, required: true },
     due_date: { type: Date, required: true },
     status: {
