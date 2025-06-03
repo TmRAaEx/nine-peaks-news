@@ -29,6 +29,7 @@ export default function CreateArticle() {
     updated[index][field] = value;
     setSubContents(updated);
   
+    // Always update formData with arrays of strings
     setFormData((prev) => ({
       ...prev,
       sub_titles: updated.map((item) => item.sub_title),
