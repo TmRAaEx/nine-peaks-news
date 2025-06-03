@@ -1,6 +1,7 @@
 import { error } from "console";
 import connectDB from "./ConnectDB";
 import User, { IUser } from "@/models/User";
+import Article, { IArticle } from "@/models/Article";
 
 type IUserApiData = {
   userName: IUser["userName"];
@@ -51,5 +52,33 @@ export async function SignUserIn(data: IUserLoginData): Promise<IUser | { error:
   } catch (err) {
     console.error("Error signing in", err);
     return { error: "Internal server error" };
+  }
+}
+
+
+type ICreateArticleData = {
+  title: IArticle["title"];
+  description: IArticle["description"];
+  header_img: IArticle["header_img"];
+  images: IArticle["images"]; 
+  content: IArticle["content"];
+  sub_titles: IArticle["sub_titles"]; 
+  sub_content: IArticle["sub_content"]; 
+  required_tier: IArticle["required_tier"]; 
+  authur: IArticle["authur"]; 
+  date: IArticle ["date"];
+
+};
+
+export async function CreateArticle(data: ICreateArticleData): Promise<IArticle | any> {
+  try {
+    await connectDB();
+
+    const createdArticle = await Article.create(data);
+    return createdArticle;
+    
+  } catch (err) {
+    console.error("[LIB Authentication Create-Article]", err);
+    return { error: err };
   }
 }

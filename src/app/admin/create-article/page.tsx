@@ -1,15 +1,24 @@
 "use client";
-import { useState } from "react";
+import ICreateArticle from "@/interfaces/ICreateArticle";
+import { authClient } from "@/lib/ApiClient";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 export default function CreateArticle() {
+    const [formData, setFormData] = useState<ICreateArticle>({
+    title: "",
+    description: "",
+    header_img: "",
+    images: [],
+    content: "",
+    sub_titles: [],
+    sub_content: [],
+    required_tier: "",
+    authur: "",
+    date:new Date()
+  });
   const [error, setError] = useState<string | null>(null);
-  const [subContents, setSubContents] = useState<{ sub_title: string; sub_content: string }[]>([]);
+ const [subContents, setSubContents] = useState<{ sub_title: string; sub_content: string }[]>([]);
   const [images, setImages] = useState<string[]>([]);
-
-  const handleAddSubContent = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setSubContents([...subContents, { sub_title: "", sub_content: "" }]);
-  };
 
   const handleSubContentChange = (
     index: number,
@@ -19,12 +28,34 @@ export default function CreateArticle() {
     const updated = [...subContents];
     updated[index][field] = value;
     setSubContents(updated);
+  
+    // Always update formData with arrays of strings
+    setFormData((prev) => ({
+      ...prev,
+      sub_titles: updated.map((item) => item.sub_title),
+      sub_content: updated.map((item) => item.sub_content),
+    }));
+  };
+  const handleAddSubContent = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const updated = [...subContents, { sub_title: "", sub_content: "" }];
+    setSubContents(updated);
+    setFormData((prev) => ({
+      ...prev,
+      sub_titles: updated.map((item) => item.sub_title),
+      sub_content: updated.map((item) => item.sub_content),
+    }));
   };
 
   const handleAddImage = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (images.length < 3) {
-      setImages([...images, ""]);
+      const updated = [...images, ""];
+      setImages(updated);
+      setFormData((prev) => ({
+        ...prev,
+        images: updated,
+      }));
     }
   };
 
@@ -32,24 +63,68 @@ export default function CreateArticle() {
     const updated = [...images];
     updated[index] = value;
     setImages(updated);
+  
+    setFormData((prev) => ({
+      ...prev,
+      images: updated,
+    }));
   };
 
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    console.log("Submitting:", formData);
+    const response = await authClient.post<any>("/create-article", formData);
+
+    if (response.error) {
+      setError(response.error);
+    }
+
+    console.log(response.data);
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { value, name } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  
   return (
     <>
-      <form action=""className="flex flex-col items-center">
+      <form onSubmit={handleSubmit} className="flex flex-col items-center">
         <p>{error}</p>
 
         <label htmlFor="title">Title:</label>
-        <input type="text" name="title" className="title" />
+        <input type="text" 
+        name="title" 
+        className="title" 
+        value={formData.title}
+        onChange={handleChange}
+        />
 
         <label htmlFor="description">Description:</label>
-        <textarea name="description" className="description" />
+        <textarea name="description" 
+        className="description" 
+        value={formData.description}
+        onChange={handleChange}
+        />
 
         <label htmlFor="header_img">Header Image URL:</label>
-        <input type="text" name="header_img" className="header_img" />
+        <input type="text" 
+        name="header_img"
+        className="header_img" 
+        value={formData.header_img}
+        onChange={handleChange}
+        />
 
         <label>Main Content:</label>
-        <textarea name="content" className="content" />
+        <textarea 
+        name="content" 
+        className="content" 
+        value={formData.content}
+        onChange={handleChange}
+        />
 
         <hr />
         <h3>Additional Images (max 3)</h3>
@@ -88,8 +163,27 @@ export default function CreateArticle() {
         ))}  
         <hr />
         <button onClick={handleAddSubContent}>Add Subcontent</button>
+        <label htmlFor="required_tier">Required Tier</label>
+        <select
+        name="required_tier"
+        id="required_tier"
+        value={formData.required_tier}
+        onChange={handleChange}
+        className="required_tier"
+        >
+        <option value="">Select a tier</option>
+        <option value="Basecamp">Basecamp</option>
+        <option value="Summit Seeker">Summit Seeker</option>
+        <option value="Peak Elite">Peak Elite</option>
+        </select>
+
         <label htmlFor="authur">Authur</label>
-        <input type="text" name="authur" className="authur"/>
+        <input type="text" 
+        name="authur" 
+        className="authur"
+        value={formData.authur}
+        onChange={handleChange}
+        />
       
         <button type="submit">Submit Article</button>
       </form>
