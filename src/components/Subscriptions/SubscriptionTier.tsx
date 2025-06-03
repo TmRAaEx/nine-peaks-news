@@ -3,23 +3,74 @@ import Image from "next/image";
 import SecondaryButton from "@/buttons/Secondarybutton";
 import Link from "next/link";
 
-export default function SubscriptionTier({ tier }: { tier: ITierData }) {
-  const tierDescriptions: Record<string, string> = {
-    Basecamp: "Base tier: get access to basic articles",
-    "Summit Seeker": "Middle tier: get access to more premium articles",
-    "Peak Elite": "Top tier: get access to all premium articles",
+export default function SubscriptionTier({
+  tier,
+  onSelect,
+  selected,
+}: {
+  tier: ITierData;
+  onSelect: (tier: string) => void;
+  selected: string;
+}) {
+  const tierData: Record<string, any> = {
+    Basecamp: {
+      nocard: "No credit card required.",
+      benefits: ["Mark articles as favorites", "Add reviews to articles"],
+    },
+    "Summit Seeker": {
+      benefits: [
+        "Access to some premium articles",
+        "Early access to new content",
+      ],
+    },
+    "Peak Elite": {
+      benefits: [
+        "Unlimited access to all content",
+        "Exclusive monthly Q&A sessions",
+      ],
+    },
   };
 
   return (
-    <li className="flex flex-col justify-between items-center text-center gap-3">
-      <h1 className="font-bold text-xl">{tier.name}</h1>
-      <Image src={tier.image} alt={tier._id} width={300} height={300} />
-      <p>{tierDescriptions[tier.name]}</p>
-      <Link href={`/checkout?${tier._id}`} className="w-full">
-        <SecondaryButton>
-          {tier.price != "0" ? "$" + tier.price : "Free"}
+    <li className="flex flex-col justify-between items-center text-center gap-3 border border-blue3 p-6 w-4/5 max-w-[300px] rounded-4xl">
+      <div className="flex flex-col items-center">
+        <Image src={tier.image} alt={tier._id} width={50} height={50} />
+        <h1 className="font-semibold text-blue2 text-lg tracking-widest uppercase ">
+          {tier.name}
+        </h1>
+      </div>
+      {tierData[tier.name].nocard ? (
+        <p className="text-brown2 text-md/8 font-semibold">
+          {tierData[tier.name].nocard}
+        </p>
+      ) : (
+        <p className="text-brown2 text-md/8 font-semibold">Weekly billing</p>
+      )}
+      <h2 className="mt-2 text-4xl text-blue1 font-title font-semibold ">
+        {tier.price != "0" ? "$" + tier.price : "Free"}
+      </h2>
+      <h3 className="mt-2 text-2xl text-blue1 font-serif font-semibold ">
+        Benefits
+      </h3>
+      <ul className="flex flex-col items-start gap-3 list-disc">
+        {tierData[tier.name].benefits.map((benefit: string) => (
+          <li key={benefit} className="font-medium text-md">
+            {benefit}
+          </li>
+        ))}
+      </ul>
+      {selected === tier.name ? (
+        <button
+          disabled
+          className="duration-200 ease-in text-white w-full h-full rounded-2xl p-2 bg-gray-400 cursor-not-allowed font-semibold text-lg opacity-60"
+        >
+          Current
+        </button>
+      ) : (
+        <SecondaryButton onClick={() => onSelect(tier.name)}>
+          Choose
         </SecondaryButton>
-      </Link>
+      )}
     </li>
   );
 }
