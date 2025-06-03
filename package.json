@@ -13,6 +13,7 @@
     "@stripe/stripe-js": "^7.3.1",
     "axios": "^1.9.0",
     "bcrypt": "^6.0.0",
+    "micro": "^10.0.1",
     "mongoose": "^8.15.1",
     "next": "15.3.2",
     "react": "^19.0.0",

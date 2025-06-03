@@ -1,6 +1,6 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
 import { IUser } from "./User";
-import { ITier } from "./Tier";
+
 
 export interface IPayment extends Document {
   user_id: mongoose.Types.ObjectId | IUser;
