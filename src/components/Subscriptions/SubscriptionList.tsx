@@ -3,12 +3,38 @@ import React, { useState } from "react";
 import SubscriptionTier from "./SubscriptionTier";
 import { ITierData } from "@/interfaces/ITierData";
 import Link from "next/link";
+import { paymentClient } from "@/lib/ApiClient";
+import { CreatePaymentResponse } from "@/types/ApiResponses";
+import { useRouter } from "next/navigation";
 
 export default function SubscriptionList({ tiers }: { tiers: ITierData[] }) {
   const [selected, setSelected] = useState<string>("Basecamp");
+  const [loading, setLoading] = useState<boolean>(false);
 
+  const router = useRouter();
   const onSelect = (tier: string) => {
     setSelected(tier);
+  };
+
+  const handleContinue = async () => {
+    setLoading(true);
+    const url =
+      selected != "Basecamp" ? `/checkout?price_id=${getPriceId()}` : "/";
+
+    const apiData = { user_id: "683da71b871ee965b541bf5b", tier_id: selected };
+
+    const response = await paymentClient.post<CreatePaymentResponse>(
+      "/create-payment",
+      apiData
+    );
+
+    if (response.success) {
+      setLoading(false);
+      router.push(url);
+      return;
+    }
+
+    setLoading(false);
   };
 
   const getPriceId = () => {
@@ -29,9 +55,12 @@ export default function SubscriptionList({ tiers }: { tiers: ITierData[] }) {
             />
           ))}
         </ul>
-        <Link href={`/checkout?price_id=${getPriceId()}`}>
-          Continue with {selected}{" "}
-        </Link>
+        <button
+          onClick={handleContinue}
+          className="text-blue1 hover:text-blue3 cursor-pointer text-lg font-semibold"
+        >
+          Continue with {selected}
+        </button>
       </section>
     </>
   );
