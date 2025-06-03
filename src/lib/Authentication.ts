@@ -2,6 +2,7 @@ import { error } from "console";
 import connectDB from "./ConnectDB";
 import User, { IUser } from "@/models/User";
 import Article, { IArticle } from "@/models/Article";
+import IShowManyArticles from "@/interfaces/IShowManyArticles";
 
 type IUserApiData = {
   userName: IUser["userName"];
@@ -81,4 +82,26 @@ export async function CreateArticle(data: ICreateArticleData): Promise<IArticle 
     console.error("[LIB Authentication Create-Article]", err);
     return { error: err };
   }
+}
+
+export async function ShowAllArticles(data: any = {}) {
+  try {
+  await connectDB();
+  return await Article.find(data);
+
+} catch (err) {
+  console.error("[LIB Authentication Articles]", err);
+  return { error: err };
+}
+}
+
+export async function ShowOneArticle(data: any = {}) {
+  try {
+  await connectDB();
+  return await Article.findOne();
+
+} catch (err) {
+  console.error("[LIB Authentication Articles]", err);
+  return { error: err };
+}
 }
