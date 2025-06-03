@@ -19,7 +19,9 @@ export default function SubscriptionList({ tiers }: { tiers: ITierData[] }) {
   const handleContinue = async () => {
     setLoading(true);
     const url =
-      selected != "Basecamp" ? `/checkout?price_id=${getPriceId()}` : "/";
+      selected != "Basecamp"
+        ? `/checkout?price_id=${getPriceId()}?tier_id=${selected}`
+        : "/";
 
     const apiData = { user_id: "683da71b871ee965b541bf5b", tier_id: selected };
 
