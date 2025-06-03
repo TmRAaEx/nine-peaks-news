@@ -1,11 +1,23 @@
 "use client";
-import { useState } from "react";
+import ICreateArticle from "@/interfaces/ICreateArticle";
+import { authClient } from "@/lib/ApiClient";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 export default function CreateArticle() {
+    const [formData, setFormData] = useState<ICreateArticle>({
+    title: "",
+    description: "",
+    header_img: "String",
+    images: [],
+    content: "String",
+    sub_titles: [],
+    sub_content: [],
+    required_tier: "",
+    authur: "",
+  });
   const [error, setError] = useState<string | null>(null);
-  const [subContents, setSubContents] = useState<{ sub_title: string; sub_content: string }[]>([]);
+ const [subContents, setSubContents] = useState<{ sub_title: string; sub_content: string }[]>([]);
   const [images, setImages] = useState<string[]>([]);
-
   const handleAddSubContent = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setSubContents([...subContents, { sub_title: "", sub_content: "" }]);
@@ -34,9 +46,29 @@ export default function CreateArticle() {
     setImages(updated);
   };
 
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    const response = await authClient.post<any>("/create-article", formData);
+
+    if (response.error) {
+      setError(response.error);
+    }
+
+    console.log(response.data);
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const { value, name } = e.target;
+
+    setFormData((prevState) => {
+      return { ...prevState, [name]: value };
+    });
+  };
   return (
     <>
-      <form action=""className="flex flex-col items-center">
+      <form onSubmit={handleSubmit} className="flex flex-col items-center">
         <p>{error}</p>
 
         <label htmlFor="title">Title:</label>
