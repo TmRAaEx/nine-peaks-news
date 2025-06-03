@@ -2,6 +2,12 @@ import React from 'react'
 
 export default function Footer() {
   return (
-    <div>Footer</div>
+    <footer>
+      <section className='normal-width'>
+        <div className="wrapper">
+          Footer
+        </div>
+      </section>
+    </footer>
   )
 }
