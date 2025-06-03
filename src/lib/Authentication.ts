@@ -31,15 +31,25 @@ export async function RegisterUser(data: IUserApiData): Promise<IUser | any> {
 type IUserLoginData = {
   email: IUser["email"];
   password: IUser["password"];
+  
 };
 
-export async function SignUserIn(data: IUserLoginData): Promise<IUser|any >{
+export async function SignUserIn(data: IUserLoginData): Promise<IUser | { error: string }> {
   try {
     await connectDB();
-    const loginUser = await User.findOne({email: data.email, password: data.password});
-    return loginUser;
-  }catch (err) {
-    console.error("Error soigning in", err);
-    return {error:err};
+    const user = await User.findOne({ email: data.email });
+    if (!user) {
+      return { error: "User not found" };
+    }
+
+    const isMatch = await user.comparePassword(data.password);
+    if (!isMatch) {
+      return { error: "Invalid password" };
+    }
+
+    return user;
+  } catch (err) {
+    console.error("Error signing in", err);
+    return { error: "Internal server error" };
   }
 }

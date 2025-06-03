@@ -1,6 +1,7 @@
 "use client";
 import ISignUserIn from "@/interfaces/ISignUserIn";
 import { authClient } from "@/lib/ApiClient";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
 
 export default function Login() {
@@ -17,7 +18,7 @@ export default function Login() {
       [name]: value,
     }));
   };
-
+  const router = useRouter();
   const handleSubmit = async (e: FormEvent) => {
       e.preventDefault();
       try {
@@ -27,6 +28,7 @@ export default function Login() {
           setError(response.error);
         } else {
           console.log(response.data);
+          router.push("../profile");
         }
         } catch (err: any) {
           setError(err.message || "Login failed");
