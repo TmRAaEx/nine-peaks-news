@@ -23,9 +23,9 @@ export default function Header() {
       <section className='normal-width'>
         <div className='wrapper'>
           <nav>
-            <div className='logo-container'>
+{/*             <div className='logo-container'>
               <img src="img/logotype-lightmode.svg" alt="company logo"/>
-            </div>
+            </div> */}
             <button className='burger-button' onClick={toggleMenu}>
               <svg id="hamburger" className={`${active}`} viewBox="0 0 30 30">
                 <g>
