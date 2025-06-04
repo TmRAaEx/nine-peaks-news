@@ -6,6 +6,7 @@ import { authClient } from "@/lib/ApiClient";
 import { useRouter } from "next/navigation";
 import SecondaryButton from "@/components/shared/buttons/Secondarybutton";
 import IRegisterApiResponse from "@/interfaces/IRegisterApiResponse";
+import Link from "next/link";
 
 export default function Register() {
   const [formData, setFormData] = useState<IRegisterData>({
@@ -106,20 +107,29 @@ export default function Register() {
             <span>
               I consent to the processing of my data in accordance with the
               <br className="hidden sm:block" />
-              <a
+              <Link
                 href="./privacy-policy"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline font-medium"
               >
                 GDPR Privacy Policy
-              </a>
+              </Link>
               .
             </span>
           </label>
         </div>
 
         <SecondaryButton>Register</SecondaryButton>
+        <p>
+          Already have an account?{" "}
+          <Link
+            href={"/authentication/login"}
+            className="text-blue-600 hover:underline font-medium"
+          >
+            Sign in
+          </Link>
+        </p>
       </form>
     </>
   );
