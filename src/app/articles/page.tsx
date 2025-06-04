@@ -1,37 +1,51 @@
 "use client";
 
 import IShowManyArticles from "@/interfaces/IShowManyArticles";
-import { useRouter } from "next/navigation";
+import apiClient from "@/lib/ApiClient";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function Articles(){
-    const [articles, setArticles] = useState<IShowManyArticles[]>([]);
-    const router = useRouter();
-    
-    
+export default function Articles() {
+  const [articles, setArticles] = useState<IShowManyArticles[]>([]);
+
   useEffect(() => {
-    async function fetchArticles() {
-      const res = await fetch("/api/authentication/articles");
-      const result = await res.json();
-      setArticles(result.data || []);
+    async function getArticles() {
+      const { data } = await apiClient.get<{ data: IShowManyArticles[] }>(
+        "/articles"
+      );
+      setArticles(data || []);
     }
-    fetchArticles();
+    getArticles();
   }, []);
 
-      return (
-        <div>
-          <h1>Articles</h1>
-          {articles.map((article, idx) => (
-          <div 
-          key={idx} 
-          style={{ border: "1px solid #ccc", margin: "1em 0", padding: "1em", cursor: "pointer" }} 
-          onClick={() => router.push(`/articles/${article._id}`)}>
+
+
+  return (
+    <>
+      {articles.map((article, idx) => (
+        <Link href={`/articles/${article._id}`}>
+          <div
+            key={idx}
+            style={{
+              border: "1px solid #ccc",
+              margin: "1em 0",
+              padding: "1em",
+              cursor: "pointer",
+            }}
+          >
             <h2>{article.title}</h2>
-              <p>{article.description}</p>
-              <img src={article.header_img} alt={article.title} style={{ maxWidth: "200px" }} />
-              <p><strong>Author:</strong> {article.authur}</p>
-            </div>
-          ))}
-        </div>
-      );
-    }
+            <p>{article.description}</p>
+            <img
+              src={article.header_img}
+              alt={article.title}
+              style={{ maxWidth: "200px" }}
+            />
+            <p>
+              <strong>Author:</strong> {article.authur}
+            </p>
+          </div>
+        </Link>
+      ))}
+    </>
+  );
+}

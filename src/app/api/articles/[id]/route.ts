@@ -1,10 +1,9 @@
 import { ShowOneArticle } from "@/lib/Authentication";
+import Params from "@/types/Params";
 
-export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
-  const response = await ShowOneArticle(params.id);
+export async function GET(request: Request, { params }: Params) {
+  const { id } = await params;
+  const response = await ShowOneArticle(id);
 
   if (!response || (response as any).error) {
     const errorMsg = !response
