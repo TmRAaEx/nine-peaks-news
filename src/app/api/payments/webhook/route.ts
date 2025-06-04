@@ -1,4 +1,3 @@
-// app/api/stripe/webhook/route.ts
 
 import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
