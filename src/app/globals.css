@@ -49,12 +49,24 @@
   --color-brown3: var(--brown3);
 
   /* Font */
-  
+
   --font-title: "Fraunces", serif;
   --font-body: "Archivo Narrow", sans-serif;
 
   --color-title: var(--blue3);
   --color-body: var(--blue1);
+}
+
+.form {
+  @apply flex flex-col m-auto p-15 gap-2 bg-brown3 h-fit rounded-4xl;
+}
+
+.label{
+  @apply font-title text-2xl
+}
+
+.input {
+  @apply w-full px-4 py-2 rounded-2xl border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue3 focus:border-blue3 transition duration-200 shadow-sm;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -5,7 +5,8 @@ export async function POST(request: Request) {
   const { userName, email, password, confirm_password } = body;
 
   if (password !== confirm_password) {
-    return new Response(JSON.stringify({ error: "Mismatched password" }), {
+    
+    return new Response(JSON.stringify({ error: "Missmatched password" }), {
       status: 400,
     });
   }
