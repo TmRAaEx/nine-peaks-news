@@ -1,9 +1,12 @@
 import { ShowOneArticle } from "@/lib/Authentication";
 
-export async function GET() {
-  const response = await ShowOneArticle();
+export async function GET(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  const response = await ShowOneArticle(params.id);
 
-  if (!response || (!Array.isArray(response) && (response as any).error)) {
+  if (!response || (response as any).error) {
     const errorMsg = !response
       ? "Article not found"
       : "[Authentication API] " + (response as any).error;

@@ -95,13 +95,12 @@ export async function ShowAllArticles(data: any = {}) {
 }
 }
 
-export async function ShowOneArticle(data: any = {}) {
+export async function ShowOneArticle(id: string) {
   try {
-  await connectDB();
-  return await Article.findOne();
-
-} catch (err) {
-  console.error("[LIB Authentication Articles]", err);
-  return { error: err };
-}
+    await connectDB();
+    return await Article.findById(id);
+  } catch (err) {
+    console.error("[LIB Authentication Articles]", err);
+    return { error: err };
+  }
 }
