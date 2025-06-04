@@ -46,7 +46,7 @@ export default function Header() {
                   </li>
 
                 : <li className='menu-items account'>
-                    <a href="signup">Login | Signup</a>
+                    <a href="authentication/register">Login | Signup</a>
                   </li>
               }
               
