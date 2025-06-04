@@ -76,6 +76,17 @@ export default function Register() {
           placeholder="confirm password"
           required
         />
+        <label>
+      <input
+        type="checkbox"
+        name="gdpr_consent"       
+        required
+        />
+        I agree to the processing of my data in accordance with the{' '}
+        <a href="./privacy-policy" target="_blank" rel="noopener noreferrer">
+          GDPR Privacy Policy
+        </a>.
+      </label>
         <button role="submit">Register</button>
       </form>
     </>
