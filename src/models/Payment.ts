@@ -2,14 +2,14 @@ import mongoose, { Document, Model, Schema } from "mongoose";
 import { IUser } from "./User";
 
 export interface PaymentObject {
-  payment_date: Date;
+  payment_date: Date | null;
   due_date: Date;
 }
 
 export interface IPayment extends Document {
   user_id: mongoose.Types.ObjectId | IUser;
   tier_id: string;
-  payment_date: Date;
+  payment_date: Date | null;
   due_date: Date;
   payments: PaymentObject[];
   status: "paid" | "pending" | "failed" | "free";
