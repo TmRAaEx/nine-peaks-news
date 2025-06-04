@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import Image from "next/image";
 import React, { useState } from "react";
 
 export default function Header() {
@@ -23,7 +25,9 @@ export default function Header() {
         <div className="wrapper">
           <nav>
             <div className="logo-container">
-              <img src="/img/logotype-lightmode.svg" alt="company logo" />
+              <Link href={"/"}>
+              <Image src="/img/logotype-lightmode.svg" width={250} height={80} alt="company logo" />
+              </Link>
             </div>
             <button className="burger-button" onClick={toggleMenu}>
               <svg id="hamburger" className={`${active}`} viewBox="0 0 30 30">
@@ -35,17 +39,17 @@ export default function Header() {
             </button>
             <ul className={`main-menu ${isOpen}`}>
               <li className="menu-items nav-links">
-                <a href="prices">Prices</a>
-                <a href="about">About</a>
-                <a href="contact">Contact</a>
+                <Link href="/prices">Prices</Link>
+                <Link href="/about">About</Link>
+                <Link href="/contact">Contact</Link>
               </li>
               {isLoggedIn ? (
                 <li className="menu-items account">
-                  <a href="myaccount">My Account</a>
+                  <Link href="myaccount">My Account</Link>
                 </li>
               ) : (
                 <li className="menu-items account">
-                  <a href="authentication/register">Login | Signup</a>
+                  <Link href="/authentication/register">Login | Signup</Link>
                 </li>
               )}
             </ul>
