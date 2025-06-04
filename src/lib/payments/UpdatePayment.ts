@@ -2,7 +2,6 @@ import Payment, { IPayment } from "@/models/Payment";
 import connectDB from "../ConnectDB";
 import UpdatablePaymentData from "@/interfaces/UpdatabelPaymentData";
 
-
 export default async function updatePayment(
   payment_id: IPayment["_id"],
   data: UpdatablePaymentData
@@ -10,13 +9,28 @@ export default async function updatePayment(
   try {
     await connectDB();
 
-    const current = await Payment.findById(payment_id);
-    const updatedPayment = await current?.updateOne(data);
+    const { payments, ...setData } = data;
 
-    return updatedPayment;
+    const updateOps: any = {
+      $set: setData,
+    };
+
+
+    // dosnt add array of payments
+    if (payments && payments.length > 0) {
+      updateOps.$push = {
+        payments: { $each: payments },
+      };
+    }
+
+    const updated = await Payment.findByIdAndUpdate(payment_id, updateOps, {
+      new: true,
+    });
+
+    return updated;
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unexpected error";
-    console.error("[UpdatePayment]:error updating payment ", message);
+    console.error("[UpdatePayment]: Error updating payment", message);
     throw new Error(message);
   }
 }

@@ -1,11 +1,8 @@
-// lib/payments/handleStripeWebhook.ts
-
 import Stripe from "stripe";
 import { stripe } from "./Stripe";
-import CreatePayment from "./CreatePayment";
-import updatePayment from "./UpdatePayment";
-import Payment from "@/models/Payment";
-import UpdatablePaymentData from "@/interfaces/UpdatabelPaymentData";
+import handleCheckoutCompleted from "./events/handleCheckoutCompleted";
+import handleInvoicePaid from "./events/handleInvoicePaid";
+import handleInvoiceFailed from "./events/handlePaymentFailed";
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
@@ -22,51 +19,26 @@ export async function handleStripeWebhook(body: string, signature: string) {
   const data = event.data;
   const eventType = event.type;
 
-  const allowedEvents: string[] = ["checkout.session.completed"];
+  const handledEvents: string[] = [
+    "checkout.session.completed",
+    "invoice.paid",
+    "invoice.payment_failed",
+  ];
 
-  const isAllowed = allowedEvents.includes(eventType);
-  if (!isAllowed) {
+  const isHandled = handledEvents.includes(eventType);
+  if (!isHandled) {
     return { received: true, message: "Unsupported Event" };
   }
 
   if (eventType === "checkout.session.completed") {
-    const session_id = (data.object as Stripe.Checkout.Session).id;
-    const session = await stripe.checkout.sessions.retrieve(session_id, {
-      expand: ["line_items"],
-    });
+    await handleCheckoutCompleted(data, stripe);
+  }
 
-    const { user_id, tier_id } = session.metadata ?? {};
-    if (!user_id || !tier_id) {
-      console.warn("Missing user_id or tier_id in session metadata.");
-      return;
-    }
-
-    const existingPayment = await Payment.findOne({
-      user_id,
-      tier_id,
-    });
-
-    let createdPayment;
-    if (!existingPayment) {
-      createdPayment = await CreatePayment(user_id, tier_id);
-    }
-
-    const now = new Date();
-    const oneWeekFromNow = new Date();
-    oneWeekFromNow.setDate(now.getDate() + 7);
-
-    const paymentData: UpdatablePaymentData = {
-      payment_date: now,
-      due_date: oneWeekFromNow,
-      status: "paid",
-      stripe_ref: session_id,
-    };
-
-    const payment_id = existingPayment
-      ? existingPayment.id
-      : createdPayment!.id;
-
-    await updatePayment(payment_id, paymentData);
+  if (eventType === "invoice.paid") {
+    await handleInvoicePaid(data, stripe);
+  }
+  if (eventType === "invoice.payment_failed") {
+    await handleInvoiceFailed(data, stripe);
   }
 
   // Add more event types here if needed
