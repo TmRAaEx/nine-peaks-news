@@ -1,4 +1,5 @@
 import { RegisterUser } from "@/lib/Authentication";
+import { createSession } from "@/lib/Session";
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -12,6 +13,8 @@ export async function POST(request: Request) {
   }
 
   const response = await RegisterUser({ userName, email, password });
+  
+  await createSession(response.id)
 
   if (response.error) {
     console.error("[Authentication API]", response.error);
