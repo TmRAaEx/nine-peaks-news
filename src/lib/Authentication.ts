@@ -3,6 +3,7 @@ import connectDB from "./ConnectDB";
 import User, { IUser } from "@/models/User";
 import Article, { IArticle } from "@/models/Article";
 import IShowManyArticles from "@/interfaces/IShowManyArticles";
+import { HydratedDocument } from "mongoose";
 
 type IUserApiData = {
   userName: IUser["userName"];
@@ -29,17 +30,25 @@ export async function RegisterUser(data: IUserApiData): Promise<IUser | any> {
   }
 }
 
-
 type IUserLoginData = {
   email: IUser["email"];
   password: IUser["password"];
   
 };
 
-export async function SignUserIn(data: IUserLoginData): Promise<IUser | { error: string }> {
+interface ISignedInUser {
+  _id: string;
+  email: string;
+  userName: string;
+}
+
+// type ISignedInUser = Pick<IUser, 'email' | 'userName'> & { _id: string };
+
+export async function SignUserIn(data: IUserLoginData): Promise<{ user: ISignedInUser } | { error: string }> {
   try {
     await connectDB();
-    const user = await User.findOne({ email: data.email });
+
+    const user = await User.findOne({ email: data.email }).select('+password');
     if (!user) {
       return { error: "User not found" };
     }
@@ -49,7 +58,13 @@ export async function SignUserIn(data: IUserLoginData): Promise<IUser | { error:
       return { error: "Invalid password" };
     }
 
-    return user;
+    return { 
+      user: {
+        _id: user._id.toString(),
+        email: user.email,
+        userName: user.userName,
+      } 
+    };
   } catch (err) {
     console.error("Error signing in", err);
     return { error: "Internal server error" };
