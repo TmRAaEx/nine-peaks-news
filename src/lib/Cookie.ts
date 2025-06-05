@@ -1,15 +1,23 @@
-import { NextResponse } from 'next/server';
+// /lib/session.ts
+import { cookies } from "next/headers";
 
-export function setSessionCookie(sessionToken: string, expiresAt: Date) {
-  const response = NextResponse.json({ message: 'Session created' });
+export async function getSessionFromCookies() {
+  const cookieStore = cookies();
+  const sessionToken = (await cookieStore).get("session_token")?.value;
+  return sessionToken;
+}
 
-  response.cookies.set('session_token', sessionToken, {
+export async function setSessionCookie(session_token: string) {
+  const cookieStore = cookies();
+  const sessionToken = (await cookieStore).set({
+    name: "session_token",
+    value: session_token,
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    path: '/',
-    expires: expiresAt,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    expires: new Date(Date.now() + 1000 * 60 * 60 * 24), // 1 dag
   });
 
-  return response;
+  return sessionToken;
 }
