@@ -10,8 +10,11 @@ export default function useSession(redirectIfUnauthorized = true) {
   useEffect(() => {
     const fetchSession = async () => {
       try {
-        const session = await apiClient.get("/session-info");
-        setSession(session);
+        const { sessionData } = await apiClient.get<{
+          sessionData: false | any;
+        }>("/session-info");
+
+        setSession(sessionData);
       } catch (error) {
         setSession(null);
         if (redirectIfUnauthorized) {
