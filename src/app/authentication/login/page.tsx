@@ -1,4 +1,5 @@
 "use client";
+import SecondaryButton from "@/components/shared/buttons/Secondarybutton";
 import ISignUserIn from "@/interfaces/ISignUserIn";
 import { authClient } from "@/lib/ApiClient";
 import { useRouter } from "next/navigation";
@@ -38,25 +39,27 @@ export default function Login() {
 
   return (
         <>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="form">
             <p>{error}</p>
-            <label htmlFor="email">email</label>
+            <label htmlFor="email" className="label">Email</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
+              className="input"
               required
             />
-            <label htmlFor="password">password</label>
+            <label htmlFor="password"  className="label">Password</label>
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
+              className="input"
               required
             />
-            <button type="submit">Sign in!</button>
+            <SecondaryButton>Sign in</SecondaryButton>
           </form>
         </>
   );
