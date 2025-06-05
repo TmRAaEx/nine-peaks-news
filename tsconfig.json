@@ -24,6 +24,7 @@
       "@/models/*": ["./src/models/*"],
       "@/types/*": ["./src/types/*"],
       "@/interfaces/*": ["./src/Interfaces/*"],
+      "@/hooks/*": ["./src/hooks/*"],
       "@/buttons/*": ["./src/components/shared/buttons/*"]
     }
   },
@@ -33,7 +34,8 @@
     ".next/types/**/*.ts",
     "custom.d.ts",
     "next-env.d.ts",
-    ".next/types/**/*.ts"
-, "src/app/articles/[id]"  ],
+    ".next/types/**/*.ts",
+    "src/app/articles/[id]"
+  ],
   "exclude": ["node_modules"]
 }
