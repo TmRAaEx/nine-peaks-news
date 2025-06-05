@@ -1,15 +1,15 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SubscriptionTier from "./SubscriptionTier";
 import { ITierData } from "@/interfaces/ITierData";
-import Link from "next/link";
-import { paymentClient } from "@/lib/ApiClient";
+import apiClient, { paymentClient } from "@/lib/ApiClient";
 import { CreatePaymentResponse } from "@/types/ApiResponses";
 import { useRouter } from "next/navigation";
 
 export default function SubscriptionList({ tiers }: { tiers: ITierData[] }) {
   const [selected, setSelected] = useState<string>("Basecamp");
   const [loading, setLoading] = useState<boolean>(false);
+  const [userId, setUserid] = useState("");
 
   const router = useRouter();
   const onSelect = (tier: string) => {
@@ -23,7 +23,7 @@ export default function SubscriptionList({ tiers }: { tiers: ITierData[] }) {
         ? `/checkout?price_id=${getPriceId()}&tier_id=${selected}`
         : "/";
 
-    const apiData = { user_id: "683da71b871ee965b541bf5b", tier_id: selected };
+    const apiData = { user_id: userId, tier_id: selected };
 
     const response = await paymentClient.post<CreatePaymentResponse>(
       "/create-payment",
@@ -44,6 +44,19 @@ export default function SubscriptionList({ tiers }: { tiers: ITierData[] }) {
 
     return tier.stripe_id;
   };
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      //TODO remove any
+      const { session, tier } = await apiClient.get<any>("/session-info");
+
+      console.log("session", session);
+
+      setUserid(session.user_id);
+    };
+    fetchSession();
+  }, []);
+
   return (
     <>
       <section className="flex flex-col items-center w-full gap-6">
