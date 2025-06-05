@@ -5,7 +5,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 
 export default function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
   const [active, setActive] = useState<string>("");
   const [isOpen, setIsOpen] = useState<string>("");
 
@@ -26,7 +26,8 @@ export default function Header() {
           <nav>
             <div className="logo-container">
               <Link href={"/"}>
-              <Image src="/img/logotype-lightmode.svg" width={250} height={80} alt="company logo" />
+              <Image src="/img/logotype-lightmode.svg" id="logoLight" width={250} height={80} alt="company logo" />
+              <Image src="/img/logotype-darkmode.svg" id="logoDark" width={250} height={80} alt="company logo" />
               </Link>
             </div>
             <button className="burger-button" onClick={toggleMenu}>
@@ -39,6 +40,7 @@ export default function Header() {
             </button>
             <ul className={`main-menu ${isOpen}`}>
               <li className="menu-items nav-links">
+                <Link href="/prices">Articles</Link>
                 <Link href="/prices">Prices</Link>
                 <Link href="/about">About</Link>
                 <Link href="/contact">Contact</Link>

@@ -3,6 +3,7 @@
 
 :root {
   --background: #f3f3f1;
+  --background2: #e7e7e4;
   --foreground: #171717;
 
   --blue1: #092327;
@@ -14,10 +15,13 @@
   --gray4: #f3f3f1;
   --green1: #324222;
   --green2: #b7bf43;
-  --green3: #b7bf43;
+  --green3: #FCFDE7;
   --brown1: #373420;
   --brown2: #ae8c60;
   --brown3: #eddcc5;
+
+  --blueOrBlack: #21acd2;
+  --menuHoverColor: var(--blue2);
 }
 
 @theme inline {
