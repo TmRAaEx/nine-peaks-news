@@ -1,14 +1,24 @@
 "use client";
 
 import IRegisterData from "@/interfaces/IRegisterFormData";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { authClient } from "@/lib/ApiClient";
 import { useRouter } from "next/navigation";
 import SecondaryButton from "@/components/shared/buttons/Secondarybutton";
 import IRegisterApiResponse from "@/interfaces/IRegisterApiResponse";
 import Link from "next/link";
+import useSession from "@/hooks/useSession";
 
 export default function Register() {
+  const { session, loading } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session && !loading) {
+      router.push("/myaccount");
+    }
+  }, [session, loading, router]);
+
   const [formData, setFormData] = useState<IRegisterData>({
     userName: "",
     email: "",
@@ -16,7 +26,6 @@ export default function Register() {
     confirm_password: "",
   });
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
