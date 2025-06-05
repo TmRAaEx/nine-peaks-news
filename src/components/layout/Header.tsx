@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import useSession from "@/hooks/useSession";
 
 export default function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
+  const { session, loading } = useSession();
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [active, setActive] = useState<string>("");
   const [isOpen, setIsOpen] = useState<string>("");
 
@@ -19,6 +21,14 @@ export default function Header() {
     }
   };
 
+  useEffect(() => {
+    if (session) {
+      setIsLoggedIn(true);
+      return;
+    }
+    setIsLoggedIn(false);
+  }, [session]);
+
   return (
     <header>
       <section className="normal-width">
@@ -26,8 +36,20 @@ export default function Header() {
           <nav>
             <div className="logo-container">
               <Link href={"/"}>
-              <Image src="/img/logotype-lightmode.svg" id="logoLight" width={250} height={80} alt="company logo" />
-              <Image src="/img/logotype-darkmode.svg" id="logoDark" width={250} height={80} alt="company logo" />
+                <Image
+                  src="/img/logotype-lightmode.svg"
+                  id="logoLight"
+                  width={250}
+                  height={80}
+                  alt="company logo"
+                />
+                <Image
+                  src="/img/logotype-darkmode.svg"
+                  id="logoDark"
+                  width={250}
+                  height={80}
+                  alt="company logo"
+                />
               </Link>
             </div>
             <button className="burger-button" onClick={toggleMenu}>
