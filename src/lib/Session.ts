@@ -4,6 +4,7 @@ import Session from "@/models/Session";
 import connectDB from "./ConnectDB";
 import { getSessionFromCookies, setSessionCookie } from "./Cookie";
 import { cookies } from "next/headers";
+import Payment from "@/models/Payment";
 
 export async function createSession(userId: string) {
   await connectDB();
@@ -49,4 +50,20 @@ export async function destroySession() {
   res.cookies.delete("session_token");
 
   return res;
+}
+
+export async function getSessionData() {
+  const session = await verifySession();
+
+  if (!session) {
+    return false;
+  }
+
+  const user_id = session.user_id;
+
+  const payment = await Payment.findOne({ user_id: user_id });
+
+  const tier = payment?.tier_id;
+
+  return { session, tier };
 }
