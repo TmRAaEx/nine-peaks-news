@@ -3,7 +3,9 @@ import connectDB from "./ConnectDB";
 import User, { IUser } from "@/models/User";
 import Article, { IArticle } from "@/models/Article";
 import IShowManyArticles from "@/interfaces/IShowManyArticles";
-import { HydratedDocument } from "mongoose";
+import { HydratedDocument, Types } from "mongoose";
+import PasswordResetToken from "@/models/PasswordResetToken";
+import crypto from 'crypto';
 
 type IUserApiData = {
   userName: IUser["userName"];
@@ -118,4 +120,40 @@ export async function ShowOneArticle(id: string) {
     console.error("[LIB Authentication Articles]", err);
     return { error: err };
   }
+}
+
+export async function generatePasswordResetToken(userId: Types.ObjectId): Promise<string> {
+  const rawToken = crypto.randomBytes(32).toString('hex');
+  const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex');
+
+  await PasswordResetToken.deleteMany({ userId });
+
+  await PasswordResetToken.create({
+      userId,
+      tokenHash,
+      expiresAt: new Date(Date.now() + 1000 * 60 * 60), 
+  });
+
+  return rawToken;
+}
+
+export async function resetPassword(userId: string, token: string, newPassword: string): Promise<boolean> {
+  const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
+
+  const record = await PasswordResetToken.findOne({
+      userId,
+      tokenHash,
+      expiresAt: { $gt: new Date() },
+  });
+
+  if (!record) throw new Error('Invalid or expired token');
+
+  const user = await User.findById(userId);
+  if (!user) throw new Error('User not found');
+
+  user.password = newPassword;
+  await user.save();
+  await PasswordResetToken.deleteMany({ userId }); 
+
+  return true;
 }
