@@ -34,6 +34,10 @@ export async function verifySession() {
     expiresAt: { $gt: new Date() },
   });
 
+  if (!session) {
+    await destroySession();
+  }
+
   return session || null;
 }
 
@@ -47,7 +51,7 @@ export async function destroySession() {
   await Session.deleteOne({ sessionToken });
 
   const res = NextResponse.json({ message: "Logged out" });
-  res.cookies.delete("session_token");
+  (await cookieStore).delete("session_token");
 
   return res;
 }
