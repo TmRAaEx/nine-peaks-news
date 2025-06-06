@@ -3,6 +3,7 @@ import SecondaryButton from "@/components/shared/buttons/Secondarybutton";
 import useSession from "@/hooks/useSession";
 import ISignUserIn from "@/interfaces/ISignUserIn";
 import { authClient } from "@/lib/ApiClient";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
@@ -47,6 +48,8 @@ export default function Login() {
     <>
       <form onSubmit={handleSubmit} className="form">
         <p>{error}</p>
+        <h1 className="text-4xl mb-4">Sign in</h1>
+
         <label htmlFor="email" className="label">
           Email
         </label>
@@ -55,9 +58,11 @@ export default function Login() {
           name="email"
           value={formData.email}
           onChange={handleChange}
+          placeholder="email"
           className="input"
           required
         />
+
         <label htmlFor="password" className="label">
           Password
         </label>
@@ -66,10 +71,22 @@ export default function Login() {
           name="password"
           value={formData.password}
           onChange={handleChange}
+          placeholder="password"
           className="input"
           required
         />
+
         <SecondaryButton>Sign in</SecondaryButton>
+
+        <p className="text-center mt-4">
+          Don't have an account?{" "}
+          <Link
+            href="/authentication/register"
+            className="text-blue-600 hover:underline font-medium"
+          >
+            Register here
+          </Link>
+        </p>
       </form>
     </>
   );
