@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
-import Session from "@/models/Session";
+import Session, { ISession } from "@/models/Session";
 import connectDB from "./ConnectDB";
 import { getSessionFromCookies, setSessionCookie } from "./Cookie";
 import { cookies } from "next/headers";
 import Payment from "@/models/Payment";
+import { IUser } from "@/models/User";
 
 export async function createSession(userId: string) {
   await connectDB();
@@ -56,18 +57,32 @@ export async function destroySession() {
   return res;
 }
 
-export async function getSessionData() {
+export async function getSessionData(): Promise<{
+  session: ISession;
+  tier: string;
+} | void> {
   const session = await verifySession();
 
   if (!session) {
-    return false;
+    return;
   }
 
   const user_id = session.user_id;
 
   const payment = await Payment.findOne({ user_id: user_id });
 
-  const tier = payment?.tier_id;
+  const tier = payment?.tier_id || "Basecamp";
 
   return { session, tier };
+}
+
+export async function getUserSessions(userId: IUser["id"]) {
+  await connectDB();
+
+  const sessions = await Session.find({
+    user_id: userId,
+    expiresAt: { $gt: new Date() },
+  });
+
+  return sessions;
 }
