@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
+<<<<<<< HEAD:src/lib/Session.ts
 import Session, { ISession } from "@/models/Session";
 import connectDB from "./ConnectDB";
+=======
+import Session from "@/models/Session";
+import connectDB from "../ConnectDB";
+>>>>>>> a1b3c6d (moved files to more appropriate locations):src/lib/session/Session.ts
 import { getSessionFromCookies, setSessionCookie } from "./Cookie";
 import { cookies } from "next/headers";
 import Payment from "@/models/Payment";
