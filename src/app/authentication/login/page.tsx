@@ -1,93 +1,74 @@
 "use client";
+
 import SecondaryButton from "@/components/shared/buttons/Secondarybutton";
 import useSession from "@/hooks/useSession";
-import ISignUserIn from "@/interfaces/ISignUserIn";
-import { authClient } from "@/lib/ApiClient";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useActionState, useEffect } from "react";
+import Link from "next/link";
+import LoginAction from "../../actions/authentication/login";
 
-export default function Login() {
+export default function LoginForm() {
+  const [state, formAction, pending] = useActionState(LoginAction, undefined);
   const { session, loading } = useSession();
-  const [formData, setFormData] = useState<ISignUserIn>({
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState<string | null>(null);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
   const router = useRouter();
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await authClient.post<any>("/login", formData);
 
-      if (response.error) {
-        setError(response.error);
-      } else {
-        console.log(response.data);
-        router.push("/myaccount");
-      }
-    } catch (err: any) {
-      setError(err.message || "Login failed");
-    }
-  };
+  // Redirect if already logged in
   useEffect(() => {
     if (session && !loading) {
       router.push("/myaccount");
     }
   }, [session, loading, router]);
 
+  // Redirect after successful login
+  useEffect(() => {
+    if (state && !state.error && !state.errors) {
+      router.push("/myaccount");
+    }
+  }, [state, router]);
+
   return (
-    <>
-      <form onSubmit={handleSubmit} className="form">
-        <p>{error}</p>
-        <h1 className="text-4xl mb-4">Sign in</h1>
+    <form action={formAction} className="form">
+      <h1 className="text-4xl mb-4">Sign In</h1>
 
-        <label htmlFor="email" className="label">
-          Email
-        </label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="email"
-          className="input"
-          required
-        />
+      {state?.error && (
+        <p className="text-red-500 font-medium">{state.error}</p>
+      )}
 
-        <label htmlFor="password" className="label">
-          Password
-        </label>
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="password"
-          className="input"
-          required
-        />
+      <label htmlFor="email" className="label">
+        Email
+      </label>
+      <input type="email" name="email" id="email" className="input" required />
+      {state?.errors?.email && (
+        <p className="text-red-500">{state.errors.email.join(", ")}</p>
+      )}
 
-        <SecondaryButton>Sign in</SecondaryButton>
+      <label htmlFor="password" className="label">
+        Password
+      </label>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        className="input"
+        required
+      />
+      {state?.errors?.password && (
+        <p className="text-red-500">{state.errors.password.join(", ")}</p>
+      )}
 
-        <p className="text-center mt-4">
-          Don't have an account?{" "}
-          <Link
-            href="/authentication/register"
-            className="text-blue-600 hover:underline font-medium"
-          >
-            Register here
-          </Link>
-        </p>
-      </form>
-    </>
+      <SecondaryButton disabled={pending}>
+        {pending ? "Signing in..." : "Sign in"}
+      </SecondaryButton>
+
+      <p className="text-center mt-4">
+        Don&apos;t have an account?{" "}
+        <Link
+          href="/register"
+          className="text-blue-600 hover:underline font-medium"
+        >
+          Register here
+        </Link>
+      </p>
+    </form>
   );
 }

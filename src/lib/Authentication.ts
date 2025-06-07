@@ -8,6 +8,7 @@ import crypto from "crypto";
 import { destroySession, getSessionData } from "./Session";
 import Session from "@/models/Session";
 
+
 type IUserApiData = {
   userName: IUser["userName"];
   email: IUser["email"];
@@ -28,7 +29,8 @@ export async function RegisterUser(data: IUserApiData): Promise<IUser | any> {
     return createdUser;
   } catch (err) {
     console.error("[LIB Authentication Register]", err);
-    return { error: err };
+    const message = err instanceof Error ? err.message : "unexpected error";
+    return { error: message };
   }
 }
 
@@ -51,12 +53,12 @@ export async function SignUserIn(
 
     const user = await User.findOne({ email: data.email }).select("+password");
     if (!user) {
-      return { error: "User not found" };
+      return { error: "No user with that email" };
     }
 
     const isMatch = await user.comparePassword(data.password);
     if (!isMatch) {
-      return { error: "Invalid password" };
+      return { error: "Invalid Credentials" };
     }
 
     return {
@@ -160,4 +162,3 @@ export async function resetPassword(
 
   return true;
 }
-
