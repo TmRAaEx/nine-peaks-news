@@ -1,5 +1,5 @@
 import getSubscriptionsByEmail from "./getSubscriptionByEmail";
-import { stripe } from "./Stripe";
+import { stripe } from "../Stripe";
 export default async function cancelSubscription(customer_email: string) {
   const subscription_id = await getSubscriptionsByEmail(customer_email);
   try {

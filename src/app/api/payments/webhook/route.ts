@@ -1,7 +1,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
-import { handleStripeWebhook } from "@/lib/payments/handleStripeWebhook";
+import { handleStripeWebhook } from "@/lib/payments/handlers/handleStripeWebhook";
 
 export async function POST(req: NextRequest) {
   const body = await req.text();

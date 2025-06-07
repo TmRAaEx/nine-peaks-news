@@ -1,5 +1,5 @@
 import Payment, { IPayment } from "@/models/Payment";
-import connectDB from "../ConnectDB";
+import connectDB from "../../ConnectDB";
 import UpdatablePaymentData from "@/interfaces/UpdatabelPaymentData";
 
 export default async function updatePayment(
