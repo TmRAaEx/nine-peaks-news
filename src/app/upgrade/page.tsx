@@ -1,10 +1,15 @@
 import React from "react";
-import GetTiers from "@/lib/tiers";
 import SubscriptionList from "@/components/Subscriptions/SubscriptionList";
+import GetTiers from "@/lib/Tiers";
+import { getSessionData } from "@/lib/session/Session";
+import { redirect } from "next/navigation";
 export default async function Upgrade() {
   const tiers = await GetTiers();
+  const sessionData = await getSessionData();
 
-  return (
-    <SubscriptionList tiers={tiers}/>
-  );
+  if (!sessionData) {
+    redirect("/login");
+  }
+
+  return <SubscriptionList tiers={tiers} />;
 }
