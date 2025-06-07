@@ -2,10 +2,12 @@ import connectDB from "./ConnectDB";
 import User, { IUser } from "@/models/User";
 import Article, { IArticle } from "@/models/Article";
 
-import IShowManyArticles from "@/interfaces/IShowManyArticles";
-import { HydratedDocument, Types } from "mongoose";
+import { Types } from "mongoose";
 import PasswordResetToken from "@/models/PasswordResetToken";
 import crypto from "crypto";
+import { destroySession, getSessionData } from "./Session";
+import Session from "@/models/Session";
+
 
 type IUserApiData = {
   userName: IUser["userName"];

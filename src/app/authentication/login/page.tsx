@@ -1,9 +1,10 @@
 "use client";
 
+import SecondaryButton from "@/components/shared/buttons/Secondarybutton";
+import useSession from "@/hooks/useSession";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
-import useSession from "@/hooks/useSession";
-import SecondaryButton from "@/components/shared/buttons/Secondarybutton";
+import Link from "next/link";
 import LoginAction from "../../actions/authentication/login";
 
 export default function LoginForm() {
@@ -11,23 +12,24 @@ export default function LoginForm() {
   const { session, loading } = useSession();
   const router = useRouter();
 
+  // Redirect if already logged in
   useEffect(() => {
-    //redirect if already logged in
     if (session && !loading) {
       router.push("/myaccount");
     }
   }, [session, loading, router]);
 
+  // Redirect after successful login
   useEffect(() => {
     if (state && !state.error && !state.errors) {
-      // Successful login, no errors
       router.push("/myaccount");
     }
   }, [state, router]);
 
   return (
     <form action={formAction} className="form">
-      <h1 className="text-4xl">Sign In</h1>
+      <h1 className="text-4xl mb-4">Sign In</h1>
+
       {state?.error && (
         <p className="text-red-500 font-medium">{state.error}</p>
       )}
@@ -57,6 +59,16 @@ export default function LoginForm() {
       <SecondaryButton disabled={pending}>
         {pending ? "Signing in..." : "Sign in"}
       </SecondaryButton>
+
+      <p className="text-center mt-4">
+        Don&apos;t have an account?{" "}
+        <Link
+          href="/register"
+          className="text-blue-600 hover:underline font-medium"
+        >
+          Register here
+        </Link>
+      </p>
     </form>
   );
 }

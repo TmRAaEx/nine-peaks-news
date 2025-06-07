@@ -25,7 +25,8 @@
       "@/types/*": ["./src/types/*"],
       "@/interfaces/*": ["./src/Interfaces/*"],
       "@/hooks/*": ["./src/hooks/*"],
-      "@/buttons/*": ["./src/components/shared/buttons/*"]
+      "@/buttons/*": ["./src/components/shared/buttons/*"],
+      "@/actions/*": ["./src/app/actions/*"]
     }
   },
   "include": [
