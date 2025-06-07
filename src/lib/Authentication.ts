@@ -5,8 +5,7 @@ import Article, { IArticle } from "@/models/Article";
 import IShowManyArticles from "@/interfaces/IShowManyArticles";
 import { HydratedDocument, Types } from "mongoose";
 import PasswordResetToken from "@/models/PasswordResetToken";
-import crypto from 'crypto';
-
+import crypto from "crypto";
 
 type IUserApiData = {
   userName: IUser["userName"];
@@ -28,7 +27,8 @@ export async function RegisterUser(data: IUserApiData): Promise<IUser | any> {
     return createdUser;
   } catch (err) {
     console.error("[LIB Authentication Register]", err);
-    return { error: err };
+    const message = err instanceof Error ? err.message : "unexpected error";
+    return { error: message };
   }
 }
 
@@ -119,40 +119,44 @@ export async function ShowOneArticle(id: string) {
   }
 }
 
-
-export async function generatePasswordResetToken(userId: Types.ObjectId): Promise<string> {
-  const rawToken = crypto.randomBytes(32).toString('hex');
-  const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex');
+export async function generatePasswordResetToken(
+  userId: Types.ObjectId
+): Promise<string> {
+  const rawToken = crypto.randomBytes(32).toString("hex");
+  const tokenHash = crypto.createHash("sha256").update(rawToken).digest("hex");
 
   await PasswordResetToken.deleteMany({ userId });
 
   await PasswordResetToken.create({
-      userId,
-      tokenHash,
-      expiresAt: new Date(Date.now() + 1000 * 60 * 60), 
+    userId,
+    tokenHash,
+    expiresAt: new Date(Date.now() + 1000 * 60 * 60),
   });
 
   return rawToken;
 }
 
-export async function resetPassword(userId: string, token: string, newPassword: string): Promise<boolean> {
-  const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
+export async function resetPassword(
+  userId: string,
+  token: string,
+  newPassword: string
+): Promise<boolean> {
+  const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
 
   const record = await PasswordResetToken.findOne({
-      userId,
-      tokenHash,
-      expiresAt: { $gt: new Date() },
+    userId,
+    tokenHash,
+    expiresAt: { $gt: new Date() },
   });
 
-  if (!record) throw new Error('Invalid or expired token');
+  if (!record) throw new Error("Invalid or expired token");
 
   const user = await User.findById(userId);
-  if (!user) throw new Error('User not found');
+  if (!user) throw new Error("User not found");
 
   user.password = newPassword;
   await user.save();
-  await PasswordResetToken.deleteMany({ userId }); 
+  await PasswordResetToken.deleteMany({ userId });
 
   return true;
 }
-
