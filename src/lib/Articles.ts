@@ -16,13 +16,17 @@ export async function CreateArticle(
   }
 }
 
-export async function ShowAllArticles(data: any = {}) {
+export async function ShowAllArticles(
+  data: any = {}
+): Promise<{ articles: IArticle[]; error: string | null }> {
   try {
     await connectDB();
-    return await Article.find(data);
+    const articles = await Article.find(data);
+    return { articles: articles, error: null };
   } catch (err) {
     console.error("[LIB Authentication Articles]", err);
-    return { error: err };
+    const message = err instanceof Error ? err.message : "Unexpected error";
+    return { articles: [], error: message };
   }
 }
 
