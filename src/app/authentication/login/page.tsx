@@ -1,72 +1,62 @@
 "use client";
-import SecondaryButton from "@/components/shared/buttons/Secondarybutton";
-import useSession from "@/hooks/useSession";
-import ISignUserIn from "@/interfaces/ISignUserIn";
-import { authClient } from "@/lib/ApiClient";
+
 import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useActionState, useEffect } from "react";
+import useSession from "@/hooks/useSession";
+import SecondaryButton from "@/components/shared/buttons/Secondarybutton";
+import LoginAction from "../../actions/authentication/login";
 
-export default function Login() {
+export default function LoginForm() {
+  const [state, formAction, pending] = useActionState(LoginAction, undefined);
   const { session, loading } = useSession();
-  const [formData, setFormData] = useState<ISignUserIn>({
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState<string | null>(null);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
   const router = useRouter();
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await authClient.post<any>("/login", formData);
 
-      if (response.error) {
-        setError(response.error);
-      } else {
-        console.log(response.data);
-        router.push("../profile");
-      }
-    } catch (err: any) {
-      setError(err.message || "Login failed");
-    }
-  };
   useEffect(() => {
+    //redirect if already logged in
     if (session && !loading) {
       router.push("/myaccount");
     }
   }, [session, loading, router]);
 
+  useEffect(() => {
+    if (state && !state.error && !state.errors) {
+      // Successful login, no errors
+      router.push("/myaccount");
+    }
+  }, [state, router]);
+
   return (
-        <>
-          <form onSubmit={handleSubmit} className="form">
-            <p>{error}</p>
-            <label htmlFor="email" className="label">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="input"
-              required
-            />
-            <label htmlFor="password"  className="label">Password</label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              className="input"
-              required
-            />
-            <SecondaryButton>Sign in</SecondaryButton>
-          </form>
-        </>
+    <form action={formAction} className="form">
+      <h1 className="text-4xl">Sign In</h1>
+      {state?.error && (
+        <p className="text-red-500 font-medium">{state.error}</p>
+      )}
+
+      <label htmlFor="email" className="label">
+        Email
+      </label>
+      <input type="email" name="email" id="email" className="input" required />
+      {state?.errors?.email && (
+        <p className="text-red-500">{state.errors.email.join(", ")}</p>
+      )}
+
+      <label htmlFor="password" className="label">
+        Password
+      </label>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        className="input"
+        required
+      />
+      {state?.errors?.password && (
+        <p className="text-red-500">{state.errors.password.join(", ")}</p>
+      )}
+
+      <SecondaryButton disabled={pending}>
+        {pending ? "Signing in..." : "Sign in"}
+      </SecondaryButton>
+    </form>
   );
 }

@@ -51,12 +51,12 @@ export async function SignUserIn(
 
     const user = await User.findOne({ email: data.email }).select("+password");
     if (!user) {
-      return { error: "User not found" };
+      return { error: "No user with that email" };
     }
 
     const isMatch = await user.comparePassword(data.password);
     if (!isMatch) {
-      return { error: "Invalid password" };
+      return { error: "Invalid Credentials" };
     }
 
     return {

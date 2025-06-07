@@ -33,3 +33,18 @@ export type SignupFormState =
       message?: string;
     }
   | undefined;
+
+export const LoginFormSchema = z.object({
+  email: z.string().email({ message: "Please enter a valid email" }),
+  password: z.string({ message: "Please enter a password" }),
+});
+
+export type LoginFormState =
+  | {
+      errors?: {
+        email?: string[];
+        password?: string[];
+      };
+      message?: string;
+    }
+  | undefined;

@@ -30,4 +30,6 @@ export default async function RegisterAction(
   }
 
   await createSession(user.id);
+
+  return {};
 }
