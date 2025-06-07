@@ -1,6 +1,6 @@
 "use server";
 
-import { SignupFormSchema, SignupFormState } from "@/lib/formDefinitions";
+import { SignupFormSchema, SignupFormState } from "@/lib/formValidation/formDefinitions";
 import { RegisterUser } from "@/lib/Authentication";
 import { createSession } from "@/lib/session/Session";
 

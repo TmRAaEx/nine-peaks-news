@@ -1,7 +1,7 @@
 "use server";
 
 import { SignUserIn } from "@/lib/Authentication";
-import { LoginFormSchema, LoginFormState } from "@/lib/formDefinitions";
+import { LoginFormSchema, LoginFormState } from "@/lib/formValidation/formDefinitions";
 import { createSession } from "@/lib/session/Session";
 
 export default async function LoginAction(
