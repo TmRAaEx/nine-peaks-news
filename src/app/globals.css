@@ -15,7 +15,7 @@
   --gray4: #f3f3f1;
   --green1: #324222;
   --green2: #b7bf43;
-  --green3: #FCFDE7;
+  --green3: #fcfde7;
   --brown1: #373420;
   --brown2: #ae8c60;
   --brown3: #eddcc5;
@@ -62,11 +62,11 @@
 }
 
 .form {
-  @apply flex flex-col m-auto p-15 gap-2 bg-brown3 h-fit rounded-4xl;
+  @apply flex flex-col m-auto p-15 gap-2 bg-brown3 h-fit rounded-4xl w-full max-w-[600px];
 }
 
-.label{
-  @apply font-title text-2xl
+.label {
+  @apply font-title text-2xl;
 }
 
 .input {
