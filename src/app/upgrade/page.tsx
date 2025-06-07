@@ -1,5 +1,5 @@
 import React from "react";
-import SubscriptionList from "@/components/Subscriptions/SubscriptionList";
+import SubscriptionList from "./components/SubscriptionList";
 import GetTiers from "@/lib/Tiers";
 import { getSessionData } from "@/lib/session/Session";
 import { redirect } from "next/navigation";

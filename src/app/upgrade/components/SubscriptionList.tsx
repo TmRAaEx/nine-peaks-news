@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import SubscriptionTier from "./SubscriptionTier";
 import { ITierData } from "@/interfaces/ITierData";
 import apiClient, { paymentClient } from "@/lib/ApiClient";
-import { CreatePaymentResponse } from "@/types/ApiResponses";
 import { useRouter } from "next/navigation";
+import { CreatePaymentResponse } from "@/interfaces/api/responses";
 
 export default function SubscriptionList({ tiers }: { tiers: ITierData[] }) {
   const [selected, setSelected] = useState<string>("Basecamp");
