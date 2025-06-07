@@ -2,8 +2,7 @@
 
 import { SignUserIn } from "@/lib/Authentication";
 import { LoginFormSchema, LoginFormState } from "@/lib/formDefinitions";
-import { createSession } from "@/lib/Session";
-
+import { createSession } from "@/lib/session/Session";
 
 export default async function LoginAction(
   state: LoginFormState,
@@ -22,10 +21,10 @@ export default async function LoginAction(
   const res = await SignUserIn({ email, password });
 
   if ("error" in res) {
-    return { error: res.error};
+    return { error: res.error };
   }
 
   await createSession(res.user._id);
 
-  return {}
+  return {};
 }

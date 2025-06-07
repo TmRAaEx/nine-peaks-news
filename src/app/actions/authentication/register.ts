@@ -2,7 +2,7 @@
 
 import { SignupFormSchema, SignupFormState } from "@/lib/formDefinitions";
 import { RegisterUser } from "@/lib/Authentication";
-import { createSession } from "@/lib/Session";
+import { createSession } from "@/lib/session/Session";
 
 export default async function RegisterAction(
   state: SignupFormState,
