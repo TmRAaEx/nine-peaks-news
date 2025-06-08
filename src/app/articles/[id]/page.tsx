@@ -1,28 +1,17 @@
-"use client";
-import IShowOneArticle from "@/interfaces/IShowOneArticle";
-import apiClient from "@/lib/ApiClient";
-import { useEffect, useState, use } from "react";
+import { ShowOneArticle } from "@/lib/Articles";
 
-export default function SingleArticle({
+export default async function SingleArticle({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Record<string, string>;
 }) {
-  const { id } = use(params);
+  const { id } = params;
 
-  const [article, setArticle] = useState<IShowOneArticle | null>(null);
+  const { article, error } = await ShowOneArticle(id);
 
-  useEffect(() => {
-    async function getArticle() {
-      const { data } = await apiClient.get<{ data: IShowOneArticle }>(
-        "/articles/" + id
-      );
-      setArticle(data);
-    }
-    getArticle();
-  }, [id]);
-
-  if (!article) return <div>Loading...</div>;
+  if (!article) {
+    return <>{error}</>;
+  }
 
   return (
     <div>

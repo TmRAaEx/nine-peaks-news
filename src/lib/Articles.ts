@@ -30,12 +30,20 @@ export async function ShowAllArticles(
   }
 }
 
-export async function ShowOneArticle(id: string) {
+export async function ShowOneArticle(
+  id: string
+): Promise<{ article: IArticle | null; error: string | null }> {
   try {
     await connectDB();
-    return await Article.findById(id);
+    const article = await Article.findById(id);
+
+    if (!article) {
+      return { article: null, error: "Article not found" };
+    }
+
+    return { article: article, error: null };
   } catch (err) {
-    console.error("[LIB Authentication Articles]", err);
-    return { error: err };
+    const message = err instanceof Error ? err.message : "Unexpected error";
+    return { article: null, error: message };
   }
 }
