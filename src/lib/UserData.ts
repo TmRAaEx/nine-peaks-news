@@ -1,5 +1,5 @@
 import User, { IUser } from "@/models/User";
-import { getSessionData, getUserSessions } from "./Session";
+import { getSessionData, getUserSessions } from "./session/Session";
 import { ISession } from "@/models/Session";
 
 export default async function getUserData(): Promise<{

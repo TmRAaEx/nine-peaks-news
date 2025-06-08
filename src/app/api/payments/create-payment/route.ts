@@ -1,6 +1,6 @@
 // /api/payments/create-payment/route.ts
 
-import CreatePayment from "@/lib/payments/CreatePayment";
+import CreatePayment from "@/lib/payments/handlers/CreatePayment";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {

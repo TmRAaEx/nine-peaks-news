@@ -69,11 +69,11 @@ export default function Header() {
               </li>
               {isLoggedIn ? (
                 <li className="menu-items account">
-                  <Link href="myaccount">My Account</Link>
+                  <Link href="/myaccount">My Account</Link>
                 </li>
               ) : (
                 <li className="menu-items account">
-                  <Link href="/authentication/register">Login | Signup</Link>
+                  <Link href="/register">Login | Signup</Link>
                 </li>
               )}
             </ul>

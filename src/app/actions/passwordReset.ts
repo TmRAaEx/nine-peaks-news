@@ -1,8 +1,8 @@
 'use server';
 
-import { sendPasswordResetEmail } from './Emails';
-import { generatePasswordResetToken } from './Authentication';
-import connectDB from './ConnectDB';
+import { sendPasswordResetEmail } from '../../lib/Emails';
+import { generatePasswordResetToken } from '../../lib/Authentication';
+import connectDB from '../../lib/ConnectDB';
 import User from '@/models/User';
 
 export async function requestPasswordReset(formData: FormData) {

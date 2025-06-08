@@ -1,7 +1,6 @@
 import { ITierData } from "@/interfaces/ITierData";
 import Image from "next/image";
 import SecondaryButton from "@/buttons/Secondarybutton";
-import Link from "next/link";
 
 export default function SubscriptionTier({
   tier,
@@ -32,7 +31,7 @@ export default function SubscriptionTier({
   };
 
   return (
-    <li className="flex flex-col justify-between items-center text-center gap-3 border border-blue3 p-6 w-4/5 max-w-[300px] rounded-4xl">
+    <li className="flex flex-col justify-between items-center text-center gap-3 border border-blue3 p-6 w-4/5 max-w-[300px] rounded-4xl dark:text-white">
       <div className="flex flex-col items-center">
         <Image src={tier.image} alt={tier._id} width={50} height={50} />
         <h1 className="font-semibold text-blue2 text-lg tracking-widest uppercase ">
@@ -46,10 +45,10 @@ export default function SubscriptionTier({
       ) : (
         <p className="text-brown2 text-md/8 font-semibold">Weekly billing</p>
       )}
-      <h2 className="mt-2 text-4xl text-blue1 font-title font-semibold ">
+      <h2 className="mt-2 text-4xl text-blue1 font-title font-semibold dark:text-white">
         {tier.price != "0" ? "$" + tier.price : "Free"}
       </h2>
-      <h3 className="mt-2 text-2xl text-blue1 font-serif font-semibold ">
+      <h3 className="mt-2 text-2xl text-blue1 font-serif font-semibold dark:text-white ">
         Benefits
       </h3>
       <ul className="flex flex-col items-start gap-3 list-disc">

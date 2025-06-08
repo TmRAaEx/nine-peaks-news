@@ -1,4 +1,4 @@
-import { getSessionData } from "@/lib/Session";
+import { getSessionData } from "@/lib/session/Session";
 import { NextResponse } from "next/server";
 
 export async function GET() {

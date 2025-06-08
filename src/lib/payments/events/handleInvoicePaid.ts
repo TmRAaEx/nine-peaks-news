@@ -1,5 +1,5 @@
 import Stripe from "stripe";
-import updatePayment from "../UpdatePayment";
+import updatePayment from "../handlers/UpdatePayment";
 import UpdatablePaymentData from "@/interfaces/UpdatabelPaymentData";
 
 export default async function handleInvoicePaid(data: any, stripe: Stripe) {

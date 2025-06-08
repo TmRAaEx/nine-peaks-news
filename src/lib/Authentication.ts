@@ -1,13 +1,8 @@
 import connectDB from "./ConnectDB";
 import User, { IUser } from "@/models/User";
-import Article, { IArticle } from "@/models/Article";
-
 import { Types } from "mongoose";
 import PasswordResetToken from "@/models/PasswordResetToken";
 import crypto from "crypto";
-import { destroySession, getSessionData } from "./Session";
-import Session from "@/models/Session";
-
 
 type IUserApiData = {
   userName: IUser["userName"];
@@ -74,53 +69,6 @@ export async function SignUserIn(
   }
 }
 
-type ICreateArticleData = {
-  title: IArticle["title"];
-  description: IArticle["description"];
-  header_img: IArticle["header_img"];
-  images: IArticle["images"];
-  content: IArticle["content"];
-  sub_titles: IArticle["sub_titles"];
-  sub_content: IArticle["sub_content"];
-  required_tier: IArticle["required_tier"];
-  authur: IArticle["authur"];
-  date: IArticle["date"];
-};
-
-export async function CreateArticle(
-  data: ICreateArticleData
-): Promise<IArticle | any> {
-  try {
-    await connectDB();
-
-    const createdArticle = await Article.create(data);
-    return createdArticle;
-  } catch (err) {
-    console.error("[LIB Authentication Create-Article]", err);
-    return { error: err };
-  }
-}
-
-export async function ShowAllArticles(data: any = {}) {
-  try {
-    await connectDB();
-    return await Article.find(data);
-  } catch (err) {
-    console.error("[LIB Authentication Articles]", err);
-    return { error: err };
-  }
-}
-
-export async function ShowOneArticle(id: string) {
-  try {
-    await connectDB();
-    return await Article.findById(id);
-  } catch (err) {
-    console.error("[LIB Authentication Articles]", err);
-    return { error: err };
-  }
-}
-
 export async function generatePasswordResetToken(
   userId: Types.ObjectId
 ): Promise<string> {
@@ -152,12 +100,15 @@ export async function resetPassword(
   });
 
   if (!record) throw new Error("Invalid or expired token");
+  if (!record) throw new Error("Invalid or expired token");
 
   const user = await User.findById(userId);
+  if (!user) throw new Error("User not found");
   if (!user) throw new Error("User not found");
 
   user.password = newPassword;
   await user.save();
+  await PasswordResetToken.deleteMany({ userId });
   await PasswordResetToken.deleteMany({ userId });
 
   return true;
