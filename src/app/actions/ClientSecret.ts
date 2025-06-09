@@ -21,7 +21,7 @@ export async function fetchClientSecret(
         },
       ],
       mode: "subscription",
-      return_url: `${origin}/return?session_id={CHECKOUT_SESSION_ID}`,
+      return_url: `${origin}/myaccount`,
       metadata: {
         user_id: user_id,
         tier_id: tier_id,

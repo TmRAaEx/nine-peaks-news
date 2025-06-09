@@ -14,6 +14,8 @@ export default function useSession(redirectIfUnauthorized = true) {
           sessionData: false | any;
         }>("/session-info");
 
+        
+
         setSession(sessionData);
       } catch (error) {
         setSession(null);
