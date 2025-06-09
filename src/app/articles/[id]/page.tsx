@@ -1,5 +1,4 @@
 import { ShowOneArticle } from "@/lib/Articles";
-import Link from "next/link";
 import Breadcrumbs from "./Breadcrumbs";
 
 export default async function SingleArticle({
