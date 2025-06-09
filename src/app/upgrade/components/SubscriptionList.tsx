@@ -48,9 +48,12 @@ export default function SubscriptionList({ tiers }: { tiers: ITierData[] }) {
   useEffect(() => {
     const fetchSession = async () => {
       //TODO remove any
-      const { session, tier } = await apiClient.get<any>("/session-info");
+      const { sessionData } = await apiClient.get<any>("/session-info");
 
-      console.log("session", session);
+      if (!sessionData) {
+        router.push("/login");
+      }
+      const { session, tier } = sessionData;
 
       setUserid(session.user_id);
     };
