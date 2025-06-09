@@ -14,7 +14,8 @@ export default async function GetTiers(): Promise<ITierData[]> {
         price: tier.price?.toString(), // convert price to string
         image: `/img/icons/tier${index + 1}-square.svg`,
       }))
-      .filter((tier) => tier._id != "Admin");
+      .filter((tier) => tier._id != "Admin")
+      .sort((a, b) => (Number(a.price) ?? 0) - (Number(b.price) ?? 0));
 
     return returnTiers;
   } catch (error) {

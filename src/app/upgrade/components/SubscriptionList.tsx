@@ -75,7 +75,7 @@ export default function SubscriptionList({ tiers }: { tiers: ITierData[] }) {
         </ul>
         <button
           onClick={handleContinue}
-          className="text-blue1 hover:text-blue3 cursor-pointer text-lg font-semibold"
+          className="text-blue1 hover:text-blue3 cursor-pointer text-lg font-semibold dark:text-gray-200"
         >
           {loading ? "Loading..." : "Continue with" + selected}
         </button>
