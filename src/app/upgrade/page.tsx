@@ -1,6 +1,6 @@
 import React from "react";
 import SubscriptionList from "./components/SubscriptionList";
-import GetTiers from "@/lib/Tiers";
+import GetTiers from "@/lib/tiers";
 import { getSessionData } from "@/lib/session/Session";
 import { redirect } from "next/navigation";
 
