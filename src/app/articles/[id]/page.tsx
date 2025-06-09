@@ -1,16 +1,34 @@
 import { ShowOneArticle } from "@/lib/Articles";
 import Breadcrumbs from "./Breadcrumbs";
+import getUserData from "@/lib/UserData";
+import { redirect } from "next/navigation";
 
 export default async function SingleArticle({
   params,
 }: {
-  params: Record<string, string>;
+  params: Promise<Record<string, string>>;
 }) {
-  const { id } = params;
+  const { id } = await params;
   const { article, error } = await ShowOneArticle(id);
+  const userData = await getUserData();
+
+  console.log(userData);
 
   if (!article) {
     return <p className="text-red-600 text-center my-6">{error}</p>;
+  }
+
+  const tierLevels: Record<string, number> = {
+    Basecamp: 1,
+    "Summit Seeker": 2,
+    "Peak Elite": 3,
+    Admin: 4,
+  };
+
+  const userTier = userData ? userData.tier : "Basecamp";
+
+  if (tierLevels[userTier] < tierLevels[article.required_tier]) {
+    redirect(`/articles?noaccess=true&tier=${article.required_tier}`);
   }
 
   return (
