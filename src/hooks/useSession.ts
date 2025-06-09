@@ -18,7 +18,7 @@ export default function useSession(redirectIfUnauthorized = true) {
       } catch (error) {
         setSession(null);
         if (redirectIfUnauthorized) {
-          router.push("/authentication/login");
+          router.push("/login");
         }
       } finally {
         setLoading(false);
