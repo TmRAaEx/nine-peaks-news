@@ -6,7 +6,7 @@ export default async function Profile() {
   const userData = await getUserData();
 
   if (!userData) {
-    redirect("/authentication/login");
+    redirect("/login");
   }
 
   const { user, tier, sessions } = userData;
