@@ -61,15 +61,12 @@ export default async function SingleArticle({
         </section>
       )}
 
-      <footer className="border-t pt-4 text-sm text-gray-500">
+      <section className="border-t pt-4 text-sm text-gray-600 bg-brown3 flex gap-2">
         <p>
           <strong>Author:</strong> {article.authur}
         </p>
-        <p>
-          <strong>Date:</strong>{" "}
-          {article.date ? new Date(article.date).toLocaleString() : ""}
-        </p>
-      </footer>
+        <p>{article.date ? new Date(article.date).toDateString() : ""}</p>
+      </section>
     </article>
   );
 }
