@@ -47,7 +47,6 @@ export default async function SingleArticle({
 
       {article.sub_titles && article.sub_titles.length > 0 && (
         <section className="space-y-6">
-          <h2 className="text-xl font-semibold">Avsnitt</h2>
           <ul className="space-y-4">
             {article.sub_titles.map((title: string, i: number) => (
               <li key={i}>

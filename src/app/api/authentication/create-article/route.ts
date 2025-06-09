@@ -1,4 +1,4 @@
-import { CreateArticle } from "@/lib/Authentication";
+import { CreateArticle } from "@/lib/Articles";
 
 export async function POST(request: Request) {
     const body = await request.json();
