@@ -29,27 +29,28 @@ export default async function SingleArticle({
       </section>
 
       {article.sub_titles && article.sub_titles.length > 0 && (
-  <section className="space-y-6">
-    <ul className="space-y-8">
-      {article.sub_titles.map((title: string, i: number) => (
-        <li key={i} className="bg-white p-4 rounded shadow">
-          <h3 className="text-xl font-semibold mb-2">{title}</h3>
-          {article.sub_content && (
-            <p className="text-gray-700 mb-2">{article.sub_content[i]}</p>
-          )}
-          {article.sub_images && article.sub_images[i] && article.sub_images[i] !== "" && (
-            <img
-              src={article.sub_images[i]}
-              alt={`Sub Image ${i}`}
-              className="w-full max-h-[300px] object-cover rounded"
-            />
-          )}
-        </li>
-      ))}
-    </ul>
-  </section>
-)}
-
+        <section className="space-y-6">
+          <ul className="space-y-8">
+            {article.sub_titles.map((title: string, i: number) => (
+              <li key={i} className="bg-white p-4 rounded shadow">
+                <h3 className="text-xl font-semibold mb-2">{title}</h3>
+                {article.sub_content && (
+                  <p className="text-gray-700 mb-2">{article.sub_content[i]}</p>
+                )}
+                {article.sub_images &&
+                  article.sub_images[i] &&
+                  article.sub_images[i] !== "" && (
+                    <img
+                      src={article.sub_images[i]}
+                      alt={`Sub Image ${i}`}
+                      className="w-full max-h-[300px] object-cover rounded"
+                    />
+                  )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section className="border-t pt-4 text-sm text-gray-600 bg-brown3 flex gap-2">
         <p>
