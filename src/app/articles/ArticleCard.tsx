@@ -7,7 +7,7 @@ export default function ArticleCard({ article }: { article: IArticle }) {
   return (
     <li className="h-98">
       <Link href={`/articles/${article.id}`} className="block h-full">
-        <div className="flex flex-col h-full bg-brown3 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+        <div className="flex flex-col h-full bg-brown3 hover:scale-102 rounded-2xl shadow-md hover:shadow-lg dark:shadow-gray-700 transition-all duration-300 overflow-hidden">
           <Image
             src={article.header_img}
             alt={article.title}

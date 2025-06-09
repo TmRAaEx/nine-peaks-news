@@ -1,4 +1,6 @@
 import { ShowOneArticle } from "@/lib/Articles";
+import Link from "next/link";
+import Breadcrumbs from "./Breadcrumbs";
 
 export default async function SingleArticle({
   params,
@@ -14,6 +16,8 @@ export default async function SingleArticle({
 
   return (
     <article className="max-w-4xl mx-auto p-6 space-y-8 bg-brown3">
+      <Breadcrumbs title={article.title} />
+
       <header className="space-y-4">
         <h1 className="text-3xl font-bold text-gray-900">{article.title}</h1>
         <p className="text-lg text-gray-700">{article.description}</p>
@@ -23,11 +27,9 @@ export default async function SingleArticle({
           className="w-full max-h-[400px] object-cover rounded-xl shadow"
         />
       </header>
-
       <section className="prose max-w-none">
         <p>{article.content}</p>
       </section>
-
       {article.sub_titles && article.sub_titles.length > 0 && (
         <section className="space-y-6">
           <ul className="space-y-8">
@@ -51,7 +53,6 @@ export default async function SingleArticle({
           </ul>
         </section>
       )}
-
       <section className="border-t pt-4 text-sm text-gray-600 bg-brown3 flex gap-2">
         <p>
           <strong>Author:</strong> {article.authur}
