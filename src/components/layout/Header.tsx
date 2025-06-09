@@ -62,8 +62,8 @@ export default function Header() {
             </button>
             <ul className={`main-menu ${isOpen}`}>
               <li className="menu-items nav-links">
-                <Link href="/prices">Articles</Link>
-                <Link href="/prices">Prices</Link>
+                <Link href="/articles">Articles</Link>
+                <Link href="/upgrade">Subscriptions</Link>
                 <Link href="/about">About</Link>
                 <Link href="/contact">Contact</Link>
               </li>
