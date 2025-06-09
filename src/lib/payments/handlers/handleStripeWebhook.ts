@@ -1,8 +1,8 @@
 import Stripe from "stripe";
-import { stripe } from "./Stripe";
-import handleCheckoutCompleted from "./events/handleCheckoutCompleted";
-import handleInvoicePaid from "./events/handleInvoicePaid";
-import handleInvoiceFailed from "./events/handlePaymentFailed";
+import { stripe } from "../Stripe";
+import handleCheckoutCompleted from "../events/handleCheckoutCompleted";
+import handleInvoicePaid from "../events/handleInvoicePaid";
+import handleInvoiceFailed from "../events/handlePaymentFailed";
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 

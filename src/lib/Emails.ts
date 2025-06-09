@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: parseInt(process.env.SMTP_PORT || '587'),
@@ -33,6 +34,6 @@ export async function sendPasswordResetEmail({
   };
 
   const info = await transporter.sendMail(mailOptions);
-  console.log('Mailgun Email sent:', info.messageId);
+  console.log('Nodemailer Email sent:', info.messageId);
   return info;
 }

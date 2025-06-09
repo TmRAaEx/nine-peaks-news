@@ -1,6 +1,6 @@
 import UpdatablePaymentData from "@/interfaces/UpdatabelPaymentData";
 import Stripe from "stripe";
-import updatePayment from "../UpdatePayment";
+import updatePayment from "../handlers/UpdatePayment";
 
 export default async function handleInvoiceFailed(data: any, stripe: Stripe) {
   const invoice = data.object as Stripe.Invoice;

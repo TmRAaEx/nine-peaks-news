@@ -1,31 +1,15 @@
-"use client";
-
-import IShowManyArticles from "@/interfaces/IShowManyArticles";
-import apiClient from "@/lib/ApiClient";
+import { ShowAllArticles } from "@/lib/Articles";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
-export default function Articles() {
-  const [articles, setArticles] = useState<IShowManyArticles[]>([]);
-
-  useEffect(() => {
-    async function getArticles() {
-      const { data } = await apiClient.get<{ data: IShowManyArticles[] }>(
-        "/articles"
-      );
-      setArticles(data || []);
-    }
-    getArticles();
-  }, []);
-
-
+export default async function Articles() {
+  const { articles, error } = await ShowAllArticles();
 
   return (
     <>
+      {error ?? <p>{error}</p>}
       {articles.map((article, idx) => (
-        <Link href={`/articles/${article._id}`}>
+        <Link href={`/articles/${article._id}`} key={article.id}>
           <div
-            key={idx}
             style={{
               border: "1px solid #ccc",
               margin: "1em 0",

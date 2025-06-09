@@ -1,7 +1,6 @@
-// lib/CreatePayment.ts
 
 import Payment from "@/models/Payment";
-import connectDB from "../ConnectDB";
+import connectDB from "../../ConnectDB";
 import { ITier } from "@/models/Tier";
 import { IUser } from "@/models/User";
 

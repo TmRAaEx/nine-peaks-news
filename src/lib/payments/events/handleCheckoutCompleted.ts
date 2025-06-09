@@ -1,8 +1,8 @@
 import UpdatablePaymentData from "@/interfaces/UpdatabelPaymentData";
 import Payment from "@/models/Payment";
 import Stripe from "stripe";
-import CreatePayment from "../CreatePayment";
-import updatePayment from "../UpdatePayment";
+import CreatePayment from "../handlers/CreatePayment";
+import updatePayment from "../handlers/UpdatePayment";
 
 export default async function handleCheckoutCompleted(
   data: any,

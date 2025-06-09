@@ -1,7 +1,7 @@
 "use server";
 
 import connectDB from "@/lib/ConnectDB";
-import { destroySession } from "@/lib/Session";
+import { destroySession } from "@/lib/session/Session";
 import Session from "@/models/Session";
 import { IUser } from "@/models/User";
 
