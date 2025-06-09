@@ -8,9 +8,9 @@ export default function CreateArticle() {
     title: "",
     description: "",
     header_img: "",
-    images: [],
     content: "",
     sub_titles: [],
+    sub_images: [],
     sub_content: [],
     required_tier: "",
     authur: "",
@@ -18,7 +18,7 @@ export default function CreateArticle() {
   });
   const [error, setError] = useState<string | null>(null);
  const [subContents, setSubContents] = useState<{ sub_title: string; sub_content: string }[]>([]);
-  const [images, setImages] = useState<string[]>([]);
+  const [sub_images, setSub_Images] = useState<string[]>([]);
 
   const handleSubContentChange = (
     index: number,
@@ -34,41 +34,33 @@ export default function CreateArticle() {
       ...prev,
       sub_titles: updated.map((item) => item.sub_title),
       sub_content: updated.map((item) => item.sub_content),
-    }));
+    })); 
   };
-  const handleAddSubContent = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const updated = [...subContents, { sub_title: "", sub_content: "" }];
-    setSubContents(updated);
-    setFormData((prev) => ({
-      ...prev,
-      sub_titles: updated.map((item) => item.sub_title),
-      sub_content: updated.map((item) => item.sub_content),
-    }));
-  };
-
-  const handleAddImage = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (images.length < 3) {
-      const updated = [...images, ""];
-      setImages(updated);
+    const handleAddSubContent = (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      const updatedContents = [...subContents, { sub_title: "", sub_content: "" }];
+      const updatedImages = [...sub_images, ""];
+    
+      setSubContents(updatedContents);
+      setSub_Images(updatedImages);
+      
       setFormData((prev) => ({
         ...prev,
-        images: updated,
+        sub_titles: updatedContents.map((item) => item.sub_title),
+        sub_content: updatedContents.map((item) => item.sub_content),
+        sub_images: updatedImages,
       }));
-    }
-  };
-
-  const handleImageChange = (index: number, value: string) => {
-    const updated = [...images];
-    updated[index] = value;
-    setImages(updated);
-  
-    setFormData((prev) => ({
-      ...prev,
-      images: updated,
-    }));
-  };
+    };
+    const handleImageChange = (index: number, value: string) => {
+      const updated = [...sub_images];
+      updated[index] = value;
+      setSub_Images(updated);
+    
+      setFormData((prev) => ({
+        ...prev,
+        sub_images: updated,
+      }));
+    };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -125,42 +117,34 @@ export default function CreateArticle() {
         value={formData.content}
         onChange={handleChange}
         />
-
-        <hr />
-        <h3>Additional Images (max 3)</h3>
-        {images.map((img, index) => (
-          <div key={index}>
-            <label>Image {index + 1}:</label>
-            <input
-              type="text"
-              value={img}
-              onChange={(e) => handleImageChange(index, e.target.value)}
-            />
-          </div>
-        ))}
-        {images.length < 3 && (
-          <button onClick={handleAddImage}>Add Image</button>
-        )}
-
         <hr />
         <h3>Subcontents</h3>
         {subContents.map((item, index) => (
-          <div key={index}>
+          <div key={index} className="mb-4 border p-2 rounded">
             <label>Sub title {index + 1}:</label>
             <input
-              type="text"
-              value={item.sub_title}
-              onChange={(e) => handleSubContentChange(index, "sub_title", e.target.value)}
-              className="sub_title"
+            type="text"
+            value={item.sub_title}
+            onChange={(e) => handleSubContentChange(index, "sub_title", e.target.value)}
+            className="sub_title"
             />
             <label>Sub content {index + 1}:</label>
             <textarea
-              value={item.sub_content}
-              onChange={(e) => handleSubContentChange(index, "sub_content", e.target.value)}
-              className="sub_content"
+            value={item.sub_content}
+            onChange={(e) => handleSubContentChange(index, "sub_content", e.target.value)}
+            className="sub_content"
             />
-          </div>
-        ))}  
+            <label>Image URL for Subcontent {index + 1} (optional):
+
+            </label>
+            <input
+            type="text"
+            value={sub_images[index] || "" }
+              onChange={(e) => handleImageChange(index, e.target.value)}
+              />
+  </div>
+))}
+
         <hr />
         <button onClick={handleAddSubContent}>Add Subcontent</button>
         <label htmlFor="required_tier">Required Tier</label>

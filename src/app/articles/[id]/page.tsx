@@ -6,53 +6,58 @@ export default async function SingleArticle({
   params: Record<string, string>;
 }) {
   const { id } = params;
-
   const { article, error } = await ShowOneArticle(id);
 
   if (!article) {
-    return <>{error}</>;
+    return <p className="text-red-600 text-center my-6">{error}</p>;
   }
 
   return (
-    <div>
-      <h1>{article.title}</h1>
-      <p>{article.description}</p>
-      <img
-        src={article.header_img}
-        alt={article.title}
-        style={{ maxWidth: "200px" }}
-      />
-      <div>
+    <article className="max-w-4xl mx-auto p-6 space-y-8 bg-brown3">
+      <header className="space-y-4">
+        <h1 className="text-3xl font-bold text-gray-900">{article.title}</h1>
+        <p className="text-lg text-gray-700">{article.description}</p>
+        <img
+          src={article.header_img}
+          alt={article.title}
+          className="w-full max-h-[400px] object-cover rounded-xl shadow"
+        />
+      </header>
+
+      <section className="prose max-w-none">
         <p>{article.content}</p>
-      </div>
-      <div>
-        <ul>
-          {article.images &&
-            article.images.map((img: string, i: number) => (
-              <li key={i}>
-                <img src={img} alt={`img-${i}`} style={{ maxWidth: "100px" }} />
+      </section>
+
+      {article.sub_titles && article.sub_titles.length > 0 && (
+        <section className="space-y-6">
+          <ul className="space-y-8">
+            {article.sub_titles.map((title: string, i: number) => (
+              <li key={i} className="bg-white p-4 rounded shadow">
+                <h3 className="text-xl font-semibold mb-2">{title}</h3>
+                {article.sub_content && (
+                  <p className="text-gray-700 mb-2">{article.sub_content[i]}</p>
+                )}
+                {article.sub_images &&
+                  article.sub_images[i] &&
+                  article.sub_images[i] !== "" && (
+                    <img
+                      src={article.sub_images[i]}
+                      alt={`Sub Image ${i}`}
+                      className="w-full max-h-[300px] object-cover rounded"
+                    />
+                  )}
               </li>
             ))}
-        </ul>
-      </div>
-      <div>
-        <ul>
-          {article.sub_titles &&
-            article.sub_titles.map((title: string, i: number) => (
-              <li key={i}>
-                <strong>{title}</strong>
-                <div>{article.sub_content && article.sub_content[i]}</div>
-              </li>
-            ))}
-        </ul>
-      </div>
-      <p>
-        <strong>Author:</strong> {article.authur}
-      </p>
-      <p>
-        <strong>Date:</strong>{" "}
-        {article.date ? new Date(article.date).toLocaleString() : ""}
-      </p>
-    </div>
+          </ul>
+        </section>
+      )}
+
+      <section className="border-t pt-4 text-sm text-gray-600 bg-brown3 flex gap-2">
+        <p>
+          <strong>Author:</strong> {article.authur}
+        </p>
+        <p>{article.date ? new Date(article.date).toDateString() : ""}</p>
+      </section>
+    </article>
   );
 }
