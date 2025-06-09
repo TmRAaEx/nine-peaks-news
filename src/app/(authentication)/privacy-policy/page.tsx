@@ -1,5 +1,13 @@
 export default function PrivacyPolicy () {
     return <>
+      <div style={{
+            maxWidth: "800px",
+            margin: "40px auto",
+            padding: "0 20px",
+            fontFamily: "Arial, sans-serif",
+            lineHeight: "1.6",
+            color: "#333"
+        }}>
    <h1>Privacy Policy</h1> 
    <p><i>Effective Date: [LAUNCH DATE HERE]</i></p>
 <p>This website is part of a school project created by students for educational purposes only. We are committed to handling any personal data responsibly and in accordance with the General Data Protection Regulation (GDPR).</p>
@@ -71,6 +79,6 @@ Mattias At Medieinstitutet
 Email: [Your group email or teacher's contact]
 Institution: Medieinstitutet stockholm
 </p>
-
+</div>
     </>
 }
