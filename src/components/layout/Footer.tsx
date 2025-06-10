@@ -5,11 +5,11 @@ export default function Footer() {
     <footer>
       <section className='normal-width'>
         <div className="wrapper">
-          <div className="footer-container">
+          <div className="container footer-container">
             <div className="footer-column">
               <div className='icon-container'>
-                <img src="/img/icons/9-fill-lg.svg" id="iconDark" alt="icon" width="80px" height="80px" />
-                <img src="/img/icons/9-fill-lg-light.svg" id="iconLight" alt="icon" width="80px" height="80px" />
+                <img src="/img/icons/9-fill-color-dm.svg" id="iconDark" alt="icon" width="80px" height="80px" />
+                <img src="/img/icons/9-fill-color-lm.svg" id="iconLight" alt="icon" width="80px" height="80px" />
               </div>
               <div className="footer-content">
                 <p>Nine Peaks News Ltd.<br/>

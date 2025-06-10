@@ -21,10 +21,23 @@ body {
             width: 100%;
             > div.wrapper {
                 width: 100%;
-                max-width: 1600px;
                 margin: 0 auto;
                 padding: 0 0.625rem;
+                &.mw-1600 {
+                    max-width: 1600px;
+                }
+                &.mw-1200 {
+                    max-width: 1200px;
+                }
+                &.mw-full {
+                    min-width: 100%;
+                    padding: 0 !important;
+                }
+                > div.container {
+                    padding: 4rem 2.5rem;
+                }
             }
+            
         }
     }
 
@@ -272,7 +285,6 @@ body {
             max-width: 1200px !important;
             
             div.footer-container {
-                padding: 4rem 2.5rem;
                 display: grid;
                 grid-template-columns: repeat(1, 1fr);
                 gap: 1rem;
@@ -285,10 +297,10 @@ body {
                         img {
                             width: 100%;
                             &#iconDark {
-                                display: block;
+                                display: none;
                             }
                             &#iconLight {
-                                display: none;
+                                display: block;
                             }
                         }
                     }
@@ -317,9 +329,9 @@ body {
 
     }
 }
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 768px) {
 
-    nav {
+    nav.main-navbar {
         height: 80px !important;
         div.logo-container {
             left: 0;
@@ -384,19 +396,15 @@ body {
     --background2: var(--gray1);
     --blueOrBlack: var(--gray1);
     --menuHoverColor: var(--green3);
+    --color-text1: var(--gray4);
+    --color-text2: var(--gray3);
+    --color-text3: var(--blue3);
+    --color-text5: var(--brown3);
   }
-  #logoDark {
-    display: block !important;
-  }
-  #logoLight {
-    display: none !important;
-  }
-  #iconDark {
-    display: none !important;
-  }
-  #iconLight {
-    display: block !important;
-  }
+  #logoDark { display: block !important; }
+  #logoLight { display: none !important; }
+  #iconDark { display: block !important; }
+  #iconLight { display: none !important; }
   div.footer-column {
     h3 {
         color: var(--blue3) !important;
