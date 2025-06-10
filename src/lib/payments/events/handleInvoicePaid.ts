@@ -1,38 +1,32 @@
 import Stripe from "stripe";
-import updatePayment from "../handlers/UpdatePayment";
-import UpdatablePaymentData from "@/interfaces/UpdatabelPaymentData";
+import Payment from "@/models/Payment";
 
 export default async function handleInvoicePaid(data: any, stripe: Stripe) {
   const invoice = data.object as Stripe.Invoice;
   const invoice_id = invoice.id;
 
-  // Extract metadata
-  const { db_payment_id, user_id, tier_id } = invoice.metadata || {};
+  const { user_id, tier_id } = invoice.metadata || {};
 
   console.log(`Handling paid invoice ${invoice_id}`);
-  console.log(
-    `Metadata - db_payment_id: ${db_payment_id}, user_id: ${user_id}, tier_id: ${tier_id}`
-  );
+  console.log(`Metadata - user_id: ${user_id}, tier_id: ${tier_id}`);
 
-  const now = new Date();
-  const oneWeekFromNow = new Date();
-  oneWeekFromNow.setDate(now.getDate() + 7);
+  if (!user_id || !tier_id) {
+    console.warn("Missing metadata for invoice. Skipping payment creation.");
+    return;
+  }
 
-  const payment_data: UpdatablePaymentData = {
-    payment_date: new Date(invoice.status_transitions?.paid_at! * 1000),
-    due_date: oneWeekFromNow,
-    stripe_ref: invoice_id,
-    payments: [
-      {
-        payment_date: new Date(invoice.status_transitions?.paid_at! * 1000),
-        due_date: oneWeekFromNow,
-      },
-    ],
+  const paymentDate = new Date(invoice.status_transitions?.paid_at! * 1000);
+  const dueDate = new Date();
+  dueDate.setDate(paymentDate.getDate() + 7);
+
+  const payment = await Payment.create({
+    user_id,
+    tier_id,
+    payment_date: paymentDate,
+    due_date: dueDate,
     status: "paid",
-  };
+    stripe_ref: invoice_id,
+  });
 
-  console.log("Payment data:", payment_data);
-
-  await updatePayment(db_payment_id, payment_data);
-
+  console.log("New payment created:", payment._id);
 }

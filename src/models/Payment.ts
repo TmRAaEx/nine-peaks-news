@@ -1,29 +1,14 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
 import { IUser } from "./User";
 
-export interface PaymentObject {
-  payment_date: Date | null;
-  due_date: Date;
-}
-
 export interface IPayment extends Document {
   user_id: mongoose.Types.ObjectId | IUser;
   tier_id: string;
   payment_date: Date | null;
   due_date: Date;
-  payments: PaymentObject[];
   status: "paid" | "pending" | "failed" | "free";
   stripe_ref?: string | null;
 }
-
-// 🔧 Mongoose subschema for payments-array
-const PaymentObjectSchema = new Schema<PaymentObject>(
-  {
-    payment_date: { type: Date, required: true },
-    due_date: { type: Date, required: true },
-  },
-  { _id: false }
-);
 
 const PaymentSchema = new Schema<IPayment>(
   {
@@ -37,13 +22,13 @@ const PaymentSchema = new Schema<IPayment>(
       required: true,
       default: "free",
     },
-    payments: { type: [PaymentObjectSchema], required: true },
-    stripe_ref: { type: String, required: false, default: null },
+    stripe_ref: { type: String, default: null },
   },
   { timestamps: true }
 );
 
 const Payment: Model<IPayment> =
-  mongoose.models.Payment || mongoose.model<IPayment>("Payment", PaymentSchema);
+  mongoose.models.Payment ||
+  mongoose.model<IPayment>("Payment", PaymentSchema);
 
 export default Payment;
