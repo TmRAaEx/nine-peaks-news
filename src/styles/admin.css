@@ -88,7 +88,7 @@ section.admin-section {
                 div.dashboard-container {
                     display: flex;
                     margin: .5rem 0 2rem;
-                    padding: 2.5rem 1rem;
+                    padding: 2.5rem 1rem 1rem;
                     background-color: var(--background);
                     border-radius: 1.25rem;
                     width: 100%;
@@ -226,7 +226,7 @@ section.admin-section {
 
                     }
                     section.dashboard {
-                        padding: 0 1rem;
+                        padding: 0;
                         display: grid;
                         width: 100%;
                         grid-template-columns: repeat(2, 1fr);
@@ -382,6 +382,7 @@ section.admin-section {
 @media screen and (min-width: 768px) { 
     div.dashboard-container {
         margin-top: 2rem !important;
+        padding-bottom: 2.5rem !important;
         div.meatball-button {
             display: none;
         }
@@ -421,6 +422,7 @@ section.admin-section {
         section.dashboard {
             grid-template-columns: repeat(3, 1fr) !important;
             grid-template-rows: repeat(5, 1fr) !important;
+            padding: 0 1rem !important;
 
             div.chart-container {
                 

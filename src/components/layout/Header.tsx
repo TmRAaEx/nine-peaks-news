@@ -34,24 +34,6 @@ export default function Header() {
       <section className="normal-width">
         <div className="wrapper">
           <nav className="main-navbar">
-            <div className="logo-container">
-              <Link href={"/"}>
-                <Image
-                  src="/img/logotype-lightmode.svg"
-                  id="logoLight"
-                  width={250}
-                  height={80}
-                  alt="company logo"
-                />
-                <Image
-                  src="/img/logotype-darkmode.svg"
-                  id="logoDark"
-                  width={250}
-                  height={80}
-                  alt="company logo"
-                />
-              </Link>
-            </div>
             <button className="burger-button" onClick={toggleMenu}>
               <svg id="hamburger" className={`${active}`} viewBox="0 0 30 30">
                 <g>
@@ -61,6 +43,26 @@ export default function Header() {
               </svg>
             </button>
             <ul className={`main-menu ${isOpen}`}>
+              <li className="nav-logo">
+                <div className="logo-container">
+                  <Link href={"/"}>
+                    <Image
+                      src="/img/logotype-lightmode.svg"
+                      id="logoLight"
+                      width={250}
+                      height={80}
+                      alt="company logo"
+                    />
+                    <Image
+                      src="/img/logotype-darkmode.svg"
+                      id="logoDark"
+                      width={250}
+                      height={80}
+                      alt="company logo"
+                    />
+                  </Link>
+                </div>
+              </li>
               <li className="menu-items nav-links">
                 <Link href="/articles">Articles</Link>
                 <Link href="/upgrade">Subscriptions</Link>
