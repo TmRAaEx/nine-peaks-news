@@ -60,20 +60,7 @@ body {
                     position: relative;
                     /* overflow: hidden; */
 
-                    div.logo-container {
-                        position: absolute;
-                        width: 130px;
-                        img {
-                            width: 100%;
-                            &#logoDark {
-                                display: none;
-                            }
-                            &#logoLight {
-                                display: block;
-                            }
-                        }
-                       
-                    }
+                    
                     button.burger-button {
                         position: absolute;
                         top: 0;
@@ -132,8 +119,8 @@ body {
                         flex-direction: column;
                         padding: 1rem 2.5rem;
                         gap: 1rem;
-                        visibility: hidden;
-                        translate: 110% 0;
+                        /* visibility: hidden; */
+                        translate: 700 0;
                         transition: translate .4s cubic-bezier(0.215, 0.610, 0.355, 1);
                         
 
@@ -151,6 +138,27 @@ body {
                                 }
                             }
                         }
+                        li.nav-logo {
+                            position: absolute;
+                            div.logo-container {
+                                position: absolute;
+                                top: -50px;
+                                left: 0;
+                                translate: -740 0;
+                                width: 130px;
+                                img {
+                                    width: 100%;
+                                    &#logoDark {
+                                        display: none;
+                                    }
+                                    &#logoLight {
+                                        display: block;
+                                    }
+                                }
+                    
+                            }
+                        }
+
                     }
                     ul.main-menu.open {
                         visibility: visible;
@@ -343,10 +351,7 @@ body {
 
     nav.main-navbar {
         height: 80px !important;
-        div.logo-container {
-            left: 0;
-            width: 180px !important;
-        }
+        
 
         button.burger-button {
             display: none !important;
@@ -361,17 +366,30 @@ body {
             left: 0 !important;
             padding: 0 !important;
             justify-content: space-between;
-            margin-left: auto;
-            width: calc(50% + var(--navbarWidth) * 0.5 ) !important;
+            margin-left: 0 !important;
+            /* width: calc(50% + var(--navbarWidth) * 0.5 ) !important; */
 
             li.menu-items {
                 flex-direction: row !important;
-
+                align-items: center;
+                align-self: center;
                 gap: 1rem;
                 border: 1.5px solid var(--blue3);
-                padding: 0.125rem 1rem;
+                padding: 0.125rem 1.5rem;
                 border-radius: 2rem;
-                
+                height: 2rem !important;
+
+
+            }
+            li.nav-logo {
+                position: relative !important;
+                div.logo-container {
+                    position: relative !important;
+                    translate: 0 0 !important;
+                    top: 0 !important;
+                    left: 0 !important;
+                    width: 180px !important;
+                }
             }
         }
     }
