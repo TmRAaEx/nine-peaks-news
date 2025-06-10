@@ -5,7 +5,7 @@ import { ITier } from "@/models/Tier";
 import { IUser } from "@/models/User";
 
 export default async function CreatePayment(
-  user_id: IUser["_id"],
+  user_id: IUser["id"],
   tier_id: ITier["_id"] = "Basecamp"
 ) {
   await connectDB();

@@ -48,7 +48,6 @@ export default async function handleCheckoutCompleted(
     due_date: oneWeekFromNow,
     status: "paid",
     stripe_ref: session_id,
-    payments: [{ due_date: oneWeekFromNow, payment_date: now }],
   };
 
   const payment_id = existingPayment ? existingPayment.id : createdPayment!.id;
