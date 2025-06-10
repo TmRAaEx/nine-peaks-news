@@ -24,7 +24,7 @@ export default async function handleInvoiceFailed(data: any, stripe: Stripe) {
 
     if (existingPayment.status !== "failed") {
       existingPayment.status = "failed";
-      existingPayment.payment_date = null; // failed means no payment date
+      existingPayment.payment_date = null;
       await existingPayment.save();
       console.log(
         `Updated existing payment status to failed for ${invoice_id}`
