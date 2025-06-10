@@ -2,6 +2,7 @@ section.admin-section {
     display: flex;
     flex-direction: column;
     div.wrapper.admin-header {
+        justify-content: flex-start;
         padding: 0 3.125rem;
         h1 {
             font-family: 'Fraunces', serif;
@@ -32,16 +33,43 @@ section.admin-section {
                     justify-content: center;
                     height: 2.5rem;
                     a {
+                        --chamfer: 1.5rem;
                         display: flex;
                         align-items: center;
                         height: 100%;
-                        padding: 0.3125rem 0.625rem;
+                        padding: 0.3125rem 0.875rem;
                         font-size: 0.875rem;
                         letter-spacing: 0.05rem;
                         color: var(--color-text4);
+                        position: relative;
+                        z-index: 1;
+                        border-bottom-left-radius: calc(var(--chamfer) * 0.5);
+                        border-bottom-right-radius: calc(var(--chamfer) * 0.5);
                         &:hover {
                             background-color: var(--gray2);
                             color: var(--menuHoverColor2);
+                            &::before {
+                                content: '';
+                                position: absolute;
+                                top: 0;
+                                left: calc(var(--chamfer) * -1);
+                                width: var(--chamfer);
+                                height: var(--chamfer);
+                                border-top-right-radius: 50%;
+                                background-color: transparent;
+                                box-shadow: calc(var(--chamfer) * .5) 0 0 0 var(--gray2);
+                            }
+                            &::after {
+                                content: '';
+                                position: absolute;
+                                top: 0;
+                                right: calc(var(--chamfer) * -1);
+                                width: var(--chamfer);
+                                height: var(--chamfer);
+                                border-top-left-radius: 50%;
+                                background-color: transparent;
+                                box-shadow: calc(var(--chamfer) * -.5) 0 0 0 var(--gray2);
+                            }
                         }
                     }
                 }
@@ -56,18 +84,60 @@ section.admin-section {
         section {
 
             div.dashboard-wrapper {
-
+                padding-top: 1rem;
                 div.dashboard-container {
                     display: flex;
-                    margin: 2.5rem 2.5rem 4rem;
+                    margin: .5rem 0 2rem;
                     padding: 2.5rem 1rem;
                     background-color: var(--background);
-                    border-radius: 2.5rem;
+                    border-radius: 1.25rem;
+                    width: 100%;
+                    position: relative;
+                    overflow-x: hidden;
 
+                    div.meatball-button {
+                        position: absolute;
+                        top: .8rem;
+                        right: 1rem;
+                        z-index: 10;
+                        label {
+                            color: var(--color-text1);
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 1.5rem;
+                            height: 1.5rem;
+                            background-color: transparent;
+                            &:hover {
+                                color: var(--linkHoverColor);
+                            }
+                        }
+                        input#meatball {
+                            display: none;
+                        }
+                    }
+                    div.meatball-button:has(input:checked) label i {
+                        color: var(--linkHoverColor);
+                    }
+                    div.meatball-button:has(input:checked) ~ nav.sidebar {
+                        translate: 0 0;
+                        opacity: 1;
+                    }
                     nav.sidebar {
                         display: flex;
                         flex-direction: column;
-
+                        translate: 700px 0;
+                        opacity: 0;
+                        position: absolute;
+                        z-index: 1;
+                        margin: 0 1rem;
+                        padding-bottom: 1.5rem;
+                        width: calc(100% - 2rem);
+                        top: 2rem;
+                        left: 0;
+                        background-color: var(--background);
+                        transition: translate, opacity 0.6s cubic-bezier(0.215, 0.610, 0.355, 1);
                         div.searchbar {
                             display: flex;
                             align-items: center;
@@ -83,7 +153,7 @@ section.admin-section {
                                 border-top-left-radius: 0.5rem;
                                 border-bottom-left-radius: 0.5rem;
                                 &:hover {
-                                    background-color: var(--gray3);
+                                    background-color: var(--background2);
                                     color: var(--color-text1);
                                 }
                             }
@@ -92,31 +162,39 @@ section.admin-section {
                                 padding-left: 0;
                                 border-top-right-radius: 0.5rem;
                                 border-bottom-right-radius: 0.5rem;
-                                
+                                font-size: 0.875rem;
+                                height: 2.5rem;
+                                &::placeholder {
+                                    color: var(--color-text4);
+                                }
                                 
                                 &:focus {
                                     outline: none;
-                                    background-color: var(--gray3);
+                                    background-color: var(--background2);
                                     &::placeholder {
-                                        color: var(--color-text1);
+                                        opacity: 0;
                                     }
                                 }
                                 &:hover {
-                                    background-color: var(--gray3);
+                                    background-color: var(--background2);
                                     &::placeholder {
                                         color: var(--color-text1);
                                     }
                                 }
                             }
                             &:has(input:focus) i, &:has(input:hover) i, i:hover ~ input {
-                                background-color: var(--gray3);
+                                background-color: var(--background2);
                                 color: var(--color-text1);
+                                &::placeholder {
+                                    color: var(--color-text1);
+                                }
                             }
                         }
                         div.buttons {
                             display: flex;
                             flex-direction: column;
-                            button {
+                            align-items: flex-start;
+                            a {
                                 cursor: pointer;
                                 display: flex;
                                 align-items: center;
@@ -124,6 +202,14 @@ section.admin-section {
                                 padding: 0.5rem 1rem;
                                 letter-spacing: 0.05rem;
                                 border-radius: 0.4rem;
+                                font-size: 0.875rem;
+                                height: 2.5rem;
+                                width: calc(48px + 136.8px);
+                                transition: padding .4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+                                &.active {
+                                    color: var(--color-text3);
+                                }
 
                                 i {
                                     display: flex;
@@ -131,13 +217,228 @@ section.admin-section {
                                     font-size: 0.85rem;
                                 }
                                 &:hover {
-                                    background-color: var(--gray3);
+                                    background-color: var(--background2);
                                     color: var(--color-text1);
+                                    padding-left: 1.25rem;
                                 }
                             }
                         }
 
                     }
+                    section.dashboard {
+                        padding: 0 1rem;
+                        display: grid;
+                        width: 100%;
+                        grid-template-columns: repeat(2, 1fr);
+                        grid-template-rows: repeat(6, 1fr);
+                        gap: 1rem;
+
+                        div.chart-container {
+                            grid-column: span 2;
+                            grid-row: span 1;
+                            height: auto;
+                            display: flex;
+                            flex-direction: column;
+                            background-color: var(--background2);
+                            border-radius: 1rem;
+                            padding: .8rem 1.2rem;
+
+                            &.number {
+                                grid-column: span 1;
+                                > div {
+                                    margin: 1rem 0;
+                                    > div {
+                                        font-family: 'Fraunces', serif;
+                                        font-weight: 600;
+                                        color: var(--color-text3);
+                                        font-size: clamp(2.5rem, 10vw, 4.5rem);
+                                        line-height: clamp(2.4rem, 9.5vw, 4.4rem);
+                                    }
+                                }
+                            }
+
+                            &.subscribers {
+                                grid-row: span 2;
+                                > div {
+                                    flex:1;
+                                    justify-self: center;
+                                    align-self: center;
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: center;
+                                    align-items: center;
+                                    div.recharts-wrapper {
+                                        div.recharts-legend-wrapper {
+                                            ul {
+                                                display: flex;
+                                                li {
+                                                    display: flex !important;
+                                                    flex-wrap: nowrap;
+                                                    align-items: center;
+                                                    justify-content: flex-end;
+                                                    
+                                                    
+                                                    svg {
+                                                        width: 0.5rem;
+                                                        height: 0.5rem;
+                                                        border: 0.5px solid var(--gray2);
+                                                        border-radius: 50%;
+                                                    }
+                                                    span {
+                                                        display: flex;
+                                                        text-align: left;
+                                                        align-items: flex-start;
+                                                        justify-content: flex-start;
+                                                        line-height: 1rem;
+                                                        font-size: 0.625rem;
+                                                        
+                                                        letter-spacing: 0.05rem;
+                                                        color: var(--color-text6) !important;
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+                            &.sales {
+                                grid-row: span 2;
+                                > div {
+                                    flex:1;
+                                    justify-self: center;
+                                    align-self: center;
+                                    width: 100%;
+                                    div.recharts-responsive-container {
+                                        div.recharts-wrapper {
+                                            svg {
+                                                 g {
+                                                    line {
+                                                        stroke: var(--color-text6);
+                                                    }
+                                                    g {
+                                                        g {
+                                                            text {
+                                                                fill: var(--color-text6);
+                                                                font-size: 0.875rem;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            &.popular {
+                                
+                                background-color: var(--background2);
+                                div.popular-list {
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 1rem;
+                                    margin-top: 1rem;
+                                    h6 {
+                                        color: var(--color-text1);
+                                        font-size: 0.875rem;
+                                        letter-spacing: 0.08rem;
+                                        
+                                    }
+                                    ul {
+                                        margin-left: 1.5rem;
+                                        display: flex;
+                                        flex-direction: column;
+                                        gap: .5rem;
+                                        li {
+                                            a {
+                                                color: var(--color-text3);
+                                                font-size: 0.875rem;
+                                                font-family: 'Fraunces', serif;
+                                                &:hover {
+                                                   color: var(--color-text1);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            h5 {
+                                display: flex;
+                                align-items: center;
+                                gap: 0.5rem;
+                                color: var(--color-text6);
+                                letter-spacing: 0.05rem;
+                                font-size: 0.875rem;
+
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width: 768px) { 
+    div.dashboard-container {
+        margin-top: 2rem !important;
+        div.meatball-button {
+            display: none;
+        }
+        nav.sidebar {
+            display: flex !important;
+            width: auto !important;
+            position: relative !important;
+            top: 0 !important;
+            left: 0;
+            margin: 0 !important;
+            translate: 0 0 !important;
+            opacity: 1 !important;
+        }
+        section.dashboard {
+            grid-template-columns: repeat(2, 1fr) !important;
+            grid-template-rows: repeat(4, 1fr) !important;
+            div.chart-container {
+                grid-column: span 1 !important;
+                grid-row: span 1 !important;
+
+                &.subscribers {
+                    grid-row: span 2 !important;
+                }
+                &.sales {
+                    grid-column: span 1 !important;
+                    
+                }
+                
+            }
+        }
+    }
+    
+}
+@media screen and (min-width: 960px) {
+    div.dashboard-container {
+        
+        section.dashboard {
+            grid-template-columns: repeat(3, 1fr) !important;
+            grid-template-rows: repeat(5, 1fr) !important;
+
+            div.chart-container {
+                
+                &.number {
+                    grid-row: 1 / 3 !important;
+
+                }
+
+                &.subscribers {
+                    grid-row: 1 / 4 !important;
+                }
+                &.sales {
+                    grid-column: 1 / 3 !important;
+                    grid-row: span 3 !important;
+                }
+                &.popular {
+                    grid-column: 3 / 4 !important;
+                    grid-row: 4 / 6 !important;
                 }
             }
         }

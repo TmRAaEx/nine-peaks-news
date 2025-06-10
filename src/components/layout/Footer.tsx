@@ -5,7 +5,7 @@ export default function Footer() {
     <footer>
       <section className='normal-width'>
         <div className="wrapper">
-          <div className="container footer-container">
+          <div className="ctn footer-container">
             <div className="footer-column">
               <div className='icon-container'>
                 <img src="/img/icons/9-fill-color-dm.svg" id="iconDark" alt="icon" width="80px" height="80px" />
@@ -15,7 +15,20 @@ export default function Footer() {
                 <p>Nine Peaks News Ltd.<br/>
                   Outdoor & Travel news corporation
                 </p>
-                <p>Social Media Links</p>
+                <div className='some-icons'>
+                  <a href="#">
+                    <i className="fa-brands fa-twitter"></i>
+                  </a>
+                  <a href="#">
+                    <i className="fa-brands fa-facebook"></i>
+                  </a>
+                  <a href="#">
+                    <i className="fa-brands fa-instagram"></i>
+                  </a>
+                  <a href="#">
+                    <i className="fa-brands fa-linkedin"></i>
+                  </a>
+                </div>
               </div>
             </div>
             <div className="footer-column">
