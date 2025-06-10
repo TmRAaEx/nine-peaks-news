@@ -1,0 +1,145 @@
+section.admin-section {
+    display: flex;
+    flex-direction: column;
+    div.wrapper.admin-header {
+        padding: 0 3.125rem;
+        h1 {
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            font-size: clamp(3rem, 10vw, 4.5rem);
+            color: var(--color-text1);
+        }
+    }
+    div.admin-nav-container {
+        background-color: var(--background);
+
+        nav.admin-navbar {
+            border-top: 1.5px solid var(--gray2);
+            border-bottom: 1.5px solid var(--gray2);
+            width: 100%;
+
+            ul.admin-menu {
+                width: 100%;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 2.5rem;
+                display: flex;
+                align-content: center;
+                gap: .1rem;
+                li {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 2.5rem;
+                    a {
+                        display: flex;
+                        align-items: center;
+                        height: 100%;
+                        padding: 0.3125rem 0.625rem;
+                        font-size: 0.875rem;
+                        letter-spacing: 0.05rem;
+                        color: var(--color-text4);
+                        &:hover {
+                            background-color: var(--gray2);
+                            color: var(--menuHoverColor2);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    div.wrapper.dashboard-background {
+        flex:1;
+        background-color: var(--background2);
+        color: var(--color-text1);
+
+        section {
+
+            div.dashboard-wrapper {
+
+                div.dashboard-container {
+                    display: flex;
+                    margin: 2.5rem 2.5rem 4rem;
+                    padding: 2.5rem 1rem;
+                    background-color: var(--background);
+                    border-radius: 2.5rem;
+
+                    nav.sidebar {
+                        display: flex;
+                        flex-direction: column;
+
+                        div.searchbar {
+                            display: flex;
+                            align-items: center;
+                            
+                            
+                            i {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                width: 3rem;
+                                height: 2.5rem;
+                                color: var(--color-text4);
+                                border-top-left-radius: 0.5rem;
+                                border-bottom-left-radius: 0.5rem;
+                                &:hover {
+                                    background-color: var(--gray3);
+                                    color: var(--color-text1);
+                                }
+                            }
+                            input {
+                                padding: 0.5rem 0.8rem;
+                                padding-left: 0;
+                                border-top-right-radius: 0.5rem;
+                                border-bottom-right-radius: 0.5rem;
+                                
+                                
+                                &:focus {
+                                    outline: none;
+                                    background-color: var(--gray3);
+                                    &::placeholder {
+                                        color: var(--color-text1);
+                                    }
+                                }
+                                &:hover {
+                                    background-color: var(--gray3);
+                                    &::placeholder {
+                                        color: var(--color-text1);
+                                    }
+                                }
+                            }
+                            &:has(input:focus) i, &:has(input:hover) i, i:hover ~ input {
+                                background-color: var(--gray3);
+                                color: var(--color-text1);
+                            }
+                        }
+                        div.buttons {
+                            display: flex;
+                            flex-direction: column;
+                            button {
+                                cursor: pointer;
+                                display: flex;
+                                align-items: center;
+                                color: var(--color-text4);
+                                padding: 0.5rem 1rem;
+                                letter-spacing: 0.05rem;
+                                border-radius: 0.4rem;
+
+                                i {
+                                    display: flex;
+                                    width: 2rem;
+                                    font-size: 0.85rem;
+                                }
+                                &:hover {
+                                    background-color: var(--gray3);
+                                    color: var(--color-text1);
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+}

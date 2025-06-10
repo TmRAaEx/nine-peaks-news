@@ -22,6 +22,12 @@
 
   --blueOrBlack: #21acd2;
   --menuHoverColor: var(--blue2);
+  --menuHoverColor2: var(--green3);
+  --color-text1: var(--blue1);
+  --color-text2: var(--blue2);
+  --color-text3: var(--blue3);
+  --color-text4: var(--gray2);
+  --color-text5: var(--brown2);
 }
 
 @theme inline {

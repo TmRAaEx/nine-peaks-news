@@ -33,7 +33,7 @@ export default function Header() {
     <header>
       <section className="normal-width">
         <div className="wrapper">
-          <nav>
+          <nav className="main-navbar">
             <div className="logo-container">
               <Link href={"/"}>
                 <Image
