@@ -1,63 +1,76 @@
+"use client";
+
+import { boolean } from 'zod/v4';
 import '../../styles/admin.css';
+import Linechart from './components/charts/Linechart';
+import Numberchart from './components/charts/Numberchart';
+import Piechart from './components/charts/Piechart';
+import { useState } from 'react';
+import Link from 'next/link';
+
 
 export default function AdminDashboard() {
+
+  const [isActive, setIsActive] = useState<string>('active');
+
   return (
     <>
-      <section className="normal-width admin-section">
-        <div className="wrapper mw-1200 admin-header">
-          <h1>Admin</h1>
+      <section className="dashboard">
+        <div className="chart-container number">
+          <h5>
+            <i className="fa-solid fa-newspaper"></i>
+            Articles
+          </h5>
+          <div>
+            <Numberchart num={42}/>
+          </div>
+
         </div>
-        <div className="wrapper mw-full admin-nav-container">
-          <nav className='admin-navbar'>
-            <ul className='admin-menu'>
-              <li><a href="#">Articles</a></li>
-              <li><a href="#">Subscribers</a></li>
-              <li><a href="#">Payments</a></li>
-                    
+        <div className="chart-container number">
+          <h5>
+            <i className="fa-solid fa-users"></i>
+            Subscribers
+          </h5>
+          <div>
+            <Numberchart num={65}/>
+          </div>
+        </div>
+        <div className="chart-container subscribers">
+          <h5>
+            <i className="fa-solid fa-chart-pie"></i> 
+            Subscriber Tiers
+          </h5>
+          <div>
+            <Piechart />
+          </div>
+        </div>
+        <div className="chart-container sales">
+          <h5>
+            <i className="fa-solid fa-chart-simple"></i>
+            Sales
+          </h5>
+          <div>
+            <Linechart />
+          </div>
+        </div>
+        <div className="chart-container popular">
+          <h5>
+            <i className="fa-solid fa-trophy"></i>
+            Top Reads {new Date().toLocaleString('en-US', { month: 'long' })}
+          </h5>
+          <div className='popular-list'>
+            {/* <h6>Most visited articles this month</h6> */}
+            <ul>
+              <li><Link href="/">Article 1</Link></li>
+              <li><Link href="#">Article 2</Link></li>
+              <li><Link href="#">Article 3</Link></li>
+              <li><Link href="#">Article 4</Link></li>
+              <li><Link href="#">Article 5</Link></li>
             </ul>
-          </nav>
+            
+          </div>
         </div>
-        <div className="wrapper mw-full dashboard-background">
-          <section className="normal-width dashboard-section">
-            <div className="wrapper mw-1200 dashboard-wrapper">
-              <div className="container dashboard-container">
-                <nav className="sidebar">
-                  <div className="searchbar">
-                    <i className="fa-solid fa-magnifying-glass"></i>
-                    <input 
-                      type="text"
-                      name="search"
-                      placeholder="Search"
-                      type="text"
-                    />
-                  </div>
-                  <div className="buttons">
-                    <button><i className="fa-solid fa-house"></i>Home</button>
-                    <button><i className="fa-solid fa-newspaper"></i>Articles</button>
-                    <button><i className="fa-solid fa-users"></i>Subscribers</button>
-                    <button><i className="fa-solid fa-file-invoice-dollar"></i>Payments</button>
-                  </div>
-                </nav>
-                <section className="dashboard">
-                  <div className="chart-container">
-                    Number Articles
-                  </div>
-                  <div className="chart-container">
-                    Number Subs
-                  </div>
-                  <div className="chart-container">
-                    Subscriber Tier Percentage
-                  </div>
-                  <div className="chart-container">
-                    Sales
-                  </div>
 
-                </section>
-
-              </div>
-            </div>
-          </section>
-        </div>
       </section>
     </>
   )

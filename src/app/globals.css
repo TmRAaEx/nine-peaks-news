@@ -4,11 +4,13 @@
 :root {
   --background: #f3f3f1;
   --background2: #e7e7e4;
+  
   --foreground: #171717;
 
   --blue1: #092327;
   --blue2: #075c80;
   --blue3: #21acd2;
+  --gray0: #151c1e;
   --gray1: #192124;
   --gray2: #7599a3;
   --gray3: #e7e7e4;
@@ -23,11 +25,16 @@
   --blueOrBlack: #21acd2;
   --menuHoverColor: var(--blue2);
   --menuHoverColor2: var(--green3);
+  --linkHoverColor: var(--blue3);
   --color-text1: var(--blue1);
   --color-text2: var(--blue2);
   --color-text3: var(--blue3);
   --color-text4: var(--gray2);
   --color-text5: var(--brown2);
+  --color-text6: var(--blue2);
+  --headerHeight: 3.125rem;
+  --background3: var(--brown3);
+  --background4: var(--gray2);
 }
 
 @theme inline {

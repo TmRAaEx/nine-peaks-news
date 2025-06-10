@@ -3,8 +3,8 @@
 export default function Home() {
   return (
     <section className="normal-width">
-      <div className="wrapper">
-         <div className="hero-container">
+      <div className="wrapper mw-1600">
+         <div className="ctn hero-container">
           <div className="hero-content">
             <div className="content-wrapper">
               <h1>News that travels.<br/> Everywhere</h1>
