@@ -5,13 +5,17 @@ import { ITierData } from "@/interfaces/ITierData";
 import apiClient, { paymentClient } from "@/lib/ApiClient";
 import { useRouter } from "next/navigation";
 import { CreatePaymentResponse } from "@/interfaces/api/responses";
+import { useSearchParams } from "next/navigation";
 
 export default function SubscriptionList({ tiers }: { tiers: ITierData[] }) {
   const [selected, setSelected] = useState<string>("Basecamp");
   const [loading, setLoading] = useState<boolean>(false);
   const [userId, setUserid] = useState("");
 
+  const searchParams = useSearchParams();
+
   const router = useRouter();
+
   const onSelect = (tier: string) => {
     setSelected(tier);
   };
@@ -44,6 +48,11 @@ export default function SubscriptionList({ tiers }: { tiers: ITierData[] }) {
 
     return tier.stripe_id;
   };
+
+  useEffect(() => {
+    const tier = searchParams.get("tier") ?? "Basecamp";
+    setSelected(tier);
+  }, [searchParams.toString()]);
 
   useEffect(() => {
     const fetchSession = async () => {
