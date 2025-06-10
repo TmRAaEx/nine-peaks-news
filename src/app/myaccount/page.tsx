@@ -1,4 +1,4 @@
-import SessionControls from "@/components/LogOutButtons";
+import SessionControls from "@/components/shared/buttons/LogOutButtons";
 import getUserData from "@/lib/UserData";
 import { redirect } from "next/navigation";
 
