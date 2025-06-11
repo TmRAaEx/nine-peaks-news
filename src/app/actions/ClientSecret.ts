@@ -2,7 +2,7 @@
 
 import { headers } from "next/headers";
 import { stripe } from "@/lib/payments/Stripe";
-import { IUser } from "@/models/User";
+import User, { IUser } from "@/models/User";
 
 export async function fetchClientSecret(
   price_id: string,
@@ -10,10 +10,12 @@ export async function fetchClientSecret(
   tier_id: string
 ) {
   const origin = (await headers()).get("origin");
+  const user = await User.findById(user_id)
 
   try {
     const session = await stripe.checkout.sessions.create({
       ui_mode: "embedded",
+      customer: user?.stripe_id,
       line_items: [
         {
           price: price_id,

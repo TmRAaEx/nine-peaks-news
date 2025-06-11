@@ -5,14 +5,15 @@ export default async function handleInvoiceFailed(data: any, stripe: Stripe) {
   const invoice = data.object as Stripe.Invoice;
   const invoice_id = invoice.id;
 
-  const { user_id, tier_id } = invoice.metadata || {};
+  const { metadata } = (invoice as any).subscription_details;
+  const { user_id, tier_id } = metadata;
 
   console.log(`Handling failed invoice ${invoice_id}`);
   console.log(`Metadata - user_id: ${user_id}, tier_id: ${tier_id}`);
 
   if (!user_id || !tier_id) {
     console.warn(
-      "Missing metadata for invoice. Skipping failed payment creation."
+      "Missing metadata in subscription_details. Skipping failed payment creation."
     );
     return;
   }
@@ -39,7 +40,7 @@ export default async function handleInvoiceFailed(data: any, stripe: Stripe) {
 
   const failedPayment = await Payment.create({
     user_id,
-    tier_id,
+    tier_id: "Basecamp", //reset the tier
     payment_date: null,
     due_date: nextAttemptDate,
     status: "failed",
