@@ -233,6 +233,72 @@ section.admin-section {
                         grid-template-rows: repeat(6, 1fr);
                         gap: 1rem;
 
+                        &.articles {
+                            grid-template-columns: repeat(1, 1fr) !important;
+                            grid-template-rows: repeat(1, 1fr) !important;
+                            
+                        }
+                        div.list-container {
+                            padding-top: 0.3rem;
+
+                            &.articles {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 1.5px;
+                                /* border-radius: 1rem;
+                                border: 1.5px solid var(--color-text4); */
+                                padding: 1rem 1.5rem 1.5rem;
+                                div.header-row {
+                                    display: flex;
+                                    display: none;
+                                    font-size: .625rem;
+                                    font-weight: 700;
+                                    letter-spacing: 0.1rem;
+                                    text-transform: uppercase;
+                                    gap: 1rem;
+                                }
+                                div.article-container {
+                                    background-color: var(--background2);
+                                    padding: .6rem .8rem;
+                                    
+
+                                    
+                                    > a {
+                                        display: inline-flex;
+                                        h3 {
+                                            font-family: 'Fraunces', serif;
+                                            font-weight: 600;
+                                            font-size: 1.25rem;
+                                            line-height: 115%;
+                                            margin-bottom: 0.4rem;
+                                        }
+                                        &:hover h3 {
+                                            color: var(--linkHoverColor);
+                                        }
+                                    }
+                                    > p {
+                                        font-family: 'Fraunces', serif;
+                                        font-weight: 400;
+                                        font-size: .875rem;
+                                    }
+                                    div.article-tags {
+                                        padding-top: 1rem;
+                                        display: inline-flex;
+                                        flex-wrap: wrap;
+                                        flex-direction: row;
+                                        column-gap: .6rem;
+                                        
+                                        span {
+                                            font-size: 0.625rem;
+                                            letter-spacing: 0.05rem;
+                                            color: var(--color-text6);
+                                        }
+                                    }
+                                }
+                            }
+                                
+                        }
+
                         div.chart-container {
                             grid-column: span 2;
                             grid-row: span 1;
@@ -412,6 +478,18 @@ section.admin-section {
                     
                 }
                 
+            }
+            &.articles {
+
+            }
+            div.list-container {
+                
+                &.articles {
+                    div.header-row {
+                        display: flex !important;
+                    }
+                    
+                }
             }
         }
     }

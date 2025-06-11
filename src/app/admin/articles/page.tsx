@@ -1,31 +1,34 @@
-"use client";
+import { ShowAllArticles } from "@/lib/Articles";
 
-import { IArticle } from "@/models/Article";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+export default async function Articles() {
 
-export default function Articles() {
-
-  const [articleList, setArticleList] = useState<IArticle[]>([]);
-
-  useEffect(() => {
-    const getData = async (data: any = {}) => {
-      try {
-        // TODO Connect to db and fetch
-        // TODO setArticleList(articles);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getData();
-
-  }, []);
-
+  const { articles, error } = await ShowAllArticles();
 
   return (
-    <section className="dashboard-section articles">
+    <section className="dashboard articles">
       <div className="list-container articles">
-        <h3>Articles</h3>
+        <div className="header-row">
+          <div>Title</div>
+          <div>Publish date</div>
+          <div>Author</div>
+          <div>Tier</div>
+          <div>Actions</div>
+        </div>
+        {error && <p className="text-red-500 text-center my-4">{error}</p>}
+        {articles && Array.isArray(articles)
+          ? articles.map((article, index) => (
+              <div key={index} className="article-container">
+                <a href={`/admin/articles/${article._id}`}><h3>{article.title}</h3></a>
+                <p>{article.description}</p>
+                <div className="article-tags">
+                  <span>Published: {article.date.toDateString()}</span>
+                  <span>Author: {article.authur}</span>
+                  <span>Tier: {article.required_tier}</span>
+                </div>
+              </div>
+            ))
+          : <p>Could not load articles</p>
+        }
         
       </div>
       <div className="dashboard-actions articles">
