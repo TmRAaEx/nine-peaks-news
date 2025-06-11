@@ -3,6 +3,7 @@ import User, { IUser } from "@/models/User";
 import { Types } from "mongoose";
 import PasswordResetToken from "@/models/PasswordResetToken";
 import crypto from "crypto";
+import { stripe } from "./payments/Stripe";
 
 type IUserApiData = {
   userName: IUser["userName"];
@@ -14,13 +15,18 @@ export async function RegisterUser(data: IUserApiData): Promise<IUser | any> {
   try {
     await connectDB();
 
-    const isUser = await User.findOne({ email: data.email });
+    const isUser = await User.findOne({ email: data.email.toLowerCase() });
 
     if (isUser) {
       return { error: "User exist" };
     }
 
-    const createdUser = await User.create(data);
+    const stripeUser = await stripe.customers.create({
+      email: data.email,
+    });
+
+    const createdUser = await User.create({ ...data, stripe_id: stripeUser.id });
+
     return createdUser;
   } catch (err) {
     console.error("[LIB Authentication Register]", err);
