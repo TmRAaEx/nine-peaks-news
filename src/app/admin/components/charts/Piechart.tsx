@@ -18,7 +18,6 @@ interface PieChartProps {
   index: number; 
 }
 
-
 export default function Piechart() {
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }: PieChartProps) => {

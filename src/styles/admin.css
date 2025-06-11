@@ -132,7 +132,7 @@ section.admin-section {
                         position: absolute;
                         z-index: 1;
                         margin: 0 1rem;
-                        padding-bottom: 1.5rem;
+                        padding: .3rem 0 1.5rem;
                         width: calc(100% - 2rem);
                         top: 2rem;
                         left: 0;
@@ -354,6 +354,7 @@ section.admin-section {
                                                 color: var(--color-text3);
                                                 font-size: 0.875rem;
                                                 font-family: 'Fraunces', serif;
+                                                font-weight: 600;
                                                 &:hover {
                                                    color: var(--color-text1);
                                                 }

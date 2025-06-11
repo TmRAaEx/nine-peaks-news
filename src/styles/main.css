@@ -25,7 +25,7 @@ body {
                 padding: 0 0.625rem;
 
                 &.mw-1600 {
-                    max-width: 1600px;
+                    max-width: 1400px;
                 }
                 &.mw-1200 {
                     max-width: 1200px;
