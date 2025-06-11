@@ -1,17 +1,15 @@
 "use client";
 
-import { boolean } from 'zod/v4';
+// import { boolean } from 'zod/v4';
 import '../../styles/admin.css';
 import Linechart from './components/charts/Linechart';
 import Numberchart from './components/charts/Numberchart';
 import Piechart from './components/charts/Piechart';
-import { useState } from 'react';
 import Link from 'next/link';
 
 
 export default function AdminDashboard() {
 
-  const [isActive, setIsActive] = useState<string>('active');
 
   return (
     <>
