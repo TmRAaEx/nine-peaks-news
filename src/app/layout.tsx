@@ -5,6 +5,10 @@ import Footer from "@/components/layout/Footer";
 import Head from "@/components/layout/Head";
 import "../styles/main.css";
 
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+config.autoAddCss = false
+
 export const metadata: Metadata = {
   title: "NinePeaksNews",
   description: "",

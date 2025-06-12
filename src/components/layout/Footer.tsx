@@ -1,6 +1,8 @@
 import React from 'react'
+import AdminLoginButton from '../shared/buttons/AdminLoginButton'
 
 export default function Footer() {
+
   return (
     <footer>
       <section className='normal-width'>
@@ -17,16 +19,16 @@ export default function Footer() {
                 </p>
                 <div className='some-icons'>
                   <a href="#">
-                    <i className="fa-brands fa-twitter"></i>
+                    <i className="fa-brands fa-twitter" suppressHydrationWarning={true}></i>
                   </a>
                   <a href="#">
-                    <i className="fa-brands fa-facebook"></i>
+                    <i className="fa-brands fa-facebook" suppressHydrationWarning={true}></i>
                   </a>
                   <a href="#">
-                    <i className="fa-brands fa-instagram"></i>
+                    <i className="fa-brands fa-instagram" suppressHydrationWarning={true}></i>
                   </a>
                   <a href="#">
-                    <i className="fa-brands fa-linkedin"></i>
+                    <i className="fa-brands fa-linkedin" suppressHydrationWarning={true}></i>
                   </a>
                 </div>
               </div>
@@ -36,9 +38,10 @@ export default function Footer() {
               <div className="footer-content">
                 <ul>
                   <li><a href="/articles">Articles</a></li>
-                  <li><a href="/articles">Prices</a></li>
-                  <li><a href="/articles">About</a></li>
-                  <li><a href="/articles">Contact</a></li>
+                  <li><a href="/subscriptions">Subscriptions</a></li>
+                  <li><a href="/about">About</a></li>
+                  <li><a href="/contact">Contact</a></li>
+                  <li><AdminLoginButton /></li>
                 </ul>
               </div>
             </div>

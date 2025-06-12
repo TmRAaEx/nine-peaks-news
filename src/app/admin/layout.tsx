@@ -1,9 +1,25 @@
-"use client";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
+import Sidebar from "./components/sidebar";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import SessionControls from "@/components/LogOutButtons";
+import getUserData from "@/lib/UserData";
+config.autoAddCss = false
+
+export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+  const userData = await getUserData();
+
+  if (!userData) {
+      redirect("/login");
+    }
+
+  const { user, tier, sessions } = userData;
+
+  
 
   return (
     <>
@@ -14,9 +30,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="wrapper mw-full admin-nav-container">
           <nav className='admin-navbar'>
             <ul className='admin-menu'>
-              <li><a href="#">Account</a></li>
-              <li><a href="#">Actions</a></li>
-              <li><a href="#">Logout</a></li>
+              <li><Link href="#">Account</Link></li>
+              <li><SessionControls user_id={user.id}/></li>
             </ul>
           </nav>
         </div>
@@ -26,52 +41,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <div className="ctn dashboard-container">
                 <div className="meatball-button">
                   <label htmlFor="meatball">
-                    <i className="fa-solid fa-ellipsis"></i>
+                    <FontAwesomeIcon className="fa-fw" icon={faEllipsis} />
                   </label>
                   <input type="checkbox" name="meatball" id="meatball" />
                 </div>
-                <nav className="sidebar">
-
-                  <div className="buttons">
-                    <Link 
-                      href='/admin' 
-                      className={`${pathname === '/admin' 
-                        ? "active"
-                        : ""
-                      }`}
-                    ><i className="fa-solid fa-house"></i>Home</Link>
-                    <Link 
-                      href='/admin/articles'
-                      className={`${pathname === '/admin/articles' 
-                        ? "active"
-                        : ""
-                      }`}
-                    ><i className="fa-solid fa-newspaper"></i>Articles</Link>
-                    <Link 
-                      href='/admin/subscribers'
-                      className={`${pathname === '/admin/subscribers' 
-                        ? "active"
-                        : ""
-                      }`}
-                    ><i className="fa-solid fa-users"></i>Subscribers</Link>
-                    <Link 
-                      href='/admin/payments'
-                      className={`${pathname === '/admin/payments' 
-                        ? "active"
-                        : ""
-                      }`}
-                    ><i className="fa-solid fa-money-bill-wave"></i>Payments</Link>
-                  </div>
-                  <div className="searchbar">
-                    <i className="fa-solid fa-magnifying-glass"></i>
-                    <input 
-                        type="text"
-                        name="search"
-                        placeholder="Search"
-                        
-                    />
-                  </div>
-                </nav>
+                <Sidebar />
                 {children}
                 </div>
             </div>

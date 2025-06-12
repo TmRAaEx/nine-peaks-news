@@ -1,22 +1,29 @@
-"use client";
 
-// import { boolean } from 'zod/v4';
 import '../../styles/admin.css';
 import Linechart from './components/charts/Linechart';
 import Numberchart from './components/charts/Numberchart';
 import Piechart from './components/charts/Piechart';
 import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faNewspaper, faUsers, faChartPie, faChartSimple, faTrophy } from '@fortawesome/free-solid-svg-icons'
+import getUserData from '@/lib/UserData';
+import { redirect } from "next/navigation";
 
 
-export default function AdminDashboard() {
+export default async function AdminDashboard() {
 
+  const userData = await getUserData();
+  if(!userData) return null;
+  if (!userData.user.isAdmin) {
+      redirect("/login");
+    }
 
   return (
     <>
       <section className="dashboard">
         <div className="chart-container number">
           <h5>
-            <i className="fa-solid fa-newspaper"></i>
+            <FontAwesomeIcon className="fa-solid" icon={faNewspaper} />
             Articles
           </h5>
           <div>
@@ -26,7 +33,7 @@ export default function AdminDashboard() {
         </div>
         <div className="chart-container number">
           <h5>
-            <i className="fa-solid fa-users"></i>
+            <FontAwesomeIcon className="fa-solid" icon={faUsers} />
             Subscribers
           </h5>
           <div>
@@ -35,7 +42,7 @@ export default function AdminDashboard() {
         </div>
         <div className="chart-container subscribers">
           <h5>
-            <i className="fa-solid fa-chart-pie"></i> 
+            <FontAwesomeIcon className="fa-solid" icon={faChartPie} /> 
             Subscriber Tiers
           </h5>
           <div>
@@ -44,7 +51,7 @@ export default function AdminDashboard() {
         </div>
         <div className="chart-container sales">
           <h5>
-            <i className="fa-solid fa-chart-simple"></i>
+            <FontAwesomeIcon className="fa-solid" icon={faChartSimple} /> 
             Sales
           </h5>
           <div>
@@ -53,8 +60,8 @@ export default function AdminDashboard() {
         </div>
         <div className="chart-container popular">
           <h5>
-            <i className="fa-solid fa-trophy"></i>
-            Top Reads {new Date().toLocaleString('en-US', { month: 'long' })}
+            <FontAwesomeIcon className="fa-solid" icon={faTrophy} />
+            Top Reads June {/* {new Date().toLocaleString('en-US', { month: 'long' })} */}
           </h5>
           <div className='popular-list'>
             {/* <h6>Most visited articles this month</h6> */}

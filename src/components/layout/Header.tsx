@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import useSession from "@/hooks/useSession";
+import AdminLoginButton from "../shared/buttons/AdminLoginButton";
 
 export default function Header() {
   const { session, loading } = useSession();
@@ -68,6 +69,7 @@ export default function Header() {
                 <Link href="/upgrade">Subscriptions</Link>
                 <Link href="/about">About</Link>
                 <Link href="/contact">Contact</Link>
+                
               </li>
               {isLoggedIn ? (
                 <li className="menu-items account">
