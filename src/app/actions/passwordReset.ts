@@ -18,5 +18,4 @@ export async function requestPasswordReset(formData: FormData) {
   const token = await generatePasswordResetToken(user._id);
   await sendPasswordResetEmail({ to: email, token, userId: user._id.toString() });
 
-  // You can log or revalidatePath here if needed
 }
