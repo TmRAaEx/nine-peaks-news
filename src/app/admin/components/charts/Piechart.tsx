@@ -1,12 +1,7 @@
 "use client";
 
+import { IPieProps } from '@/models/Tier';
 import { PieChart, Pie, Tooltip, Legend, Cell } from 'recharts';
-
-const data = [
-  { name: 'Peak Elite', value: 100 },
-  { name: 'Summit Seeker', value: 200 },
-  { name: 'Basecamp', value: 500 },
-];
 
 interface PieChartProps {
   cx: number;
@@ -18,7 +13,14 @@ interface PieChartProps {
   index: number; 
 }
 
-export default function Piechart() {
+export default function Piechart(props: IPieProps) {
+
+  const data = props.tiers.map((tier) => {
+    return {
+      name: tier._id, value: tier.subscriberCount
+    }
+  })
+
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }: PieChartProps) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;

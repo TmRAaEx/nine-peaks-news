@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse, faNewspaper, faUsers, faMoneyBillWave, faMagnifyingGlass, faSquarePlus } from '@fortawesome/free-solid-svg-icons'
+import { faHouse, faNewspaper, faUsers, faMoneyBillWave, faMagnifyingGlass, faSquarePlus, faMountainSun, faMountain, faMountainCity } from '@fortawesome/free-solid-svg-icons'
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -26,19 +26,19 @@ export default function Sidebar() {
             }`}
           ><FontAwesomeIcon className="fa-solid" icon={faNewspaper} />Articles</Link>
           <Link 
-            href='/admin/subscribers'
-            className={`${pathname === '/admin/subscribers' 
+            href='/admin/create-tier'
+            className={`${pathname === '/admin/create-tier' 
               ? "active"
               : ""
             }`}
-          ><FontAwesomeIcon className="fa-solid" icon={faUsers} />Subscribers</Link>
-          <Link 
+          ><FontAwesomeIcon className="fa-solid" icon={faMountainCity} />Create Tier</Link>
+          {/* <Link 
             href='/admin/payments'
             className={`${pathname === '/admin/payments' 
               ? "active"
               : ""
             }`}
-          ><FontAwesomeIcon className="fa-solid" icon={faMoneyBillWave} />Payments</Link>
+          ><FontAwesomeIcon className="fa-solid" icon={faMoneyBillWave} />Payments</Link> */}
           <Link 
             href='/admin/create-article'
             className={`${pathname === '/admin/create-article' 

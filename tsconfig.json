@@ -27,7 +27,7 @@
       "@/hooks/*": ["./src/hooks/*"],
       "@/buttons/*": ["./src/components/shared/buttons/*"],
       "@/actions/*": ["./src/app/actions/*"],
-      "@/styles/*": ["./src/app/styles/*"]
+      "@/styles/*": ["./src/styles/*"]
     }
   },
   "include": [

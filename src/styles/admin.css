@@ -278,76 +278,79 @@ section.admin-section {
                     div.form-container {
                         display: flex;
                         padding: 0 1rem;
-                        &.create-article {
-                            width:50ch;
-                            form {
-                                --margin: 1rem;
-                                display: flex;
-                                justify-content: flex-start;
-                                align-items: flex-start;
-                                position: relative;
-                                width: 100%;
-                                label, h3  {
-                                    font-size: 0.625rem;
-                                    letter-spacing: 0.15rem;
-                                    font-weight: 700;
-                                    text-transform: uppercase;
-                                    color: var(--color-text4);
-                                    margin-left: var(--margin);
-                                }
-                                h3 {
-                                    color: var(--color-text6);
-                                    margin-top: 1rem;
-                                    margin-bottom: .4rem;
-                                }
-                                input, select, textarea {
-                                    background-color: var(--background2);
-                                    margin-bottom: 1rem;
-                                    outline: none;
-                                    width: 100%;
-                                    color: var(--color-text1);
-                                    border-radius: .5rem;
-                                    padding: 0.75rem var(--margin);
-                                    font-family: 'Fraunces', serif;
-                                    font-weight: 400;
-                                    font-size: 0.875rem;
-                                    resize: vertical;
-                                    &:focus {
 
-                                    }
+
+                        form {
+                            --margin: 1rem;
+                            display: flex;
+                            justify-content: flex-start;
+                            align-items: flex-start;
+                            flex-direction: column;
+                            position: relative;
+                            width: 100%;
+                            label, h3  {
+                                font-size: 0.625rem;
+                                letter-spacing: 0.15rem;
+                                font-weight: 700;
+                                text-transform: uppercase;
+                                color: var(--color-text4);
+                                margin-left: var(--margin);
+                            }
+                            h3 {
+                                color: var(--color-text6);
+                                margin-top: 1rem;
+                                margin-bottom: .4rem;
+                            }
+                            input, select, textarea {
+                                background-color: var(--background2);
+                                margin-bottom: 1rem;
+                                outline: none;
+                                width: 100%;
+                                color: var(--color-text1);
+                                border-radius: .5rem;
+                                padding: 0.75rem var(--margin);
+                                font-family: 'Fraunces', serif;
+                                font-weight: 400;
+                                font-size: 0.875rem;
+                                resize: vertical;
+                                &:focus {
+
                                 }
-                                button {
-                                    margin-left: var(--margin);
-                                    border: 1.5px solid var(--color-blue3);
-                                    border-radius: 2rem;
-                                    padding: .25rem .8rem;
-                                    font-size: 0.625rem;
-                                    line-height: 0.625rem;
-                                    letter-spacing: 0.1rem;
-                                    text-transform: uppercase;
-                                    font-weight: 600;
-                                    cursor: pointer;
+                            }
+                            button {
+                                margin-left: var(--margin);
+                                border: 1.5px solid var(--color-blue3);
+                                border-radius: 2rem;
+                                padding: .25rem .8rem;
+                                font-size: 0.625rem;
+                                line-height: 0.625rem;
+                                letter-spacing: 0.1rem;
+                                text-transform: uppercase;
+                                font-weight: 600;
+                                cursor: pointer;
+                                &:hover {
+                                    background-color: var(--color-blue2);
+                                    color: var(--menuHoverColor2);
+                                    border-color: var(--color-blue2);
+                                }
+                                &[type="submit"] {
+                                    margin-left: 0;
+                                    padding: 1rem 2rem;
+                                    font-size: 0.875rem;
+                                    font-weight: 500;
+                                    background-color: var(--color-blue3);
+                                    color: var(--color-green3);
+                                    margin-top: 2rem;
                                     &:hover {
-                                        background-color: var(--color-blue2);
+                                        background-color: var(--color-green2);
                                         color: var(--menuHoverColor2);
-                                        border-color: var(--color-blue2);
-                                    }
-                                    &[type="submit"] {
-                                        margin-left: 0;
-                                        padding: 1rem 2rem;
-                                        font-size: 0.875rem;
-                                        font-weight: 500;
-                                        background-color: var(--color-blue3);
-                                        color: var(--color-green3);
-                                        margin-top: 2rem;
-                                        &:hover {
-                                            background-color: var(--color-green2);
-                                            color: var(--menuHoverColor2);
-                                            border-color: var(--color-green2);
-                                        }
+                                        border-color: var(--color-green2);
                                     }
                                 }
                             }
+                        }
+                        &.create-article {
+                            width:50ch;
                         }
                     }
                     section.dashboard {
@@ -365,6 +368,8 @@ section.admin-section {
                         }
                         div.list-container {
                             padding-top: 0.3rem;
+
+                            
 
                             &.articles {
                                 display: flex;
@@ -672,7 +677,7 @@ section.admin-section {
             translate: 0 0 !important;
             opacity: 1 !important;
         }
-        section.dashboard {
+        section.dashboard, .dashboard-section {
             grid-template-columns: repeat(2, 1fr) !important;
             grid-template-rows: repeat(4, 1fr) !important;
             div.chart-container {
@@ -698,6 +703,13 @@ section.admin-section {
                 }
             }
             div.list-container {
+
+                h3 {
+                    font-family: 'Fraunces', serif;
+                    font-size: clamp(1.5rem, 6vw, 2.5rem);
+                    padding-left: 1rem;
+                    margin-bottom: 2rem;
+                }
                 
                 &.articles {
                     div.header-row {

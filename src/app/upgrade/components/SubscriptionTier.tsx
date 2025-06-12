@@ -11,24 +11,26 @@ export default function SubscriptionTier({
   onSelect: (tier: string) => void;
   selected: string;
 }) {
-  const tierData: Record<string, any> = {
-    Basecamp: {
-      nocard: "No credit card required.",
-      benefits: ["Mark articles as favorites", "Add reviews to articles"],
-    },
-    "Summit Seeker": {
-      benefits: [
-        "Access to some premium articles",
-        "Early access to new content",
-      ],
-    },
-    "Peak Elite": {
-      benefits: [
-        "Unlimited access to all content",
-        "Exclusive monthly Q&A sessions",
-      ],
-    },
-  };
+  // const tierData: Record<string, any> = {
+  //   Basecamp: {
+  //     // nocard: "No credit card required.",
+  //     benefits: ["Mark articles as favorites", "Add reviews to articles"],
+  //   },
+  //   "Summit Seeker": {
+  //     benefits: [
+  //       "Access to some premium articles",
+  //       "Early access to new content",
+  //     ],
+  //   },
+  //   "Peak Elite": {
+  //     benefits: [
+  //       "Unlimited access to all content",
+  //       "Exclusive monthly Q&A sessions",
+  //     ],
+  //   },
+  // };
+
+  console.log(tier);
 
   return (
     <li className="flex flex-col justify-between items-center text-center gap-3 border border-blue3 p-6 w-4/5 max-w-[300px] rounded-4xl dark:text-white">
@@ -38,13 +40,13 @@ export default function SubscriptionTier({
           {tier.name}
         </h1>
       </div>
-      {tierData[tier.name].nocard ? (
+      {/* {tierData[tier.name].nocard ? (
         <p className="text-brown2 text-md/8 font-semibold">
           {tierData[tier.name].nocard}
         </p>
       ) : (
         <p className="text-brown2 text-md/8 font-semibold">Weekly billing</p>
-      )}
+      )} */}
       <h2 className="mt-2 text-4xl text-blue1 font-title font-semibold dark:text-white">
         {tier.price != "0" ? "$" + tier.price : "Free"}
       </h2>
@@ -52,7 +54,7 @@ export default function SubscriptionTier({
         Benefits
       </h3>
       <ul className="flex flex-col items-start gap-3 list-disc">
-        {tierData[tier.name].benefits.map((benefit: string) => (
+        {tier.benefits?.map((benefit: string) => (
           <li key={benefit} className="font-medium text-md">
             {benefit}
           </li>

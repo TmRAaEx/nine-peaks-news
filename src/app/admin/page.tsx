@@ -8,9 +8,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faNewspaper, faUsers, faChartPie, faChartSimple, faTrophy } from '@fortawesome/free-solid-svg-icons'
 import getUserData from '@/lib/UserData';
 import { redirect } from "next/navigation";
+import { countArticles, countSubscribersPerTier, countUsers } from '@/lib/AdminStats';
 
 
 export default async function AdminDashboard() {
+
+  const tierData = await countSubscribersPerTier();
+  const userCount = await countUsers();
+  const articleCount = await countArticles();
 
   const userData = await getUserData();
   if(!userData) return null;
@@ -27,7 +32,7 @@ export default async function AdminDashboard() {
             Articles
           </h5>
           <div>
-            <Numberchart num={42}/>
+            <Numberchart num={articleCount}/>
           </div>
 
         </div>
@@ -37,7 +42,7 @@ export default async function AdminDashboard() {
             Subscribers
           </h5>
           <div>
-            <Numberchart num={65}/>
+            <Numberchart num={userCount}/>
           </div>
         </div>
         <div className="chart-container subscribers">
@@ -46,7 +51,7 @@ export default async function AdminDashboard() {
             Subscriber Tiers
           </h5>
           <div>
-            <Piechart />
+            <Piechart tiers={tierData}/>
           </div>
         </div>
         <div className="chart-container sales">
