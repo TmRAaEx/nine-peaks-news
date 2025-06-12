@@ -1,12 +1,13 @@
 "use client";
-import cancelSubscription from "@/lib/payments/subscription/cancelSubscription";
+import apiClient from "@/lib/ApiClient";
+// import cancelSubscription from "@/lib/payments/subscription/cancelSubscription";
 import React, { useState } from "react";
 
 export default function CancelButton({ sub_id }: { sub_id: string }) {
   const [showModal, setShowModal] = useState(false);
 
   const handleCancel = async () => {
-    await cancelSubscription(sub_id);
+    const removed = await apiClient.post("/subscription/cancel/" + sub_id, {});
     setShowModal(false);
   };
 
@@ -29,13 +30,13 @@ export default function CancelButton({ sub_id }: { sub_id: string }) {
             <div className="flex justify-end space-x-4">
               <button
                 onClick={() => setShowModal(false)}
-                className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition"
+                className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition cursor-pointer"
               >
                 No
               </button>
               <button
                 onClick={handleCancel}
-                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition cursor-pointer"
               >
                 Yes
               </button>

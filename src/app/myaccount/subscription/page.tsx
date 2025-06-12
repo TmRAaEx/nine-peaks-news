@@ -3,7 +3,6 @@ import { getSubscription } from "@/lib/payments/subscription/getSubscription";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import InvoiceCard from "./InvoiceCard";
-import cancelSubscription from "@/lib/payments/subscription/cancelSubscription";
 import CancelButton from "./CancelButton";
 
 export default async function ManageSubscription() {
@@ -73,9 +72,10 @@ export default async function ManageSubscription() {
         )}
       </div>
 
-      <div>
-        <CancelButton sub_id={subscriptionData.sub_id!} />
-      </div>
+      {subscriptionData.subscriptionStatus === "active" &&
+        subscriptionData.nextPayment && (
+          <CancelButton sub_id={subscriptionData.sub_id!} />
+        )}
     </div>
   );
 }

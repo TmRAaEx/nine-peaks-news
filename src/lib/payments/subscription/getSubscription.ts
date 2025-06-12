@@ -20,14 +20,27 @@ export async function getSubscription(userId: string) {
 
   const subscriptionStatus = subscription.status;
 
-  const upcomingInvoice = await stripe.invoices.createPreview({
-    subscription: subscription.id,
-    customer: user.stripe_id,
-  });
+  let upcomingInvoice = null;
+  let nextPayment = null;
+  let nextPaymentPrice = null;
 
-  const nextPaymentUnix = upcomingInvoice.next_payment_attempt! * 1000;
-  const nextPaymentDate = new Date(nextPaymentUnix);
-  const nextPayment = nextPaymentDate.toLocaleDateString();
+  try {
+    upcomingInvoice = await stripe.invoices.createPreview({
+      subscription: subscription.id,
+      customer: user.stripe_id,
+    });
+
+    const nextPaymentUnix = upcomingInvoice.next_payment_attempt! * 1000;
+    const nextPaymentDate = new Date(nextPaymentUnix);
+    nextPayment = nextPaymentDate.toLocaleDateString();
+    nextPaymentPrice = upcomingInvoice.amount_due / 100;
+  } catch (err: any) {
+    if (err.code === "invoice_upcoming_none") {
+      console.warn("No upcoming invoice:", err.message);
+    } else {
+      throw err;
+    }
+  }
 
   const lastInvoice = await stripe.invoices.retrieve(
     subscription.latest_invoice as string
@@ -37,8 +50,6 @@ export async function getSubscription(userId: string) {
         lastInvoice.status_transitions.paid_at * 1000
       ).toLocaleDateString()
     : null;
-
-  const nextPaymentPrice = upcomingInvoice.amount_due / 100;
 
   const allInvoicesList = await stripe.invoices.list({
     customer: user.stripe_id,
@@ -58,17 +69,14 @@ export async function getSubscription(userId: string) {
     hosted_invoice_url: inv.hosted_invoice_url,
   }));
 
-
-    
-
   const unpaidInvoices = await stripe.invoices.list({
     subscription: subscription.id,
     status: "open",
   });
 
   const unpaidInvoice = unpaidInvoices.data[0];
-  const sub_id = subscription.id
-  
+  const sub_id = subscription.id;
+
   return {
     sub_id,
     subscriptionStatus,
