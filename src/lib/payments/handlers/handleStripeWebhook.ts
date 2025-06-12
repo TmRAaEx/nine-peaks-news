@@ -19,10 +19,11 @@ export async function handleStripeWebhook(body: string, signature: string) {
   const data = event.data;
   const eventType = event.type;
 
-  const handledEvents: string[] = [
+  const handledEvents: typeof eventType[] = [
     "checkout.session.completed",
     "invoice.paid",
     "invoice.payment_failed",
+    "customer.subscription.deleted"
   ];
 
   const isHandled = handledEvents.includes(eventType);

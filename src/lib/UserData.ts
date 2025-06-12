@@ -7,8 +7,11 @@ export default async function getUserData(): Promise<{
   tier: string;
   sessions: ISession[];
 } | void> {
+  
+  
   const sessionData = await getSessionData();
 
+  
   if (!sessionData) {
     return;
   }
@@ -16,6 +19,9 @@ export default async function getUserData(): Promise<{
   const { session, tier } = sessionData;
 
   const user = await User.findById(session.user_id);
+
+
+ 
   if (!user) {
     return;
   }

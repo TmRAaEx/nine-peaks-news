@@ -1,8 +1,12 @@
 "use server";
 
-import { SignupFormSchema, SignupFormState } from "@/lib/formValidation/formDefinitions";
+import {
+  SignupFormSchema,
+  SignupFormState,
+} from "@/lib/formValidation/formDefinitions";
 import { RegisterUser } from "@/lib/Authentication";
 import { createSession } from "@/lib/session/Session";
+import { redirect } from "next/navigation";
 
 export default async function RegisterAction(
   state: SignupFormState,
@@ -31,5 +35,5 @@ export default async function RegisterAction(
 
   await createSession(user.id);
 
-  return {};
+  return redirect("/upgrade");
 }

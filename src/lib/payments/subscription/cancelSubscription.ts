@@ -1,16 +1,9 @@
-import getSubscriptionsByEmail from "./getSubscriptionByEmail";
 import { stripe } from "../Stripe";
-export default async function cancelSubscription(customer_email: string) {
-  const subscription_id = await getSubscriptionsByEmail(customer_email);
-  try {
-    // Cancel the subscription
-    const canceledSubscription = await stripe.subscriptions.cancel(
-      subscription_id!
-    );
 
-    return canceledSubscription;
-  } catch (error) {
-    console.error("Error canceling subscription:", error);
-    return null;
-  }
+export default async function cancelSubscription(subscriptionId: string) {
+  const updated = await stripe.subscriptions.update(subscriptionId, {
+    cancel_at_period_end: true,
+  });
+
+  return updated;
 }

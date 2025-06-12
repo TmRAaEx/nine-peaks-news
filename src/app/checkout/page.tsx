@@ -23,13 +23,14 @@ export default function Checkout() {
 
   const searchParams = useSearchParams();
   const price_id: string = searchParams.get("price_id")!;
-  //TODO refactor into session instead of hard coded
   const tier_id = searchParams.get("tier_id")!;
   const [clientSecret, setClientSecret] = useState<string | null>(null);
 
   useEffect(() => {
     console.log("session", session);
-    
+    if (loading) {
+      return;
+    }
     const getClientSecret = async () => {
       try {
         const secret = await fetchClientSecret(
@@ -44,7 +45,7 @@ export default function Checkout() {
     };
 
     getClientSecret();
-  }, [price_id, session]);
+  }, [price_id, session, loading]);
 
   if (!clientSecret) {
     return <div>Loading...</div>;

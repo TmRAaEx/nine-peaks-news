@@ -14,7 +14,7 @@ const PaymentSchema = new Schema<IPayment>(
   {
     user_id: { type: Schema.Types.ObjectId, ref: "User", required: true },
     tier_id: { type: String, ref: "Tier", required: true },
-    payment_date: { type: Date, required: true },
+    payment_date: { type: Date, required: false, default: null },
     due_date: { type: Date, required: true },
     status: {
       type: String,
@@ -28,7 +28,6 @@ const PaymentSchema = new Schema<IPayment>(
 );
 
 const Payment: Model<IPayment> =
-  mongoose.models.Payment ||
-  mongoose.model<IPayment>("Payment", PaymentSchema);
+  mongoose.models.Payment || mongoose.model<IPayment>("Payment", PaymentSchema);
 
 export default Payment;

@@ -69,7 +69,9 @@ export async function getSessionData(): Promise<{
 
   const user_id = session.user_id;
 
-  const payment = await Payment.findOne({ user_id: user_id });
+  const payment = await Payment.findOne({ user_id: user_id }).sort({
+    createdAt: -1,
+  });
 
   const tier = payment?.tier_id || "Basecamp";
 

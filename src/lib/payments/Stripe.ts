@@ -8,4 +8,6 @@ if (!secret_key) {
   throw new Error("[Stripe]: STRIPE_SK is not set in environment");
 }
 
-export const stripe = new Stripe(secret_key);
+export const stripe = new Stripe(secret_key, {
+  apiVersion: "2025-05-28.basil",
+});
