@@ -46,7 +46,7 @@ export default async function handleInvoiceFailed(data: any, stripe: Stripe) {
     status: "failed",
     stripe_ref: invoice_id,
   });
-
+  
   console.log("Failed payment recorded:", failedPayment._id);
 }
 
@@ -56,7 +56,7 @@ function getNextAttemptDate(invoice: Stripe.Invoice): Date {
   }
 
   const now = new Date();
-  const retryDays = [0, 1, 3, 5, 7, 14];
+  const retryDays = [0, 1, 3, 5, 7, 14]; //stripe default scheduel
   const attemptCount = invoice.attempt_count || 0;
 
   if (attemptCount < retryDays.length) {
