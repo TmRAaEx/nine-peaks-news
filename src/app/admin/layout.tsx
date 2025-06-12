@@ -6,7 +6,7 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
-import SessionControls from "@/components/LogOutButtons";
+import SessionControls from "@/components/shared/buttons/LogOutButtons";
 import getUserData from "@/lib/UserData";
 config.autoAddCss = false
 
