@@ -1,21 +1,36 @@
 import React from 'react'
+import AdminLoginButton from '../shared/buttons/AdminLoginButton'
 
 export default function Footer() {
+
   return (
     <footer>
       <section className='normal-width'>
         <div className="wrapper">
-          <div className="footer-container">
+          <div className="ctn footer-container">
             <div className="footer-column">
               <div className='icon-container'>
-                <img src="/img/icons/9-fill-lg.svg" id="iconDark" alt="icon" width="80px" height="80px" />
-                <img src="/img/icons/9-fill-lg-light.svg" id="iconLight" alt="icon" width="80px" height="80px" />
+                <img src="/img/icons/9-fill-color-dm.svg" id="iconDark" alt="icon" width="80px" height="80px" />
+                <img src="/img/icons/9-fill-color-lm.svg" id="iconLight" alt="icon" width="80px" height="80px" />
               </div>
               <div className="footer-content">
                 <p>Nine Peaks News Ltd.<br/>
                   Outdoor & Travel news corporation
                 </p>
-                <p>Social Media Links</p>
+                <div className='some-icons'>
+                  <a href="#">
+                    <i className="fa-brands fa-twitter" suppressHydrationWarning={true}></i>
+                  </a>
+                  <a href="#">
+                    <i className="fa-brands fa-facebook" suppressHydrationWarning={true}></i>
+                  </a>
+                  <a href="#">
+                    <i className="fa-brands fa-instagram" suppressHydrationWarning={true}></i>
+                  </a>
+                  <a href="#">
+                    <i className="fa-brands fa-linkedin" suppressHydrationWarning={true}></i>
+                  </a>
+                </div>
               </div>
             </div>
             <div className="footer-column">
@@ -23,9 +38,10 @@ export default function Footer() {
               <div className="footer-content">
                 <ul>
                   <li><a href="/articles">Articles</a></li>
-                  <li><a href="/articles">Prices</a></li>
-                  <li><a href="/articles">About</a></li>
-                  <li><a href="/articles">Contact</a></li>
+                  <li><a href="/subscriptions">Subscriptions</a></li>
+                  <li><a href="/about">About</a></li>
+                  <li><a href="/contact">Contact</a></li>
+                  <li><AdminLoginButton /></li>
                 </ul>
               </div>
             </div>
