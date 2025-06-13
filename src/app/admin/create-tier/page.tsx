@@ -1,13 +1,10 @@
 "use client";
 
+import { createTier } from "@/actions/createTier";
 import "@/styles/admin.css";
 import { useState } from "react";
 
-export default function CreateTierForm({
-  createTier,
-}: {
-  createTier: (formData: FormData) => void;
-}) {
+export default function CreateTierForm() {
   const [benefitFields, setBenefitFields] = useState<string[]>([""]);
 
   const handleAddBenefitField = () => {
