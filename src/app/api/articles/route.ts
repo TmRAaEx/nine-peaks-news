@@ -1,15 +1,13 @@
 import { NextResponse } from "next/server";
-import clientPromise from "@/lib/Mongodb";
+import Article from "@/models/Article";
 
 export async function GET() {
   try {
-    const client = await clientPromise;
-    const db = client.db("NinePeaks");
-    const articles = await db.collection("articles").find({}).toArray();
+    const articles = await Article.find()
 
     const serialized = articles.map((article) => ({
       ...article,
-      _id: article._id.toString(),
+      _id: article.id.toString(),
       date: article.date instanceof Date ? article.date.toISOString() : article.date,
     }));
 
