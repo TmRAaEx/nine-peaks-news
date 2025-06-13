@@ -18,7 +18,7 @@ export default function RegisterForm() {
 
   return (
     <form action={formAction} className="form space-y-4">
-      {state?.error && <p className="text-red-500">{state.error}</p>}
+      {state?.message && <p className="text-red-500">{state.message}</p>}
 
       <h1 className="text-4xl">Sign up</h1>
 

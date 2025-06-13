@@ -30,7 +30,7 @@ export default async function RegisterAction(
   const { user, error } = await RegisterUser({ userName, email, password });
 
   if (error) {
-    return { error: error };
+    return { message: error };
   }
 
   await createSession(user.id);
