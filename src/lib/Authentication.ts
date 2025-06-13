@@ -11,27 +11,32 @@ type IUserApiData = {
   password: IUser["password"];
 };
 
-export async function RegisterUser(data: IUserApiData): Promise<IUser | {error: string}> {
+export async function RegisterUser(
+  data: IUserApiData
+): Promise<{ user: IUser; error?: string }> {
   try {
     await connectDB();
 
     const isUser = await User.findOne({ email: data.email.toLowerCase() });
 
     if (isUser) {
-      return { error: "User exist" };
+      return { user: null, error: "User exist" };
     }
 
     const stripeUser = await stripe.customers.create({
       email: data.email,
     });
 
-    const createdUser = await User.create({ ...data, stripe_id: stripeUser.id });
+    const createdUser = await User.create({
+      ...data,
+      stripe_id: stripeUser.id,
+    });
 
-    return createdUser;
+    return { user: createdUser };
   } catch (err) {
     console.error("[LIB Authentication Register]", err);
     const message = err instanceof Error ? err.message : "unexpected error";
-    return { error: message };
+    return { user: null, error: message };
   }
 }
 

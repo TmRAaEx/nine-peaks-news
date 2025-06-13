@@ -27,10 +27,10 @@ export default async function RegisterAction(
   }
 
   const { userName, email, password } = validatedFields.data;
-  const user = await RegisterUser({ userName, email, password });
+  const { user, error } = await RegisterUser({ userName, email, password });
 
-  if (user.error) {
-    return { error: user.error };
+  if (error) {
+    return { error: error };
   }
 
   await createSession(user.id);
