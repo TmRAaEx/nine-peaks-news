@@ -54,8 +54,8 @@ export default function SubscriptionTier({
         Benefits
       </h3>
       <ul className="flex flex-col items-start gap-3 list-disc">
-        {tier.benefits?.map((benefit: string) => (
-          <li key={benefit} className="font-medium text-md">
+        {tier.benefits?.map((benefit: string, index) => (
+          <li key={benefit + index} className="font-medium text-md">
             {benefit}
           </li>
         ))}

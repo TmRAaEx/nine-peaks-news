@@ -1,5 +1,5 @@
 import { ShowAllArticles } from "@/lib/Articles";
-import '../../../styles/admin.css';
+import '@/styles/admin.css';
 
 export default async function Articles() {
 

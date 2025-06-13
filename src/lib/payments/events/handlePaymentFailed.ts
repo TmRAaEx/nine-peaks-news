@@ -1,6 +1,7 @@
 import Stripe from "stripe";
 import Payment from "@/models/Payment";
 
+//@ts-ingore
 export default async function handleInvoiceFailed(data: any) {
   const invoice = data.object as Stripe.Invoice;
   const invoice_id = invoice.id;
@@ -46,7 +47,7 @@ export default async function handleInvoiceFailed(data: any) {
     status: "failed",
     stripe_ref: invoice_id,
   });
-  
+
   console.log("Failed payment recorded:", failedPayment._id);
 }
 

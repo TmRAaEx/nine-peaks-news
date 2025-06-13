@@ -4,7 +4,7 @@ import '@/styles/admin.css';
 export default async function Article({ params, }: { params: Promise<Record<string, string>>; }) {
 
     const { id } = await params;
-    const { article, error } = await ShowOneArticle(id);
+    const { article} = await ShowOneArticle(id);
 
     if(!article) return null;
 

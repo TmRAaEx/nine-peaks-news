@@ -11,12 +11,11 @@ export default async function updatePayment(
 
     const { ...setData } = data;
 
+    //@ts-ingore
     const updateOps: any = {
       $set: setData,
     };
 
-
-   
     const updated = await Payment.findByIdAndUpdate(payment_id, updateOps, {
       new: true,
     });

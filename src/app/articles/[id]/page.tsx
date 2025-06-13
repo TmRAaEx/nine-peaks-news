@@ -2,6 +2,7 @@ import { ShowOneArticle } from "@/lib/Articles";
 import Breadcrumbs from "./Breadcrumbs";
 import getUserData from "@/lib/UserData";
 import { redirect } from "next/navigation";
+import Image from "next/image";
 
 export default async function SingleArticle({
   params,
@@ -38,10 +39,12 @@ export default async function SingleArticle({
       <header className="space-y-4">
         <h1 className="text-3xl font-bold text-gray-900">{article.title}</h1>
         <p className="text-lg text-gray-700">{article.description}</p>
-        <img
+        <Image
           src={article.header_img}
           alt={article.title}
           className="w-full max-h-[400px] object-cover rounded-xl shadow"
+          width={700}
+          height={300}
         />
       </header>
       <section className="prose max-w-none">
@@ -59,10 +62,12 @@ export default async function SingleArticle({
                 {article.sub_images &&
                   article.sub_images[i] &&
                   article.sub_images[i] !== "" && (
-                    <img
+                    <Image
                       src={article.sub_images[i]}
                       alt={`Sub Image ${i}`}
                       className="w-full max-h-[300px] object-cover rounded"
+                      width={700}
+                      height={300}
                     />
                   )}
               </li>

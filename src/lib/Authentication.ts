@@ -11,7 +11,7 @@ type IUserApiData = {
   password: IUser["password"];
 };
 
-export async function RegisterUser(data: IUserApiData): Promise<IUser | any> {
+export async function RegisterUser(data: IUserApiData): Promise<IUser | {error: string}> {
   try {
     await connectDB();
 

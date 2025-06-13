@@ -1,4 +1,4 @@
-import axios, {  AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 
 class ApiError extends Error {
   status: number;
@@ -58,10 +58,13 @@ export class Request {
     try {
       const response = await request();
       return response.data;
-    } catch (error: any) {
+    } catch (error) {
       const message =
-        error.response?.data?.message || "An unknown error occurred";
-      const status = error.response?.status || 500;
+        error instanceof AxiosError
+          ? error.response?.data?.message
+          : "An unknown error occurred";
+      const status =
+        error instanceof AxiosError ? error.response?.status || 500 : 500;
 
       throw new ApiError(message, status);
     }
@@ -71,11 +74,13 @@ export class Request {
 const base_url = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL;
 
 if (!base_url) {
-   console.log("base_url", base_url)
-  throw new Error("[ApiClient]: BASE_URL or NEXT_PUBLIC_BASE_URL is missing from environment ");
+  console.log("base_url", base_url);
+  throw new Error(
+    "[ApiClient]: BASE_URL or NEXT_PUBLIC_BASE_URL is missing from environment "
+  );
 }
 
-const internalApi = base_url + "/api"
+const internalApi = base_url + "/api";
 const apiClient = new Request(internalApi);
 
 export const authClient = new Request(internalApi + "/authentication");

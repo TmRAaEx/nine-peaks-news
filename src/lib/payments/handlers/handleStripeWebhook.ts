@@ -17,13 +17,14 @@ export async function handleStripeWebhook(body: string, signature: string) {
   }
 
   const data = event.data;
+
   const eventType = event.type;
 
-  const handledEvents: typeof eventType[] = [
+  const handledEvents: (typeof eventType)[] = [
     "checkout.session.completed",
     "invoice.paid",
     "invoice.payment_failed",
-    "customer.subscription.deleted"
+    "customer.subscription.deleted",
   ];
 
   const isHandled = handledEvents.includes(eventType);
@@ -39,10 +40,27 @@ export async function handleStripeWebhook(body: string, signature: string) {
     await handleInvoicePaid(data, stripe);
   }
   if (eventType === "invoice.payment_failed") {
-    await handleInvoiceFailed(data, stripe);
+    await handleInvoiceFailed(data);
   }
 
   // Add more event types here if needed
 
   return { received: true };
 }
+
+
+
+export type CheckoutSessionCompletedData = Extract<
+  Stripe.Event,
+  { type: "checkout.session.completed" }
+>["data"]["object"];
+
+export type InvoicePaidData = Extract<
+  Stripe.Event,
+  { type: "invoice.paid" }
+>["data"]["object"];
+
+export type InvoicePaymentFailedData = Extract<
+  Stripe.Event,
+  { type: "invoice.payment_failed" }
+>["data"]["object"];

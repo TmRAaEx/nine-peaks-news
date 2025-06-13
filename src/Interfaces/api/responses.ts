@@ -1,3 +1,4 @@
+import { IArticle } from "@/models/Article";
 import { IPayment } from "@/models/Payment";
 
 // Base interface
@@ -28,4 +29,10 @@ import { IUser } from "@/models/User";
 export interface IRegisterApiResponse {
   error?: string;
   data: IUser;
+}
+
+
+export interface ICreateArticleResponse{
+  data: IArticle,
+  error?: string
 }

@@ -6,11 +6,13 @@ import apiClient, { paymentClient } from "@/lib/ApiClient";
 import { useRouter } from "next/navigation";
 import { CreatePaymentResponse } from "@/interfaces/api/responses";
 import { useSearchParams } from "next/navigation";
+import { ISession } from "@/models/Session";
+import { IUser } from "@/models/User";
 
 export default function SubscriptionList({ tiers }: { tiers: ITierData[] }) {
   const [selected, setSelected] = useState<string>("Basecamp");
   const [loading, setLoading] = useState<boolean>(false);
-  const [userId, setUserid] = useState("");
+  const [userId, setUserid] = useState<IUser["_id"] | null>(null);
 
   const searchParams = useSearchParams();
 
@@ -57,7 +59,9 @@ export default function SubscriptionList({ tiers }: { tiers: ITierData[] }) {
   useEffect(() => {
     const fetchSession = async () => {
       //TODO remove any
-      const { sessionData } = await apiClient.get<any>("/session-info");
+      const { sessionData } = await apiClient.get<{
+        sessionData: { session: ISession; tier: string };
+      }>("/session-info");
 
       if (!sessionData) {
         router.push("/login");
@@ -73,9 +77,9 @@ export default function SubscriptionList({ tiers }: { tiers: ITierData[] }) {
     <>
       <section className="flex flex-col items-center w-full gap-6">
         <ul className="flex flex-wrap gap-6 justify-center w-full max-w-[1200px]">
-          {tiers.map((tier) => (
+          {tiers.map((tier, index) => (
             <SubscriptionTier
-              key={tier._id}
+              key={tier._id + index}
               tier={tier}
               onSelect={onSelect}
               selected={selected}

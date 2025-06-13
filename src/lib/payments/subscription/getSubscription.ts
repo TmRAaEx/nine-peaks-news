@@ -35,6 +35,7 @@ export async function getSubscription(userId: string) {
     nextPayment = nextPaymentDate.toLocaleDateString();
     nextPaymentPrice = upcomingInvoice.amount_due / 100;
   } catch (err: any) {
+    //@ts-ignore
     if (err.code === "invoice_upcoming_none") {
       console.warn("No upcoming invoice:", err.message);
     } else {

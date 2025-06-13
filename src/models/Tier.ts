@@ -14,14 +14,13 @@ const TierSchema = new Schema<ITier>(
     _id: { type: String, required: true },
     price: { type: Number, required: false },
     stripe_id: { type: String, required: true },
-    benefits: { type: [String], required: false }
+    benefits: { type: [String], required: false },
   },
   { timestamps: true, collection: "tiers" }
 );
 
-
-
 export interface IPieProps {
+  //@ts-ignore
   tiers: any[];
 }
 

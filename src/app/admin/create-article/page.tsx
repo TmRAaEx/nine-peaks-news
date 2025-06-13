@@ -2,7 +2,8 @@
 import ICreateArticle from "@/interfaces/ICreateArticle";
 import { authClient } from "@/lib/ApiClient";
 import { ChangeEvent, FormEvent, useState } from "react";
-import '../../../styles/admin.css' 
+import '@/styles/admin.css' 
+import { ICreateArticleResponse } from "@/interfaces/api/responses";
 
 export default function CreateArticle() {
     const [formData, setFormData] = useState<ICreateArticle>({
@@ -74,7 +75,7 @@ export default function CreateArticle() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     console.log("Submitting:", formData);
-    const response = await authClient.post<any>("/create-article", formData);
+    const response = await authClient.post<ICreateArticleResponse>("/create-article", formData);
 
     if (response.error) {
       setError(response.error);

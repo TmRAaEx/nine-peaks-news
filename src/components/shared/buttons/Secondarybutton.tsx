@@ -1,8 +1,8 @@
-import { ReactNode } from "react";
+import { ReactNode, MouseEventHandler } from "react";
 
 interface SecondaryButtonProps {
   children: ReactNode;
-  onClick?: (...args: any[]) => any;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
 }
 

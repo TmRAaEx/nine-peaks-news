@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ message: 'Reset email sent' }, { status: 200 });
-  } catch (err: any) {
+  } catch (err) {
     console.error('[API] Password Reset Request Error:', err);
     return NextResponse.json({ error: 'Failed to send reset email' }, { status: 500 });
   }
