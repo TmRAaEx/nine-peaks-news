@@ -5,7 +5,6 @@ import CreatePayment from "../handlers/CreatePayment";
 import updatePayment from "../handlers/UpdatePayment";
 
 export default async function handleCheckoutCompleted(
-  //@ts-ignore
   data: any,
   stripe: Stripe
 ) {

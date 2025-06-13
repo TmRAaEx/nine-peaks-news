@@ -8,7 +8,7 @@ export default async function handleInvoicePaid(data: any, stripe: Stripe) {
 
   const { user_id, tier_id } = subscription_details.metadata;
 
-  const paymentDate = new Date(invoice.status_transitions?.paid_at! * 1000);
+  const paymentDate = new Date(invoice.status_transitions?.paid_at * 1000);
   const dueDate = new Date(paymentDate);
   dueDate.setDate(paymentDate.getDate() + 7);
 

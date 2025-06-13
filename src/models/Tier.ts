@@ -20,7 +20,6 @@ const TierSchema = new Schema<ITier>(
 );
 
 export interface IPieProps {
-  //@ts-ignore
   tiers: any[];
 }
 
