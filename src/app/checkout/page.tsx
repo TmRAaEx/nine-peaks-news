@@ -7,7 +7,7 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import { fetchClientSecret } from "../actions/ClientSecret";
 import { useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import useSession from "@/hooks/useSession";
 
 const public_key = process.env.NEXT_PUBLIC_STRIPE_PK;
@@ -17,8 +17,7 @@ if (!public_key) {
 }
 
 const stripePromise = loadStripe(public_key);
-
-export default function Checkout() {
+function Checkout() {
   const { session, loading } = useSession();
 
   const searchParams = useSearchParams();
@@ -62,5 +61,13 @@ export default function Checkout() {
         <EmbeddedCheckout />
       </EmbeddedCheckoutProvider>
     </div>
+  );
+}
+
+export default function CheckoutWrapper() {
+  return (
+    <Suspense>
+      <Checkout></Checkout>
+    </Suspense>
   );
 }
