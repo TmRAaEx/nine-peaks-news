@@ -21,7 +21,7 @@ export default function LoginForm() {
 
   // Redirect after successful login
   useEffect(() => {
-    if (state && !state.error && !state.errors) {
+    if (state && !state.message && !state.errors) {
       router.push("/myaccount");
     }
   }, [state, router]);
@@ -30,8 +30,8 @@ export default function LoginForm() {
     <form action={formAction} className="form">
       <h1 className="text-4xl mb-4">Sign In</h1>
 
-      {state?.error && (
-        <p className="text-red-500 font-medium">{state.error}</p>
+      {state?.message && (
+        <p className="text-red-500 font-medium">{state.message}</p>
       )}
 
       <label htmlFor="email" className="label">
