@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import apiClient from "@/lib/ApiClient";
 import { ISession } from "@/models/Session";
+import { ITier } from "@/models/Tier";
 
 export default function useSession(redirectIfUnauthorized = true) {
   const [session, setSession] = useState<ISession | null>(null);
@@ -12,11 +13,11 @@ export default function useSession(redirectIfUnauthorized = true) {
     const fetchSession = async () => {
       try {
         const { sessionData } = await apiClient.get<{
-          sessionData: false | ISession;
+          sessionData: false | { session: ISession; tier: ITier };
         }>("/session-info");
 
         if (sessionData) {
-          setSession(sessionData);
+          setSession(sessionData.session);
         } else {
           setSession(null);
         }

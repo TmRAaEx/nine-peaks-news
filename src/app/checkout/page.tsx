@@ -35,7 +35,7 @@ export default function Checkout() {
       try {
         const secret = await fetchClientSecret(
           price_id,
-          session.session.user_id,
+          session.user_id,
           tier_id
         );
         setClientSecret(secret);
