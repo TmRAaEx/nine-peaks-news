@@ -4,10 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import useSession from "@/hooks/useSession";
-import AdminLoginButton from "../shared/buttons/AdminLoginButton";
 
 export default function Header() {
-  const { session, loading } = useSession();
+  const { session } = useSession();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [active, setActive] = useState<string>("");
   const [isOpen, setIsOpen] = useState<string>("");

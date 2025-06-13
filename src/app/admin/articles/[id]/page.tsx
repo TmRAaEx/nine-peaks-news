@@ -1,7 +1,5 @@
 import { ShowOneArticle } from "@/lib/Articles";
-import '../../../../styles/admin.css';
-import { authClient } from "@/lib/ApiClient";
-import { FormEvent, ChangeEvent } from "react";
+import '@/styles/admin.css';
 
 export default async function Article({ params, }: { params: Promise<Record<string, string>>; }) {
 

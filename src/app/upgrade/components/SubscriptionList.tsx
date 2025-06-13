@@ -44,7 +44,7 @@ export default function SubscriptionList({ tiers }: { tiers: ITierData[] }) {
   };
 
   const getPriceId = () => {
-    let tier = tiers.find((tier) => tier.name === selected)!;
+    const tier = tiers.find((tier) => tier.name === selected)!;
 
     return tier.stripe_id;
   };
@@ -62,7 +62,7 @@ export default function SubscriptionList({ tiers }: { tiers: ITierData[] }) {
       if (!sessionData) {
         router.push("/login");
       }
-      const { session, tier } = sessionData;
+      const { session } = sessionData;
 
       setUserid(session.user_id);
     };

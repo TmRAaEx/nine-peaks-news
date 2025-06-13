@@ -1,6 +1,5 @@
 
 import { requestPasswordReset } from '../../actions/passwordReset';
-import { revalidatePath } from 'next/cache';
 
 export default function RequestPasswordResetPage() {
   return (

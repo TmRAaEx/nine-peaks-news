@@ -18,6 +18,7 @@ export default function useSession(redirectIfUnauthorized = true) {
 
         setSession(sessionData);
       } catch (error) {
+        console.error(error)
         setSession(null);
         if (redirectIfUnauthorized) {
           router.push("/login");

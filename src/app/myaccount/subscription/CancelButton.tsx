@@ -7,7 +7,7 @@ export default function CancelButton({ sub_id }: { sub_id: string }) {
   const [showModal, setShowModal] = useState(false);
 
   const handleCancel = async () => {
-    const removed = await apiClient.post("/subscription/cancel/" + sub_id, {});
+    await apiClient.post("/subscription/cancel/" + sub_id, {});
     setShowModal(false);
   };
 

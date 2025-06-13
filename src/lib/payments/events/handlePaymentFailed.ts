@@ -1,7 +1,7 @@
 import Stripe from "stripe";
 import Payment from "@/models/Payment";
 
-export default async function handleInvoiceFailed(data: any, stripe: Stripe) {
+export default async function handleInvoiceFailed(data: any) {
   const invoice = data.object as Stripe.Invoice;
   const invoice_id = invoice.id;
 

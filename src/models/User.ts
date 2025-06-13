@@ -1,6 +1,5 @@
 import mongoose, {Document, Model, Schema, Types} from 'mongoose';
 import bcrypt from 'bcrypt';
-import { boolean } from 'zod/v4';
 
 export interface IUser extends Document {
   _id: Types.ObjectId;

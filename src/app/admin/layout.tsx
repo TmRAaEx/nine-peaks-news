@@ -17,7 +17,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       redirect("/login");
     }
 
-  const { user, tier, sessions } = userData;
+  const { user } = userData;
 
   
 

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse, faNewspaper, faUsers, faMoneyBillWave, faMagnifyingGlass, faSquarePlus, faMountainSun, faMountain, faMountainCity } from '@fortawesome/free-solid-svg-icons'
+import { faHouse, faNewspaper,faSquarePlus, faMountainCity } from '@fortawesome/free-solid-svg-icons'
 
 export default function Sidebar() {
   const pathname = usePathname();

@@ -12,6 +12,7 @@ export async function POST(request: Request, { params }: Params) {
 
     return NextResponse.json({ invoice: deleted, status: 400 });
   } catch (err) {
+    console.error(err)
     return NextResponse.json({ status: 500, message: "Internal server error" });
   }
 }

@@ -1,5 +1,4 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import { IUser } from './User';
 
 export interface IArticle extends Document {
   title: string;

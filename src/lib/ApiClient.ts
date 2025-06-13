@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
+import axios, {  AxiosInstance, AxiosResponse } from "axios";
 
 class ApiError extends Error {
   status: number;
