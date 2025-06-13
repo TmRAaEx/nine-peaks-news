@@ -85,6 +85,7 @@ export async function generatePasswordResetToken(
 ): Promise<string> {
   const rawToken = crypto.randomBytes(32).toString("hex");
   const tokenHash = crypto.createHash("sha256").update(rawToken).digest("hex");
+  await connectDB();
 
   await PasswordResetToken.deleteMany({ userId });
 
@@ -103,6 +104,7 @@ export async function resetPassword(
   newPassword: string
 ): Promise<boolean> {
   const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
+  await connectDB();
 
   const record = await PasswordResetToken.findOne({
     userId,
