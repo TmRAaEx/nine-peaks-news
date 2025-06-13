@@ -11,7 +11,6 @@ export default async function updatePayment(
 
     const { ...setData } = data;
 
-    //@ts-ingore
     const updateOps: any = {
       $set: setData,
     };
